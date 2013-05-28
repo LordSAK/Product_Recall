@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=IBM437" http-equiv="Content-Type">
+
+<title>README - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body class="file">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./README.html">README</a>
+  
+    <li class="file"><a href="./Rakefile.html">Rakefile</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./RedboxHelper.html">RedboxHelper</a>
+  
+    <li><a href="./RedboxTest.html">RedboxTest</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation" class="description">
+  
+<p>Redbox</p>
+
+<h6 id="label-"></h6>
+
+<p>Redbox is a very simple lightbox library, which is a way of display a model
+popup window which may contain any html, while the rest of the page is
+faded out behind it. There are already many such libraries around for this,
+but:</p>
+
+<pre class="ruby"><span class="ruby-operator">-</span> <span class="ruby-constant">Often</span> <span class="ruby-identifier">they</span> <span class="ruby-keyword">do</span> <span class="ruby-identifier">a</span> <span class="ruby-identifier">little</span> <span class="ruby-identifier">more</span> <span class="ruby-identifier">than</span> <span class="ruby-constant">I</span> <span class="ruby-identifier">wanted</span>
+<span class="ruby-operator">-</span> <span class="ruby-constant">Many</span> <span class="ruby-identifier">of</span> <span class="ruby-identifier">them</span> <span class="ruby-identifier">require</span> <span class="ruby-identifier">a</span> <span class="ruby-identifier">large</span> <span class="ruby-identifier">javascript</span> <span class="ruby-identifier">library</span> <span class="ruby-identifier">that</span> <span class="ruby-identifier">isn</span><span class="ruby-string">'t prototype/scriptaculous. While I don'</span><span class="ruby-identifier">t</span> <span class="ruby-identifier">really</span> <span class="ruby-identifier">have</span> <span class="ruby-identifier">an</span> <span class="ruby-identifier">opinion</span> <span class="ruby-identifier">on</span> <span class="ruby-identifier">which</span> <span class="ruby-identifier">library</span>
+  <span class="ruby-identifier">is</span> <span class="ruby-identifier">better</span>, <span class="ruby-identifier">prototype</span> <span class="ruby-identifier">is</span> <span class="ruby-identifier">generally</span> <span class="ruby-identifier">the</span> <span class="ruby-identifier">one</span> <span class="ruby-identifier">that</span> <span class="ruby-identifier">we</span><span class="ruby-string">'re using for rails, so I wanted a lightbox that took advantage of that,
+  rather than forcing me to include another library which might class.
+- Many of them where not compatible with rails'</span> <span class="ruby-identifier">ajax</span> <span class="ruby-identifier">system</span>. <span class="ruby-constant">I</span> <span class="ruby-identifier">wanted</span> <span class="ruby-identifier">to</span> <span class="ruby-identifier">be</span> <span class="ruby-identifier">able</span> <span class="ruby-identifier">to</span> <span class="ruby-keyword">do</span> <span class="ruby-identifier">multi</span><span class="ruby-operator">-</span><span class="ruby-identifier">page</span> <span class="ruby-identifier">forms</span> <span class="ruby-identifier">within</span> <span class="ruby-identifier">a</span> <span class="ruby-identifier">lightbox</span>,
+  <span class="ruby-identifier">using</span> <span class="ruby-identifier">form_remote_tag</span>, <span class="ruby-keyword">or</span> <span class="ruby-identifier">any</span> <span class="ruby-identifier">other</span> <span class="ruby-identifier">means</span> <span class="ruby-identifier">of</span> <span class="ruby-identifier">reloading</span> <span class="ruby-identifier">the</span> <span class="ruby-identifier">lightbox</span> <span class="ruby-identifier">div</span> <span class="ruby-identifier">using</span> <span class="ruby-identifier">ajax</span>.
+</pre>
+
+<p>And of course, I wanted it all packaged as a nice rails plugin with handy
+helpers to use it.</p>
+
+<p>Credits</p>
+
+<h6 id="label-"></h6>
+
+<p>Much of the design, and some of the javascript and css are shamelessly
+ripped from the Thickbox library, by Cody Lindley.</p>
+
+<p>This library should be considered to be a derivative work of Thickbox, and
+is also released under the MIT licence.</p>
+
+<p><a href="http://jquery.com/demo/thickbox/">jquery.com/demo/thickbox/</a></p>
+
+<p>Redbox Rails plugin development by Craig Ambrose</p>
+
+<p><a href="http://www.craigambrose.com">www.craigambrose.com</a></p>
+
+<p>Additional code submissions, testing and bugfixes by:</p>
+<ul><li>
+<p>Brandon Keepers</p>
+</li><li>
+<p>Niko Dittmann</p>
+</li><li>
+<p>Randy Parker</p>
+</li><li>
+<p>Julien Coupard</p>
+</li><li>
+<p>Erin Staniland</p>
+</li></ul>
+
+<p>(and many more)</p>
+
+<p>Licence</p>
+
+<h6 id="label-"></h6>
+
+<p>MIT License</p>
+
+<p><a
+href="http://www.opensource.org/licenses/mit-license.php">www.opensource.org/licenses/mit-license.php</a></p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the "Software"),
+to deal in the Software without restriction, including without limitation
+the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons to whom the
+Software is furnished to do so.</p>
+
+<p>Usage</p>
+
+<h5 id="label-"></h5>
+
+<p>Examine the public methods of redbox_helper.rb. They will all look
+familiar, much like the existing link helpers, except that they work with
+redboxes. You should not need to interact with the javascript directly.</p>
+
+<p>Redbox provides three helpers which are used instead of a regular
+“link_to” helper when linking to a redbox.</p>
+
+<p>link_to_redbox(name, id, html_options = {})</p>
+
+<p>This is used if you already have an HTML element in your page (presumably
+hidden, but it doesn’t have to be) and you wish to use it for your
+redbox. Specify it by it’s id, and you’re in business.</p>
+
+<p>link_to_component_redbox(name, url_options = {}, html_options = {})</p>
+
+<p>This serves essentially the same purpose, but it uses the url_options
+supplied to load another page from your app into a hidden div on page load.
+This saves you having to do it yourself, but beware that there are definite
+performance implications to using components.</p>
+
+<p>link_to_remote_redbox(name, link_to_remote_options = {}, html_options = {})</p>
+
+<p>This waits until the link is clicked on to load the redbox using ajax, and
+displays loading graphics while it’s waiting.</p>
+
+<p>link_to_close_redbox(name, html_options = {})</p>
+
+<p>Allows you to put a link (presumably inside the redbox) to close it. Other
+way to close it is to refresh the entire page, but obviously closing it
+with javascript is spiffier.</p>
+
+<p>More Info</p>
+
+<h6 id="label-"></h6>
+
+<p>A static page is maintained for this plugin at:</p>
+
+<pre>http://www.craigambrose.com/projects/redbox</pre>
+
+<p>Updates are always posted at:</p>
+
+<pre>http://blog.craigambrose.com</pre>
+
+<p>Bugs, once you have tracked down the exact problem and can reproduce a
+failure case, can be reported to:</p>
+
+<pre>craig@craigambrose.com</pre>
+
+<p>If you find this plugin useful, you can give something back to the
+community by examining your own code and seeing what bits of functionality
+are generic enough to be useful as a rails plugin. Releasing rails plugins
+is dead simple, and helps us all do better work.</p>
+
+</div>
+
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+
