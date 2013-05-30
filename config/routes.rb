@@ -1,4 +1,8 @@
 ProductRecall::Application.routes.draw do
+  get "paid_user/paid"
+
+  get "basic_user/basic"
+
   get "search/Search"
 
   get "administrator_pages/ChangeFeatures"

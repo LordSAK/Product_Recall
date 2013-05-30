@@ -1,0 +1,2 @@
+module PaidUserHelper
+end
