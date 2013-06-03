@@ -1,4 +1,6 @@
 ProductRecall::Application.routes.draw do
+  get "users/new"
+
   get "paid_user/paid"
 
   get "basic_user/basic"
