@@ -1,4 +1,12 @@
 ProductRecall::Application.routes.draw do
+
+  resources :users
+
+  root to: 'static_pages#home'
+
+  match '/signup',  to: 'users#new'
+
+
   get "users/new"
 
   get "paid_user/paid"
