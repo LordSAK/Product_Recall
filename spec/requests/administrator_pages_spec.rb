@@ -4,13 +4,13 @@ describe "Administrator Pages" do
 
 describe "Home page" do
 
-    it "should have the h1 'Home'" do
-      visit '/administrator_pages/home'
+    it "should have the h1 'Sample App'" do
+      visit '/static_pages/home'
       page.should have_selector('h1', :text => 'Home')
     end
 
     it "should have the title 'Home'" do
-      visit '/administrator_pages/home'
+      visit '/static_pages/home'
       page.should have_selector('title',
                         :text => "Home")
     end
