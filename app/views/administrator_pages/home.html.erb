@@ -1,5 +1,36 @@
 <% provide(:title, 'Home') %>
 <h1>Home</h1>
-<p>
-  Work in Progress on Home page
-</p>
+
+<!-- carousel -->
+    <div id="myCarousel" class="carousel slide">
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+      </ol>
+    <!-- Carousel items -->
+      <div class="carousel-inner">
+        <div class="active item"  style="overflow:hidden;">
+          <%= link_to image_tag("index.jpeg", alt: "Rails", width: "600px",height:"350px", style: "display :block; margin: auto;") %>
+            <div class="carousel-caption">
+              <h4>Car Recalls</h4>
+            </div>
+        </div>
+        <div class="item"  style="overflow:hidden;">
+          <%= link_to image_tag("index1.jpeg", alt: "Rails", width: "600px",height:"350px", style: "display :block; margin: auto;") %>
+            <div class="carousel-caption">
+              <h4>Drug Recalls</h4>
+            </div>
+        </div>
+        <div class="item" style="overflow:hidden; ">
+          <%= link_to image_tag("child.jpeg", alt: "Rails", width: "600px",height:"350px", style: "display :block; margin: auto;") %>
+          <div class="carousel-caption">
+            <h4>Child Safety Recalls</h4>
+          </div>
+        </div>
+      </div>
+    <!-- Carousel nav -->
+      <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+      <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+    </div>
+    <!-- /.carousel -->
