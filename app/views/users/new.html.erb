@@ -18,6 +18,19 @@
       <%= f.label :password_confirmation, "Confirmation" %>
       <%= f.password_field :password_confirmation %>
 
+      <%= f.label :cell_no, "Cell" %>
+      <%= f.text_field  :cell_no %>
+
+      <%= f.label :address, "address" %>
+      <%= f.text_field :address %>
+
+     <label for="alert_type">Alerts on</label>
+      <% [ 'Email', 'Cell' ].each do |alert| %>
+        <%= radio_button_tag 'alert_type', alert, @alert == alert %>
+        <%= alert.humanize %>
+      <% end %>
+<br/>
+<br/>
       <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
     <% end %>
   </div>

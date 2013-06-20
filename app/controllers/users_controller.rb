@@ -16,12 +16,29 @@ before_filter :admin_user,     only: :destroy
   		@user = User.new(params[:user])
   		if @user.save
         sign_in @user
-  			flash[:success] = "Welcome to Product Recall!"
-  			redirect_to @user
-  	   else
+        if params[:theme] == 'Paid'
+          redirect_to paypal_payment_path(@user) #This could be your another action in your controller where you may need to initiate something and redirect to paypal 
+          return 
+        else
+          flash[:success] = "Welcome to Product Recall!"
+          redirect_to @user
+        end
+        else
   	   		render 'new'
     	end
   	end
+
+    def paypal_payment_path(return_path)
+      values={
+        :business => 'saghir.alam-facilitator@musewerx.com ',
+        :cmd => '_cart',
+        :upload => '1',
+        :return => return_path,
+        :invoice => id
+      }
+      "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V4JWJJNZMFZW2"
+    end
+
 
     def index
       @users = User.paginate(page: params[:page])

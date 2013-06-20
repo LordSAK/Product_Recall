@@ -18,6 +18,12 @@
       <%= f.label :password_confirmation, "Confirm Password" %>
       <%= f.password_field :password_confirmation %>
 
+      <%= f.label :cell_no, "Cell" %>
+      <%= f.text_field :cell_no %>
+
+      <%= f.label :address, "Address" %>
+      <%= f.text_field :address %>
+
       <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
     <% end %>
 
