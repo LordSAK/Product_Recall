@@ -2,10 +2,10 @@ class CreateRecalls < ActiveRecord::Migration
   def change
     create_table :recalls do |t|
       t.string :Category
-      t.string :Title
+      t.text :Title
       t.datetime :Time
-      t.string :Summary
-      t.string :Details
+      t.text :Summary
+      t.text :Details
 
       t.timestamps
     end
