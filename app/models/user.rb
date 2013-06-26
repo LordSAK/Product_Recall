@@ -25,8 +25,8 @@ class User < ActiveRecord::Base
   validates :password,  length: { minimum: 6 }
   validates :password_confirmation, presence: true
 
-  VALID_CELL_NO_REGEX = /\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})/i
-  validates :cell_no, format: {with: VALID_CELL_NO_REGEX}
+  #VALID_CELL_NO_REGEX = /\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})/i
+  #validates :cell_no, format: {with: VALID_CELL_NO_REGEX}
 
   private
 

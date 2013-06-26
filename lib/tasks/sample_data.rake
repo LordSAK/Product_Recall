@@ -4,7 +4,9 @@ namespace :db do
   admin = User.create!(name: "Example User",
                          email: "exampler@railstutorial.org",
                          password: "foobar",
-                         password_confirmation: "foobar")
+                         password_confirmation: "foobar",
+                         cell_no: "(123)4567890",
+                         address: "Suite 614")
     admin.toggle!(:admin)
   
     99.times do |n|
@@ -14,7 +16,9 @@ namespace :db do
       User.create!(name: name,
                    email: email,
                    password: password,
-                   password_confirmation: password)
+                   password_confirmation: password,
+                         cell_no: "(123)4567890",
+                         address: "Suite 614")
     end
   end
 end
