@@ -1,0 +1,89 @@
+<% provide(:title, "Product Recalls") %>
+
+<div class="center hero-unit">
+  <h1 style="font-size:35px;">Product Recalls</h1>
+  <h2>
+		Recalls
+  </h2>
+</div>
+
+
+<div class="tabbable tabs-left">
+	
+	<ul class="nav nav-tabs">
+		<% @categories.each_with_index do |c,i| %>
+			<% if i == 0 %>
+				<li class="active">
+					<a data-toggle="tab" href="#<%= i %>">
+						<%= c.Category %>
+					</a>
+				</li>
+			<% else %>
+				<li>
+					<a data-toggle="tab" href="#<%= i %>">
+						<%= c.Category %>
+					</a>
+				</li>
+			<% end %>
+		<% end %>
+	</ul>
+	
+	<div class="tab-content">
+		<% @categories.each_with_index do |c,i| %>
+			<% if i == 0 %>
+				<div id="<%= i %>" class="tab-pane active">
+					<% Recall.where("Category = ?", c.Category).each_with_index do |r,j| %>
+						<p>
+							<a href="#<%= "#{i.to_s+j.to_s}" %>" role="button"  data-toggle="modal"><%= r.Title %></a>
+						</p>
+
+					<% end %>
+				</div>
+			<% else %>
+				<div id="<%= i %>" class="tab-pane">
+					<% Recall.where("Category = ?", c.Category).each_with_index do |r,j| %>
+						<p>
+							<a href="#<%= "#{i.to_s+j.to_s}" %>" role="button"  data-toggle="modal"><%= r.Title %></a>
+						</p>
+
+					<% end %>
+				</div>
+			<% end %>
+		<% end %>
+	</div>
+</div>
+
+<% @categories.each_with_index do |c,i| %>
+	<% Recall.where("Category = ?", c.Category).each_with_index do |r,j| %>
+		<div id="<%= "#{i.to_s+j.to_s}" %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h3 id="myModalLabel"><%= r.Title %></h3>
+			</div>
+			<div class="modal-body">
+				<p>
+					<b>Summary</b>
+				</p>
+				<p>
+					<%= r.Summary %>
+				</p>
+				<p>
+					<b>Description</b>
+				</p>
+				<p>
+					<%= r.Details %>
+				</p>
+				<p>
+					<b>Date Created</b>
+				</p>
+				<p>
+					<%= r.created_at %>
+				</p>
+				<hr>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+			</div>
+		</div>
+	<% end %>
+<% end %>

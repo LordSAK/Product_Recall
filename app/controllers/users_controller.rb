@@ -21,7 +21,7 @@ before_filter :admin_user,     only: :destroy
           return 
         else
           flash[:success] = "Welcome to Product Recall!"
-          redirect_to @user
+          redirect_to "/recalls"
         end
         else
   	   		render 'new'

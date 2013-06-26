@@ -1,48 +1,43 @@
 <% provide(:title, @user.name) %>
 <div class="center hero-unit">
-  <h1 style="font-size:35px;">Welcome to the Product Recalls</h1>
-  <h2>
-    <%= @user.name %>
-  </h2>
+	<h1 style="font-size:35px;">
+		Welcome to the Product Recalls
+	</h1>
+	<h2>
+		<%= @user.name %>
+	</h2>
 </div>
+
 <div class="row">
-  <aside class="span4">
-    	<section>
-    		<h1>
-    			<%= gravatar_for @user %>
-    			<%= @user.name %>
-    		</h1>
-    	</section>
+	<aside class="span4">
+		<section>
+			<h1>
+				<%= gravatar_for @user %>
+				<%= @user.name %>
+			</h1>
+		</section>
 	</aside>
-
-
-<hr>
-<p></p>
-<div class="container">
-	<div class="row-fluid">
-<div class="span4">
+	<hr>
+	<p></p>
+	<div class="container">
+		<div class="row-fluid">
+			<div class="span4">
 				<h4>Basics</h4>
 				<p><b>Phone:</b> <%= @user.cell_no %></p>
 				<p><b>Alert Type:</b> Alerts on Email & Phone</p>
 				<p><b>Address:</b> <%= @user.address %></p>
-	
-	
-
-
-	<a href="#BasicInfo" class="btn"  data-toggle="modal">Edit</a>
+			</div>
+			<br/>
+			<div class="sapn4">
+				<h4>Preferred Interaction</h4>
+				<p> <b>Email:</b> <%= @user.email %></p>
+				<p> <b>Phone:</b> <%= @user.cell_no %></p>
+			</div>
+		</div>
+	</div>
 </div>
-<br/>
-<div class="sapn4">
-<h4>Types of Preferred Interaction</h4>
-<p>1. Twitter: @kTownsend</p>
-<p>2. Email: <%= @user.email %></p>
-<p>3. Phone: <%= @user.cell_no %></p>
-
-	<a href="#ContactInfo" class="btn"  data-toggle="modal">Edit</a>
-</div>
-</div>
-</div>
-
+<!--<a href="#ContactInfo" class="btn"  data-toggle="modal">Edit</a>
+<a href="#BasicInfo" class="btn"  data-toggle="modal">Edit</a>
 <div id="BasicInfo" class="modal hide fade" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" style="display: none;">
 	<div class="modal-header">
 		<button class="close" aria-hidden="true" data-dismiss="modal" type="button">×</button>
@@ -90,4 +85,4 @@
 		<button class="btn " data-dismiss="modal">Close</button>
 		<a href="#" class="btn btn-primary">Save changes</a>
 	</div>
-</div>
+</div>-->

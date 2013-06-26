@@ -9,9 +9,10 @@ ProductRecall::Application.routes.draw do
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
 
- match '/about',   to: 'administrator_pages#about'
+  match '/about',   to: 'administrator_pages#about'
+  match '/recalls',  to: 'administrator_pages#Recalls'
 
-
+#  get "administrator_pages/Recalls"
   get "users/new"
 
   get "paid_user/paid"
@@ -19,6 +20,7 @@ ProductRecall::Application.routes.draw do
   get "basic_user/basic"
 
   get "search/Search"
+
 
 
 
