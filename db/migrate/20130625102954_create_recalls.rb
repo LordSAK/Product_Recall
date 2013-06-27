@@ -3,7 +3,7 @@ class CreateRecalls < ActiveRecord::Migration
     create_table :recalls do |t|
       t.string :Category
       t.text :Title
-      t.datetime :Time
+      t.timestamps :Time
       t.text :Summary
       t.text :Details
 

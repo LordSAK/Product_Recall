@@ -3,7 +3,7 @@ class AdministratorPagesController < ApplicationController
   end
 
   def Recalls
-  	@categories = Recall.select("DISTINCT(Category)")
+  	@categories = Recall.select("DISTINCT(\"Category\")")
   	@recall = Recall.all
   end
 
