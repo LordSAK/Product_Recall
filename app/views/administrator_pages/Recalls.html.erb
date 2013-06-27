@@ -32,7 +32,7 @@
 		<% @categories.each_with_index do |c,i| %>
 			<% if i == 0 %>
 				<div id="<%= i %>" class="tab-pane active">
-					<% Recall.where("Category = ?", c.Category).each_with_index do |r,j| %>
+					<% Recall.where("\"Category\" = ?", c.Category).each_with_index do |r,j| %>
 						<p>
 							<a href="#<%= "#{i.to_s+j.to_s}" %>" role="button"  data-toggle="modal"><%= r.Title %></a>
 						</p>
@@ -41,7 +41,7 @@
 				</div>
 			<% else %>
 				<div id="<%= i %>" class="tab-pane">
-					<% Recall.where("Category = ?", c.Category).each_with_index do |r,j| %>
+					<% Recall.where("\"Category\" = ?", c.Category).each_with_index do |r,j| %>
 						<p>
 							<a href="#<%= "#{i.to_s+j.to_s}" %>" role="button"  data-toggle="modal"><%= r.Title %></a>
 						</p>
@@ -54,7 +54,7 @@
 </div>
 
 <% @categories.each_with_index do |c,i| %>
-	<% Recall.where("Category = ?", c.Category).each_with_index do |r,j| %>
+	<% Recall.where("\"Category\" = ?", c.Category).each_with_index do |r,j| %>
 		<div id="<%= "#{i.to_s+j.to_s}" %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
