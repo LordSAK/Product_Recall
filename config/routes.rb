@@ -12,6 +12,8 @@ ProductRecall::Application.routes.draw do
   match '/about',   to: 'administrator_pages#about'
   match '/recalls',  to: 'administrator_pages#Recalls'
 
+  match 'recall',  to:'administrator_pages#create'
+
 #  get "administrator_pages/Recalls"
   get "users/new"
 
