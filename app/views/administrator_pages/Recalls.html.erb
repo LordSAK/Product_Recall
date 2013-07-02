@@ -51,7 +51,7 @@
 			<div class="form-inline">
 				<%= f.label :Details, "Details" %>
 			</div>
-			<%= f.password_field :Details %>
+			<%= f.text_field :Details %>
 		</div>
 
 		<br/>
@@ -93,7 +93,9 @@
 				<div id="<%= i %>" class="tab-pane active">
 					<% Recall.where("\"Category\" = ?", c.Category).each_with_index do |r,j| %>
 						<p>
+
 							<a href="#<%= "#{i.to_s+j.to_s}" %>" role="button"  data-toggle="modal"><%= r.Title %></a>
+								
 						</p>
 
 					<% end %>
@@ -102,7 +104,9 @@
 				<div id="<%= i %>" class="tab-pane">
 					<% Recall.where("\"Category\" = ?", c.Category).each_with_index do |r,j| %>
 						<p>
+
 							<a href="#<%= "#{i.to_s+j.to_s}" %>" role="button"  data-toggle="modal"><%= r.Title %></a>
+
 						</p>
 
 					<% end %>
