@@ -3,7 +3,7 @@ class Recall < ActiveRecord::Base
 
 	def self.search(search)
 		if search
-    		find(:all, :conditions => ['"LOWER(Category)" LIKE ? or "LOWER(Details)" LIKE ? or "LOWER(Summary)" LIKE ? or "LOWER(Title)" LIKE ? or "LOWER(Manufacturer)" LIKE ? or "LOWER(Products)" LIKE ? or "LOWER(Hazards)" LIKE ?', "%#{search.downcase}%", "%#{search.downcase}%", "%#{search.downcase}%", "%#{search.downcase}%", "%#{search.downcase}%", "%#{search.downcase}%", "%#{search.downcase}%"])
+    		find(:all, :conditions => ['"Category" LIKE ? or "Details" LIKE ? or "Summary" LIKE ? or "Title" LIKE ? or "Manufacturer" LIKE ? or "Products" LIKE ? or "Hazards" LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%"])
   		else	
     		find(:all)
   		end
