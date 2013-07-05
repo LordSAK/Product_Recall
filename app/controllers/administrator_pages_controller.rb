@@ -3,9 +3,6 @@ class AdministratorPagesController < ApplicationController
 	include SessionsHelper
 	include UsersHelper
 
-
-
-
   def ChangeFeatures
   end
 
@@ -53,7 +50,9 @@ def update
     def show
         @user = Recall.find(params[:id])
     end
-
+ 
+  def home
+  end
 
   def ShiftSubscriber
   end
