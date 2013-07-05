@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130625102954) do
+ActiveRecord::Schema.define(:version => 20130704084636) do
 
   create_table "recalls", :force => true do |t|
     t.string   "Category"
@@ -19,8 +19,11 @@ ActiveRecord::Schema.define(:version => 20130625102954) do
     t.datetime "Time"
     t.string   "Summary"
     t.string   "Details"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.string   "Manufacturer"
+    t.string   "Products"
+    t.string   "Hazards"
   end
 
   create_table "users", :force => true do |t|

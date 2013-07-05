@@ -2,7 +2,7 @@ ProductRecall::Application.routes.draw do
 
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
- 
+
 
   root to: 'administrator_pages#home'
 
@@ -16,9 +16,9 @@ ProductRecall::Application.routes.draw do
   match 'recall',  to:'administrator_pages#create'
   match 'destroy', to: 'administrator_pages#destroy'
 #  match 'edit', to: 'administrator_pages#edit'
-match '/recalls',  to: 'administrator_pages#Recalls', :as => :recalls
-match '/edit/:id', to: 'administrator_pages#edit', :as => :edit_recall
-put '/update/:id', to: 'administrator_pages#update', :as => :update_recall
+  match '/recalls',  to: 'administrator_pages#Recalls', :as => :recalls
+  match '/edit/:id', to: 'administrator_pages#edit', :as => :edit_recall
+  put '/update/:id', to: 'administrator_pages#update', :as => :update_recall
 #  get "administrator_pages/Recalls"
   get "users/new"
 
@@ -26,7 +26,7 @@ put '/update/:id', to: 'administrator_pages#update', :as => :update_recall
 
   get "basic_user/basic"
 
-  get "search/Search"
+  match "/search",  to: 'search#Search', :as => :search
 
 
 

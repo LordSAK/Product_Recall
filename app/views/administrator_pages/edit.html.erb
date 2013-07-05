@@ -10,18 +10,50 @@
         <%= f.label :Category, "Category" %>
 
       <div class="control-group">
-      <div class="controls">
-        <%= f.select :Category,options_for_select(["Consumer Products",
-          "Foods, Medicines, Cosmetics",
-          "Meat and Poultry Products",
-          "Motor Vehicles",
-          "Child Safety Seats",
-          "Tires",
-          "Vehicle Emissions",
-          "Environmental Products",
-          "Boats and Boating Safety"],@recall.Category), {:style => "height:40px"} %>
-</div>
-</div>
+        <div class="controls">
+          <%= f.select :Category,options_for_select(["Consumer Products",
+            "Foods, Medicines, Cosmetics",
+            "Meat and Poultry Products",
+            "Motor Vehicles",
+            "Child Safety Seats",
+            "Tires",
+            "Vehicle Emissions",
+            "Environmental Products",
+            "Boats and Boating Safety"],@recall.Category), {:style => "height:40px"} %>
+        </div>
+      </div>
+
+
+      <%= f.label :Products, "Products" %>
+      <div class="control-group">
+        <div class="controls">
+          <%= f.select :Products, options_for_select(["All Terrain Vehicles (ATV)",
+            "Saws",
+            "Gasoline",
+            "Door Sills or Frames",
+            "Fuels and Gas and Oils",
+            "Sports and Recreation",
+            "Toys",
+            "Fans",
+            "Lawn Mowers",
+            "Grass And Leaf Catchers",
+            "Home Appliances, Maintenance",
+            "Babies and Kids",
+            "Other Grills",
+            "Swings or Swing Sets",
+            "Electrical Systems",
+            "Portable Generators",
+            "Yard and Garden",
+            "Recreational Vehicles",
+            "Other Bags",
+            "Gardening and Landscaping"],@recall.Products), { :style => "height:40px"} %>
+        </div>
+      </div>
+      <div class="form-inline">
+        <%= f.label :Manufacturer,"Manufacturer" %>
+      </div>
+      <%= f.text_field :Manufacturer %>
+
 
       <div class="form-inline">
         <%= f.label :Title, "Title" %>
@@ -37,6 +69,30 @@
         <%= f.label :Details, "Details" %>
       </div>
       <%= f.text_field :Details %>
+
+      <%= f.label :Hazards, "Hazard" %>
+      <div class="control-group">
+        <div class="controls">
+          <%= f.select :Hazards, options_for_select(["Injury",
+            "Fire",
+            "Collision",
+            "Cuts",
+            "Physical",
+            "Crash",
+            "Heat-Related",
+            "Burn",
+            "Electrical",
+            "Explosion",
+            "Heat-Related Explosion",
+            "Falling",
+            "Collapse",
+            "Impact",
+            "Entanglement",
+            "Ejection",
+            "Strangulation",
+            "Bruising"],@recall.Hazards), { :style => "height:40px"} %>
+        </div>
+      </div>
 
       <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
     <% end %>

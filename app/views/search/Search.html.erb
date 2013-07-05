@@ -1,7 +1,7 @@
 <% provide(:title, "Search") %>
 
 <div class="center hero-unit">
-  <h1 style="font-size:50px;">Welcome to the Product Recalls</h1>
+  <h1 style="font-size:35px;">Product Recalls</h1>
   <h2>
     Search
   </h2>
@@ -15,77 +15,55 @@
 						<div id="accordion2" class="accordion pull-left"> 
 							<div class="accordion-group"> 
 								<div class="accordion-heading"> 
-									<a class="accordion-toggle collapsed" href="#collapseOne" data-parent="#accordion2" data-toggle="collapse">
-										Products
+									<a class="accordion-toggle collapsed" href="#collapseOne" data-parent="#accordion2" data-toggle="collapse" style="color:black">
+										<b>Products</b>
 									</a>
 								</div>
 								<div id="collapseOne" class="accordion-body collapse" style="height: 0px;">
 									<div class="accordion-inner">
-										All Terrain Vehicles (ATV) (13)<br/>
-										Saws (6)<br/>
-										Gasoline (5)<br/>
-										Door Sills or Frames (5)<br/>
-										Fuels and Gas and Oils (5)<br/>
-										Sports and Recreation (4)<br/>
-										Toys (3)<br/>
-										Fans (3)<br/>
-										Lawn Mowers (3)<br/>
-										Grass And Leaf Catchers (3)<br/>
-										Home Appliances, Maintenance a... (3)<br/>
-										Babies and Kids (2)<br/>
-										Other Grills (2)<br/>
-										Swings or Swing Sets (2)<br/>
-										Electrical Systems (2)<br/>
-										Portable Generators (2)<br/>
-										Yard and Garden (2)<br/>
-										Recreational Vehicles (Unlicen... (2)<br/>
-										Other Bags (2)<br/>
-										Gardening and Landscaping (2)<br/>
+										<% @products.each do |p,i| %>
+										<% if !p.nil? %>
+											<%= link_to p,search_path(:Searching => p) %>(<%= i %>)
+											<br/>
+											<% end %>
+										<% end %>
 									</div>
 								</div>
  							</div>
 							<div class="accordion-group">
 								<div class="accordion-heading">
-									<a class="accordion-toggle collapsed" href="#collapseTwo" data-parent="#accordion2" data-toggle="collapse">
-                						Hazards
+									<a class="accordion-toggle collapsed" href="#collapseTwo" data-parent="#accordion2" data-toggle="collapse" style="color:black">
+                						<b>Hazards</b>
                 					</a>
 								</div>
 								<div id="collapseTwo" class="accordion-body collapse">
 	 								<div class="accordion-inner">
-	                					Injury (20)<br/>
-										Fire (9)<br/>
-										Collision (6)<br/>
-										Cuts (5)<br/>
-										Physical (5)<br/>
-										Crash (5)<br/>
-										Heat-Related (4)<br/>
-										Burn (4)<br/>
-										Electrical (3)<br/>
-										Explosion (3)<br/>
-										Heat-Related Explosion (3)<br/>
-										Falling (2)<br/>
-										Collapse (2)<br/>
-										Impact (2)<br/>
-										Entanglement (1)<br/>
-										Ejection (1)<br/>
-										Strangulation (1)<br/>
-										Bruising (1) <br/>
+	                					<% @hazards.each do |h,i| %>
+										<% if !h.nil? %>
+											<%= link_to h,search_path(:Searching => h) %>(<%= i %>)
+											<br/>
+											<% end %>
+										<% end %>
     						        </div>
 								</div>
 							</div>
 							<div class="accordion-group">
 								<div class="accordion-heading">
-									<a class="accordion-toggle collapsed" href="#collapseThree" data-parent="#accordion2" data-toggle="collapse">
-                						Content Types
-    								</a>
+									<a class="accordion-toggle collapsed" href="#collapseThree" data-parent="#accordion3" data-toggle="collapse" style="color:black">
+                						<b>Select Date Range</b>
+                					</a>
 								</div>
-								<div id="collapseThree" class="accordion-body collapse" >
-									<div class="accordion-inner">
-										Recall (30)<br/>
-										News Release (1)<br/>
-										Safety Education (1)<br/>
-										Media Advisory (1)<br/>   
-    								</div>
+								<div id="collapseThree" class="accordion-body collapse">
+	 								<div class="accordion-inner">
+	 									<%= form_for search_path, method: :get do %>
+	                					From: <input type="text" name="from" data-behaviour='datepicker' data-date-format="yyyy-mm-dd">
+										To: <input type="text" name="to" data-behaviour='datepicker' data-date-format="yyyy-mm-dd">
+										<script type="text/javascript">
+  											$('[data-behaviour~=datepicker]').datepicker();
+										</script>
+										<%= button_to "Submit" %>
+										<%end%>
+    						        </div>
 								</div>
 							</div>
 						</div>
@@ -94,46 +72,79 @@
 			</div>
 		</div>
 		<div class="span9">
-			<p >
-				<b>12/26/2012</b> 
-				<font color="#0088cc">
-					American Honda Expands Recall of FourTrax ATVs Due to Crash Hazard (100%)
-				</font>
-			</p>	
-			<p>
-				<font color="Red">
-					Summary:
+
+			<% @recalls.each_with_index do |r,i| %>
+			<% if !r.Title.nil? %>
+				<p >
+					<b><%= r.created_at.to_date %></b> 
+					<font color="#0088cc">
+						<a href="#<%= "#{i.to_s}" %>" role="button"  data-toggle="modal"><%= r.Title %></a>
+						
+						
 					</font>
-					 A weld on the ATV's front right and left upper suspension arms can separate, causing the driver to lose control of the vehicle, posing a crash hazard. American Honda Expands Recall of FourTrax ATVs Due to Crash Hazard Recall number 13713, 13-713,
-			</p>
-			<br/>
-			<br/>
-			<p>
-				<b>11/15/2012</b>
-				<font color="#0088cc">
-					American Honda Recalls Portable Generators Due to Fire and Burn Hazard... (100%) 
-				</font>
-			</p>	
-			<p>
+				</p>	
+
+				<p>
 					<font color="Red">
 						Summary:
-					</font> 
-					The gasoline-powered generator's fuel hose can leak. American Honda Recalls Portable Generators Due to Fire and Burn Hazards Recall number 13042, 13-042, #13-042, #13042
-			</p>
-			<br/>
-			<br/>
-			<p>
-				<b>05/02/2012</b>
-				<font color="#0088cc">
-					Check Your Home for These Recalled Recreational and Home Products Now ... (100%)
-				</font>
-			</p>
-			<p>
-				<font color="Red">
-					Summary:
-				</font>
-				Check Your Home for These Recalled Recreational and Home Products Now that Spring is Here News release 12165 , 12-165, #12-165, #12165 Spring has sprung. Warm weather means kids are playing outside and families are firing up their grills and workin
-			</p>
+					</font>
+					 <%= r.Summary %>
+				</p>
+				<br/>
+				<br/>
+				<%end%>
+			<% end %>
+
 		</div>
 	</div>
 </div>
+<% @recalls.each_with_index do |r,i| %>
+<div id="<%= "#{i.to_s}" %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="myModalLabel"><%= r.Title %></h3>
+		</div>
+		<div class="modal-body">
+			<p>
+				<b>Manufacturer</b>
+			</p>
+			<p>
+				<%= r.Manufacturer %>
+			</p>
+			<p>
+				<b>Product</b>
+			</p>
+			<p>
+				<%= r.Products %>
+			</p>
+			<p>
+				<b>Summary</b>
+			</p>
+			<p>
+				<%= r.Summary %>
+			</p>
+			<p>
+				<b>Description</b>
+			</p>
+			<p>
+				<%= r.Details %>
+			</p>
+			<p>
+				<b>Hazard</b>
+			</p>
+			<p>
+				<%= r.Hazards %>
+			</p>
+			<p>
+				<b>Date Created</b>
+			</p>
+			<p>
+				<%= r.created_at.to_date %>
+			</p>
+			<hr>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+		</div>
+	</div>
+<%end%>
