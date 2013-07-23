@@ -14,7 +14,7 @@ class SearchController < ApplicationController
        @keyword = "Searched Recalls from '"+@from.to_s+"' to '"+@to.to_s+"'"
   	   @recalls = Recall.where(:created_at => @from..@to)
   	end
-    @trends=Search.all(:select => "searches,count(searches) as cnt",:group => '"searches"',:order => '"cnt"',:limit => 5)
+    @trends=Search.all(:select => "searches,count(searches) as cnt",:group => '"searches","created_at"',:order => '"cnt"',:limit => 5)
     if @recalls.any?
       @search = current_user.searches.build(:searches => @keyword)
       @search.save
