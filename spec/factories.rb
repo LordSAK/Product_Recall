@@ -9,4 +9,8 @@ FactoryGirl.define do
     	admin true
     end
   end
+  factory :Searched do
+    searches "Lorem ipsum"
+    user
+  end
 end

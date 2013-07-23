@@ -6,6 +6,10 @@
     Search
   </h2>
 </div>
+<div>
+	<p> <%= @keyword %> </p>
+</div>
+
 <div class="container">
 	<div class="row">
 		<div class="span3 bs-docs-sidebar">
@@ -49,7 +53,7 @@
 							</div>
 							<div class="accordion-group">
 								<div class="accordion-heading">
-									<a class="accordion-toggle collapsed" href="#collapseThree" data-parent="#accordion3" data-toggle="collapse" style="color:black">
+									<a class="accordion-toggle collapsed" href="#collapseThree" data-parent="#accordion2" data-toggle="collapse" style="color:black">
                 						<b>Select Date Range</b>
                 					</a>
 								</div>
@@ -66,11 +70,33 @@
     						        </div>
 								</div>
 							</div>
+							<div class="accordion-group">
+								<div class="accordion-heading">
+									<a class="accordion-toggle collapsed" href="#collapseFour" data-present="#accordion2" data-toggle="collapse" style="color:black">
+										<b>Top Trends</b>
+									</a>
+								</div>
+								<div id="collapseFour" class="accordion-body collapse">
+									<div class="accordion-inner">
+										<% @trends .each do |t| %>
+											<% if !t.searches.include? "from" and !t.searches.include? "to" %>
+											<ul>
+												<li>
+													<%= link_to t.searches.split("'").last,search_path(:Searching => t.searches.split("'").last) %>
+												</li>
+											</ul>
+											<% end %>
+										<% end %>
+									</div>
+								</div>
+							</div>
 						</div>
 					</li>
 				</ul>
 			</div>
 		</div>
+		
+
 		<div class="span9">
 
 			<% @recalls.each_with_index do |r,i| %>
