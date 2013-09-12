@@ -28,7 +28,7 @@ ProductRecall::Application.routes.draw do
 
   match "/search",  to: 'search#Search', :as => :search
 
-
+  match "/update",to: 'update#All',:as => :update
 
 
   # The priority is based upon order of creation:

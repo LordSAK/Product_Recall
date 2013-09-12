@@ -150,7 +150,7 @@
 					<% Recall.where("\"Category\" = ?", c.Category).each_with_index do |r,j| %>
 						<p>
 
-							<a href="#<%= "#{i.to_s+j.to_s}" %>" role="button"  data-toggle="modal"><%= r.Title %></a>
+							<a href="#<%= "#{i.to_s+j.to_s}" %>" role="button"  data-toggle="modal"><%= r.Title.html_safe %></a>
 								<% if current_user.admin? %>
 							 		| <%= link_to 'Edit', :action => :edit, :id => r.id %>
                                    	| <%= link_to "Delete", :id => r.id,:action => 'destroy', method: :delete, 
@@ -165,7 +165,7 @@
 					<% Recall.where("\"Category\" = ?", c.Category).each_with_index do |r,j| %>
 						<p>
 
-							<a href="#<%= "#{i.to_s+j.to_s}" %>" role="button"  data-toggle="modal"><%= r.Title %></a>
+							<a href="#<%= "#{i.to_s+j.to_s}" %>" role="button"  data-toggle="modal"><%= r.Title.html_safe %></a>
 								<% if current_user.admin? %>
 							 		| <%= link_to 'Edit', :action => :edit, :id => r.id %>
                                    	| <%= link_to "Delete", :id => r.id,:action => 'destroy', method: :delete, 
@@ -185,38 +185,38 @@
 		<div id="<%= "#{i.to_s+j.to_s}" %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h3 id="myModalLabel"><%= r.Title %></h3>
+				<h4 id="myModalLabel"><%= r.Title.html_safe %></h4>
 			</div>
 			<div class="modal-body">
 				<p>
 					<b>Manufacturer</b>
 				</p>
 				<p>
-					<%= r.Manufacturer %>
+					<%= r.Manufacturer.to_s.html_safe %>
 				</p>
 				<p>
 					<b>Product</b>
 				</p>
 				<p>
-					<%= r.Products %>
+					<%= r.Products.to_s.html_safe %>
 				</p>
 				<p>
 					<b>Summary</b>
 				</p>
 				<p>
-					<%= r.Summary %>
+					<%= r.Summary.to_s.html_safe %>
 				</p>
 				<p>
 					<b>Description</b>
 				</p>
 				<p>
-					<%= r.Details %>
+					<%= r.Details.to_s.html_safe %>
 				</p>
 				<p>
 					<b>Hazard</b>
 				</p>
 				<p>
-					<%= r.Hazards %>
+					<%= r.Hazards.to_s.html_safe %>
 				</p>
 				<p>
 					<b>Date Created</b>
