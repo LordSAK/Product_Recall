@@ -6,8 +6,9 @@ class SearchController < ApplicationController
       @keyword = "Searched  recalls with keyword is '"+ params[:Searching] +"'"
     end
   	@recalls = Recall.search(params[:Searching])
-  	@products = Recall.count(:group => '"Products"')
-  	@hazards = Recall.count(:group => '"Hazards"')
+  	#@products = Recall.count(:group => '"Products"')
+  	#@hazards = Recall.count(:group => '"Hazards"')
+    @Categories=Recall.count(:group => '"Category"')
   	if !params[:from].nil? and !params[:to].nil?
   	   @from=Date.strptime params[:from],'%m/%d/%Y'
   	   @to=Date.strptime params[:to],'%m/%d/%Y'

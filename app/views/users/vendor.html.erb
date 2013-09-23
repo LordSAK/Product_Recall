@@ -1,0 +1,67 @@
+<% provide(:title, @user.name) %>
+<div class="center hero-unit">
+	<h1 style="font-size:35px;">
+		Product Recalls
+	</h1>
+	<h2>
+		<%= @user.name %>
+	</h2>
+</div>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+	<input type="hidden" name="cmd" value="_s-xclick">
+	<input type="hidden" name="hosted_button_id" value="AR5P7XX8L5Q2S">
+	<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+	<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+</form>
+
+<div class="row">
+	<aside class="span4">
+		<section>
+			<h1>
+				<%= gravatar_for @user %>
+				<%= @user.name %>
+			</h1>
+		</section>
+	</aside>
+	<hr>
+	<p></p>
+	<div class="container">
+		<div class="row-fluid">
+			<div class="span4">
+				<h4>Basics</h4>
+				<p><b>Phone:</b> <%= @user.cell_no %></p>
+				<p><b>Alert Type:</b> Alerts on Email & Phone</p>
+				<p><b>Address:</b> <%= @user.address %></p>
+			</div>
+			<br/>
+			<div class="sapn4">
+				<h4>Preferred Interaction</h4>
+				<p> <b>Email:</b> <%= @user.email %></p>
+				<p> <b>Phone:</b> <%= @user.cell_no %></p>
+			</div>
+		</div>
+	</div>
+
+	<ul class="nav nav-pills">
+    	<li class="active">
+    		<a href="show">Search</a>
+    	</li>
+    	<li>
+    		<a href="supplier">Supplier</a>
+    	</li>
+    	<li class="active">
+    		<a href="vendor">Vendors</a>
+    	</li>
+    </ul>
+<div class="row">
+  <div class="span8">
+    <% if @user.vendors.any? %>
+      <h3>Vendors (<%= @user.vendors.count %>)</h3>
+      <ol class="microposts">
+        <%= render @vendors %>
+      </ol>
+      <%= will_paginate @vendors %>
+    <% end %>
+  </div>
+</div>
+</div>

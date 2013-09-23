@@ -2,7 +2,8 @@ ProductRecall::Application.routes.draw do
 
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
-  
+  resources :vendors
+  resources :suppliers
 
   root to: 'administrator_pages#home'
 

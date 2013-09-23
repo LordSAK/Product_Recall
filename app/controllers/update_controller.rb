@@ -2,7 +2,7 @@ class UpdateController < ApplicationController
 	require 'net/http'
 	def All
 		###############Get data from CPSC site Consumer Products Recall######################
-		if Recall.where(:Category => 'Foods, Medicines, Cosmetics').blank?
+		if Recall.where(:Category => 'Consumer Products').blank?
 			url = URI.parse('http://www.recalls.gov/rrcpsc.aspx')
 			@req = Net::HTTP::Get.new(url.path)
 			@res = Net::HTTP.start(url.host, url.port) {|http|  http.request(@req)}
@@ -238,80 +238,139 @@ class UpdateController < ApplicationController
 		end
 		####################end of get data from FDA site####################
 
-		
-
-
-
 		######################start of get data from NHTSA site Vehicles Recalls##############
-		#@date=Recall.where(:Category => 'Motor Vehicles').last.created_at.to_date
-		#url = URI.parse('http://www.recalls.gov/rrvehicles.aspx')
-		#@req = Net::HTTP::Get.new(url.path)
-		#@res = Net::HTTP.start(url.host, url.port) {|http|  http.request(@req)}
+		if Recall.where(:Category => 'Motor Vehicles').blank?
+			url = URI.parse('http://blogs.cars.com/kickingtires/recalls/')
+			@req = Net::HTTP::Get.new(url.path)
+			@res = Net::HTTP.start(url.host, url.port) {|http|  http.request(@req)}
 
-		#@RecallBasic2=Array.new
+			@RecallBasic2=Array.new
 
-		#@arr=@res.body.split("<p>")
-		#@arr.compact.each do |i|
-			#@j=i.partition('</a> (')[2] 
-#			@timeonsite=@j.partition(')')[0]
-#			@line=@timeonsite.to_date
-#			
-#			if !@line.nil?	
-#			
-				#@times=@timeonsite.to_time
-#				if @date < @line
-#					@SummaryAll=i.partition(') ')[2]
-#					@summary=@SummaryAll.partition('</p>')[0]
+			@arr=@res.body.split('<div class="entry" id="entry-')
+			@arr.compact.each do |i|
+				@j=i.partition('</a> |')[2] 
+				@timeonsite=@j.partition('| <a')[0]
+				@line=@timeonsite.to_date
+
+				@titleAll=i.partition('Recall Alert: ')[2]
+				@titleofRecall=@titleAll.partition('</a></h3>')[0]
+				if i.include? 'Read More'
+					@urlAll=i.partition('href="')[2]
+					@urlwithhref=@urlAll.partition('">Recall Alert: ')[0]
+
+					uri= @urlwithhref
+					url1 = URI.parse(uri)
+					@res1=Net::HTTP.start(url1.host, url1.port) do |http|
+						http.get(url1.request_uri)
+					end
+
+					@DescriptionAll=@res1.body.partition('<div class="entry-body">')[2]
+					@Description=@DescriptionAll.partition('<p><a href="http://blogs.cars.com/kickingtires/recalls/"')[0]
+				else
+					@DescriptionAll=i.partition('<div class="entry-body">')[2]
+					if @DescriptionAll.include? 'More Recalls'
+						if @DescriptionAll.include? '<p><strong><a href="' 
+							@Description=@DescriptionAll.partition('<p><strong><a href="')[0]	
+						else
+							@Description=@DescriptionAll.partition('<p><a href="')[0]
+						end
+					else
+						@Description=@DescriptionAll.partition('</div>')[0]
+					end				
+				end
+
+				if @Description.include? '<p><strong>Related'
+					@Description=@Description.partition('<p><strong>Related')[0]
+				end
+
+				if @Description.include? '<strong>Related</strong>'
+					@Description=@Description.partition('<strong>Related</strong>')[0]
+				end
+
+						if @Description.include? '</div>'
+							@Description['</div>']=' '
+						end
+
+				@RecallBasic2.push("Title:"+@titleofRecall+",,,,,,,Description:"+@Description)
+
+			@titleofRecall=@titleofRecall.encode('utf-8', :invalid => :replace, :undef => :replace, :replace => '')
+			#@summary=@summary.encode('utf-8', :invalid => :replace, :undef => :replace, :replace => '')
+			#@Hazard =@Hazard.encode('utf-8', :invalid => :replace, :undef => :replace, :replace => '')
+			@Description=@Description.encode('utf-8', :invalid => :replace, :undef => :replace, :replace => '')
+			Recall.create(:Category => "Motor Vehicles", :Details => @Description, :Title => @titleofRecall)
+				
+			end		
+		else
+			@date=Recall.where(:Category => 'Motor Vehicles').last.created_at.to_date
+			url = URI.parse('http://blogs.cars.com/kickingtires/recalls/')
+			@req = Net::HTTP::Get.new(url.path)
+			@res = Net::HTTP.start(url.host, url.port) {|http|  http.request(@req)}
+
+			@RecallBasic2=Array.new
 
 
-#					uris=i.partition('href="')[2]
-#					uri=uris.partition('" target="_blank"')[0]
-#					uri=uri.gsub /&amp;/, "&"
-#					url1 = URI.parse(uri)
-					
-#					@res1=Net::HTTP.start(url1.host, url1.port) do |http|
-#						http.get(url1.request_uri)
-#						end
-						#@htmlofPage.push(@res1.body)
+			@arr=@res.body.split('<div class="entry" id="entry-')
+			@arr.compact.each do |i|
 
-					#@h1all=@res1.body.partition('<title>')[2]
-#					@titleofRecall=@h1all.partition('</title>')[0]
-#						@titleofRecall=@res1.body
-					
-				#	@HazardAll=@res1.body.partition('Hazard:</span>')[2]
-				#	@HazardAfterPara=@HazardAll.partition('<p>')[2]
-				#	@Hazard=@HazardAfterPara.partition('</p>')[0]
+				@j=i.partition('</a> |')[2] 
+				@timeonsite=@j.partition('| <a')[0]
+				@line=@timeonsite.to_date
 
-#					@DescriptionAll=@res1.body.partition('FOR IMMEDIATE RELEASE</strong>')[2]
-					#@DescriptionAfterH5=@DescriptionAll.partition('<p style=" text-align: center;">###')[0]
-					#@Description=@res1.body.partition('FOR IMMEDIATE RELEASE</strong>')[2]
-					
+				if !@line.nil?
 
-#					if @DescriptionAll.include? '<p style=" text-align: center;">###'
-#						@Description=@DescriptionAll.partition('<p style=" text-align: center;">###')[0]
-#					elsif @DescriptionAll.include? "<p>###"
-#						@Description=@DescriptionAll.partition('<p>###')[0]
-#					elsif @DescriptionAll.include? '<p style="text-align: center">###'
-#							@Description=@DescriptionAll.partition('<p style="text-align: center">###')[0]
-#					end
+					if @date < @line
+						@titleAll=i.partition('Recall Alert: ')[2]
+						@titleofRecall=@titleAll.partition('</a></h3>')[0]
+						if i.include? 'Read More'
+					@urlAll=i.partition('href="')[2]
+					@urlwithhref=@urlAll.partition('">Recall Alert: ')[0]
 
+					uri= @urlwithhref
+					url1 = URI.parse(uri)
+					@res1=Net::HTTP.start(url1.host, url1.port) do |http|
+						http.get(url1.request_uri)
+					end
 
+					@DescriptionAll=@res1.body.partition('<div class="entry-body">')[2]
+					@Description=@DescriptionAll.partition('<p><a href="http://blogs.cars.com/kickingtires/recalls/"')[0]
+				else
+					@DescriptionAll=i.partition('<div class="entry-body">')[2]
+					if @DescriptionAll.include? 'More Recalls'
+						if @DescriptionAll.include? '<p><strong><a href="' 
+							@Description=@DescriptionAll.partition('<p><strong><a href="')[0]	
+						else
+							@Description=@DescriptionAll.partition('<p><a href="')[0]
+						end
+					else
+						@Description=@DescriptionAll.partition('</div>')[0]
+					end				
+				end
 
-					#@RecallBasic1.push('title: '+ @titleofRecall+',,,, Summary: '+@summary+',,, Hazard: '+@Hazard+',,,Description:'+@Description)
-					#@RecallBasic2.push('Summary: '+@summary)
-#					@RecallBasic2.push(@titleofRecall)
+				if @Description.include? '<p><strong>Related'
+					@Description=@Description.partition('<p><strong>Related')[0]
+				end
 
-#					@titleofRecall=@titleofRecall.encode('utf-8', :invalid => :replace, :undef => :replace, :replace => '')
-#					@summary=@summary.encode('utf-8', :invalid => :replace, :undef => :replace, :replace => '')
-					#@Hazard =@Hazard.encode('utf-8', :invalid => :replace, :undef => :replace, :replace => '')
-#					@Description=@Description.encode('utf-8', :invalid => :replace, :undef => :replace, :replace => '')
+				if @Description.include? '<strong>Related</strong>'
+					@Description=@Description.partition('<strong>Related</strong>')[0]
+				end
 
-#					Recall.create(:Category => "Foods, Medicines, Cosmetics", :Details => @Description, :Summary => @summary, :Title => @titleofRecall)
-#				end
-#			end
-#		end	
+						if @Description.include? '</div>'
+							@Description['</div>']=' '
+						end
+
+				@RecallBasic2.push("Title:"+@titleofRecall+",,,,,,,Description:"+@Description)
+
+			@titleofRecall=@titleofRecall.encode('utf-8', :invalid => :replace, :undef => :replace, :replace => '')
+			#@summary=@summary.encode('utf-8', :invalid => :replace, :undef => :replace, :replace => '')
+			#@Hazard =@Hazard.encode('utf-8', :invalid => :replace, :undef => :replace, :replace => '')
+			@Description=@Description.encode('utf-8', :invalid => :replace, :undef => :replace, :replace => '')
+			Recall.create(:Category => "Motor Vehicles", :Details => @Description, :Title => @titleofRecall)
+				
+					end
+				end		
+			end	
+		end
 		##################### end of get data from NHTSA site #####################
-
 		###############start of get data from Meat and Poultry Products FSIS site#############
 		if Recall.where(:Category => 'Meat and Poultry Products').blank?
 

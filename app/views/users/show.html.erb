@@ -41,6 +41,20 @@
 			</div>
 		</div>
 	</div>
+
+	<ul class="nav nav-pills">
+    	<li class="active">
+    		<a href="show">Search</a>
+    	</li>
+    	<li>
+    		<a href="/suppliers">Supplier</a>
+    	</li>
+    	<li>
+    		<a href="/vendors">Vendors</a>
+    	</li>
+    </ul>
+
+<div id="show">
 	<div class="span4">
     <% if @user.searches.any? %>
       <h3>Searches 	(<%= @user.searches.count %>)</h3>
@@ -50,6 +64,9 @@
       <%= will_paginate @searches %>
     <% end %>
   </div>
+</div>
+
+
 </div>
 <!--<a href="#ContactInfo" class="btn"  data-toggle="modal">Edit</a>
 <a href="#BasicInfo" class="btn"  data-toggle="modal">Edit</a>

@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
   attr_accessible :email, :name, :password, :password_confirmation, :cell_no, :address
    has_secure_password
    has_many :searches, dependent: :destroy
+   has_many :vendors, dependent: :destroy
+   has_many :suppliers, dependent: :destroy
 
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
@@ -29,11 +31,23 @@ class User < ActiveRecord::Base
   #VALID_CELL_NO_REGEX = /\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})/i
   #validates :cell_no, format: {with: VALID_CELL_NO_REGEX}
 
+  def Supplier_feed
+    # This is preliminary. See "Following users" for the full implementation.
+    Supplier.where("user_id = ?", id)
+  end
+
+   def Vendor_feed
+    # This is preliminary. See "Following users" for the full implementation.
+    Vendor.where("user_id = ?", id)
+  end
+
   private
 
   def create_remember_token
     self.remember_token = SecureRandom.urlsafe_base64
   end
+
+
 
 
 end

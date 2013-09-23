@@ -1,0 +1,24 @@
+<% provide(:title, @user.name) %>
+
+<div class="row">
+	<ul class="nav nav-pills">
+    	<li >
+    		<%= link_to "Profile", current_user %>
+    	</li>
+    	<li class="active">
+    		<a href="suppliers">Supplier</a>
+    	</li>
+    	<li>
+    		<a href="vendors">Vendors</a>
+    	</li>
+    </ul>
+  <div class="span8">
+    <% if @user.suppliers.any? %>
+      <h3>Suppliers (<%= @user.suppliers.count %>)</h3>
+      <ol class="microposts">
+        <%= render @suppliers %>
+      </ol>
+      <%= will_paginate @suppliers %>
+    <% end %>
+  </div>
+</div>

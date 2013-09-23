@@ -20,12 +20,12 @@
 							<div class="accordion-group"> 
 								<div class="accordion-heading"> 
 									<a class="accordion-toggle collapsed" href="#collapseOne" data-parent="#accordion2" data-toggle="collapse" style="color:black">
-										<b>Products</b>
+										<b>Categories</b>
 									</a>
 								</div>
 								<div id="collapseOne" class="accordion-body collapse" style="height: 0px;">
 									<div class="accordion-inner">
-										<% @products.each do |p,i| %>
+										<% @Categories.each do |p,i| %>
 										<% if !p.nil? %>
 											<%= link_to p,search_path(:Searching => p) %>(<%= i %>)
 											<br/>
@@ -34,23 +34,7 @@
 									</div>
 								</div>
  							</div>
-							<div class="accordion-group">
-								<div class="accordion-heading">
-									<a class="accordion-toggle collapsed" href="#collapseTwo" data-parent="#accordion2" data-toggle="collapse" style="color:black">
-                						<b>Hazards</b>
-                					</a>
-								</div>
-								<div id="collapseTwo" class="accordion-body collapse">
-	 								<div class="accordion-inner">
-	                					<% @hazards.each do |h,i| %>
-										<% if !h.nil? %>
-											<%= link_to h,search_path(:Searching => h) %>(<%= i %>)
-											<br/>
-											<% end %>
-										<% end %>
-    						        </div>
-								</div>
-							</div>
+							
 							<div class="accordion-group">
 								<div class="accordion-heading">
 									<a class="accordion-toggle collapsed" href="#collapseThree" data-parent="#accordion2" data-toggle="collapse" style="color:black">
@@ -104,7 +88,7 @@
 				<p >
 					<b><%= r.created_at.to_date %></b> 
 					<font color="#0088cc">
-						<a href="#<%= "#{i.to_s}" %>" role="button"  data-toggle="modal"><%= r.Title %></a>
+						<a href="#<%= "#{i.to_s}" %>" role="button"  data-toggle="modal"><%= r.Title.to_s.html_safe %></a>
 						
 						
 					</font>
@@ -114,7 +98,7 @@
 					<font color="Red">
 						Summary:
 					</font>
-					 <%= r.Summary %>
+					 <%= r.Summary.to_s.html_safe %>
 				</p>
 				<br/>
 				<br/>
@@ -128,38 +112,38 @@
 <div id="<%= "#{i.to_s}" %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 id="myModalLabel"><%= r.Title %></h3>
+			<h3 id="myModalLabel"><%= r.Title.to_s.html_safe %></h3>
 		</div>
 		<div class="modal-body">
 			<p>
 				<b>Manufacturer</b>
 			</p>
 			<p>
-				<%= r.Manufacturer %>
+				<%= r.Manufacturer.to_s.html_safe  %>
 			</p>
 			<p>
 				<b>Product</b>
 			</p>
 			<p>
-				<%= r.Products %>
+				<%= r.Products.to_s.html_safe %>
 			</p>
 			<p>
 				<b>Summary</b>
 			</p>
 			<p>
-				<%= r.Summary %>
+				<%= r.Summary.to_s.html_safe %>
 			</p>
 			<p>
 				<b>Description</b>
 			</p>
 			<p>
-				<%= r.Details %>
+				<%= r.Details.to_s.html_safe %>
 			</p>
 			<p>
 				<b>Hazard</b>
 			</p>
 			<p>
-				<%= r.Hazards %>
+				<%= r.Hazards.to_s.html_safe %>
 			</p>
 			<p>
 				<b>Date Created</b>
