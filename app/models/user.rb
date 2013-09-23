@@ -10,6 +10,7 @@
 #
 
 class User < ActiveRecord::Base
+  set_primary_key :id 
   attr_accessible :email, :name, :password, :password_confirmation, :cell_no, :address
    has_secure_password
    has_many :searches, dependent: :destroy

@@ -1,4 +1,5 @@
 class Search < ActiveRecord::Base
+	set_primary_key :id 
   attr_accessible :searches
   belongs_to :user
 

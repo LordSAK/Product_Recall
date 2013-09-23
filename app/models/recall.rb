@@ -1,4 +1,5 @@
 class Recall < ActiveRecord::Base
+	set_primary_key :id 
   attr_accessible :Category, :Details, :Summary, :Time, :Title,:Manufacturer,:Products,:Hazards
 
 	def self.search(search)
