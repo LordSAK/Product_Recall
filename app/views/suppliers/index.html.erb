@@ -1,5 +1,4 @@
 <% provide(:title, @user.name) %>
-
 <div class="row">
 	<ul class="nav nav-pills">
     	<li >
@@ -9,16 +8,33 @@
     		<a href="suppliers">Supplier</a>
     	</li>
     	<li>
-    		<a href="vendors">Vendors</a>
+    		<a href="vendors">Vendor</a>
     	</li>
+      <li >
+        <a href="histories">History</a>
+      </li>
     </ul>
+    <% if signed_in? %>
+  <div class="row">
+    <aside class="span4">
+      <section>
+        <%= render 'shared/supplier_form' %>
+      </section>
+    </aside>
+  </div>
+<% else %>
+  <div class="center hero-unit">
+    <%= link_to "Sign up now!", signup_path,
+                                class: "btn btn-large btn-primary" %>
+  </div>
+<% end %>
   <div class="span8">
     <% if @user.suppliers.any? %>
       <h3>Suppliers (<%= @user.suppliers.count %>)</h3>
       <ol class="microposts">
-        <%= render @suppliers %>
+        <%= render @supplier %>
       </ol>
-      <%= will_paginate @suppliers %>
+      <%= will_paginate @supplier %>
     <% end %>
   </div>
 </div>

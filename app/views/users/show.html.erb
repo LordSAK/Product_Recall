@@ -17,31 +17,34 @@
 <div class="row">
 	<aside class="span4">
 		<section>
-			<h1>
-				<%= gravatar_for @user %>
+			<h1>				
 				<%= @user.name %>
 			</h1>
 		</section>
 	</aside>
 	<hr>
 	<p></p>
-	<div class="container">
-		<div class="row-fluid">
-			<div class="span4">
+<div class="row">
+	 		<div class="span4">
 				<h4>Basics</h4>
 				<p><b>Phone:</b> <%= @user.cell_no %></p>
 				<p><b>Alert Type:</b> Alerts on Email & Phone</p>
 				<p><b>Address:</b> <%= @user.address %></p>
 			</div>
-			<br/>
-			<div class="sapn4">
+			
+			<div class="span4">
 				<h4>Preferred Interaction</h4>
-				<p> <b>Email:</b> <%= @user.email %></p>
+				<p> <b>Email:</b> <%= 	@user.email %></p>
 				<p> <b>Phone:</b> <%= @user.cell_no %></p>
 			</div>
-		</div>
-	</div>
-
+			
+			<div class="span4">
+				<h4>Remaining Alerts</h4>
+				<p> <b>Alerts Sent:</b> <%= @user.alerts.to_i-60 %></p>
+				<p> <b>AlertRemaining:</b> <%= @user.alerts %></p>
+			</div>
+</div>
+<hr>
 	<ul class="nav nav-pills">
     	<li class="active">
     		<a href="show">Search</a>
@@ -50,8 +53,11 @@
     		<a href="/suppliers">Supplier</a>
     	</li>
     	<li>
-    		<a href="/vendors">Vendors</a>
+    		<a href="/vendors">Vendor</a>
     	</li>
+    	<li >
+        	<a href="/histories">History</a>
+      	</li>
     </ul>
 
 <div id="show">

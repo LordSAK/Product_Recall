@@ -1,5 +1,5 @@
-<%= form_for(@vendor) do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
+<%= form_for :vendors, :url => {:action => "create"} do |f| %>
+
   <div class="field">
     <%= f.text_area :vendor, placeholder: "Add new vendor..." %>
   </div>

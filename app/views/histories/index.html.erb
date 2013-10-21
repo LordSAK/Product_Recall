@@ -1,0 +1,22 @@
+<% provide(:title, @user.name) %>
+<div class="row">
+ <ul class="nav nav-pills">
+      <li >
+        <%= link_to "Profile", current_user %>
+      </li>
+      <li>
+        <a href="suppliers">Supplier</a>
+      </li>
+      <li>
+        <a href="vendors">Vendor</a>
+      </li>
+      <li class="active">
+        <a href="histories">History</a>
+      </li>
+    </ul>
+  <div class="span8">
+    
+  </div>
+<div id='chart'></div>
+<%= render_chart(@chart, 'chart') %> 
+</div>

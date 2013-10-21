@@ -4,6 +4,7 @@ ProductRecall::Application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
   resources :vendors
   resources :suppliers
+  resources :histories
 
   root to: 'administrator_pages#home'
 
@@ -30,6 +31,9 @@ ProductRecall::Application.routes.draw do
   match "/search",  to: 'search#Search', :as => :search
 
   match "/update",to: 'update#All',:as => :update
+
+    match "/email", to: 'emailer#index'
+    match "/emailer", to: 'emailer#sendmail'
 
 
   # The priority is based upon order of creation:

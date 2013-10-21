@@ -1,17 +1,16 @@
 <% provide(:title, @user.name) %>
-
 	
 <div class="row">
 	<ul class="nav nav-pills">
-    	<li>
-    		<%= link_to "Profile", current_user %>
-    	</li>
-    	<li>
-    		<a href="/suppliers">Supplier</a>
-    	</li>
-    	<li class="active">
-    		<a href="/vendors">Vendors</a>
-    	</li>
+    	<li >
+        <a href="show">Search</a>
+      </li>
+      <li >
+        <a href="supplier">Supplier</a>
+      </li>
+      <li class="active">
+        <a href="vendor">Vendors</a>
+      </li>
     </ul>
   <div class="span8">
     <% if @user.vendors.any? %>
@@ -22,5 +21,4 @@
       <%= will_paginate @vendors %>
     <% end %>
   </div>
-</div>
 </div>

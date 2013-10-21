@@ -11,11 +11,12 @@
 
 class User < ActiveRecord::Base
   set_primary_key :id 
-  attr_accessible :email, :name, :password, :password_confirmation, :cell_no, :address
+  attr_accessible :email, :name, :password, :password_confirmation, :cell_no, :address,:usertype, :alerts
    has_secure_password
    has_many :searches, dependent: :destroy
    has_many :vendors, dependent: :destroy
    has_many :suppliers, dependent: :destroy
+   has_many :histories,dependent: :destroy
 
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
