@@ -10,6 +10,30 @@ class Recall < ActiveRecord::Base
   		end
 	end
 
+	def self.searchall(keyword,from,to,category)
+		find(:all,:conditions=>['"created_at" BETWEEN ? AND ? and "Category" = ? or "Details" LIKE ? or "Summary" LIKE ? or "Title" LIKE ? or "Manufacturer" LIKE ? or "Products" LIKE ? or "Hazards" LIKE ?',"{from}","{to}","{category}","%#{keyword}%","%#{keyword}%","%#{keyword}%","%#{keyword}%","%#{keyword}%","%#{keyword}%"])
+	end
+
+	def self.searchkeyBetween(keyword,from,to)
+		find(:all,:conditions=>['"created_at" BETWEEN ? AND ? and or "Details" LIKE ? or "Summary" LIKE ? or "Title" LIKE ? or "Manufacturer" LIKE ? or "Products" LIKE ? or "Hazards" LIKE ?',"{from}","{to}","%#{keyword}%","%#{keyword}%","%#{keyword}%","%#{keyword}%","%#{keyword}%","%#{keyword}%"])
+	end
+
+	def self.searchkeyinCat(keyword,category)
+		find(:all,:conditions=>['"Category" = ? or "Details" LIKE ? or "Summary" LIKE ? or "Title" LIKE ? or "Manufacturer" LIKE ? or "Products" LIKE ? or "Hazards" LIKE ?',"{category}","%#{keyword}%","%#{keyword}%","%#{keyword}%","%#{keyword}%","%#{keyword}%","%#{keyword}%"])
+	end
+
+	def self.searchBetween(from,to)
+		find(:all,:conditions=>['"created_at" BETWEEN ? AND ?',"{from}","{to}"])
+	end
+
+	def self.searchBetweeninCat(from,to,category)
+		find(:all,:conditions=>['"created_at" BETWEEN ? AND ? and "Category" = ?',"{from}","{to}","{category}"])
+	end
+
+	def self.searchingCat(category)
+		find(:all,:conditions=>['"Category" LIKE ?',"%#{category}%"])
+	end
+
 	require 'net/http'
 	def All
 		###############Get data from CPSC site Consumer Products Recall######################

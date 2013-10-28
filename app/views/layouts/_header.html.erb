@@ -9,9 +9,7 @@
           
           
           <% if signed_in? %>
-            <form action='<%= search_path %>' method='get' class="navbar-search pull-left">
-              <input type="text" class="search-query" name='Searching' placeholder="Search">
-            </form>
+          
             <li><%= link_to "Recalls", "/recalls" %></li>
             <li><%= link_to "Users", users_path %></li>
             <li id="fat-menu" class="dropdown">

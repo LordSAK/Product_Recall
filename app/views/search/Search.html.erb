@@ -1,11 +1,6 @@
 <% provide(:title, "Search") %>
 
-<div class="center hero-unit">
-  <h1 style="font-size:35px;">Product Recalls</h1>
-  <h2>
-    Search
-  </h2>
-</div>
+
 <div>
 	<p> <%= @keyword %> </p>
 </div>
@@ -82,7 +77,7 @@
 		
 
 		<div class="span9">
-
+			<% if !@recalls.nil? %>
 			<% @recalls.each_with_index do |r,i| %>
 			<% if !r.Title.nil? %>
 				<p >
@@ -104,10 +99,11 @@
 				<br/>
 				<%end%>
 			<% end %>
-
+			<% end %>
 		</div>
 	</div>
 </div>
+<% if !@recalls.nil? %>
 <% @recalls.each_with_index do |r,i| %>
 <div id="<%= "#{i.to_s}" %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-header">
@@ -157,4 +153,5 @@
 			<button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
 		</div>
 	</div>
+<%end%>
 <%end%>
