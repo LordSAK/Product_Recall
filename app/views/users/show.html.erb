@@ -29,7 +29,13 @@
 <div class="row">
 	 		<div class="span4">
 				<h4>Basic</h4>
-				<p><b>Phone:</b> <%= number_to_phone(@user.cell_no, :groupings => [3, 3, 4], :delimiter => "-") %></p>
+				<p> <b>Phone:</b>
+					<% if @user.cell_no.include? "(" %>
+						<%= @user.cell_no.to(7)+"-"+@user.cell_no.last(4) %>
+					<% else %>
+						<%= @user.cell_no.to(2)+"-"+@user.cell_no.from(3).to(-5)+"-"+@user.cell_no.last(4)%>
+					<% end %>
+				</p>
 				<p><b>Alert Type:</b> Alerts on Email & Phone</p>
 				<p><b>Address:</b> <%= @user.address %></p>
 			</div>
@@ -37,12 +43,12 @@
 			<div class="span4">
 				<h4>Preferred Interaction</h4>
 				<p> <b>Email:</b> <%= 	@user.email %></p>
-				<p> <b>Phone:</b> <%= number_to_phone(@user.cell_no, :groupings => [3, 3, 4], :delimiter => "-") %></p>
+				<p> <b>Phone:</b> <%= @user.cell_no.to(7)+"-"+@user.cell_no.last(4) %></p>
 			</div>
 			
 			<div class="span4">
 				<h4>Remaining Alerts</h4>
-				<p> <b>Alerts Sent:</b> <%= @user.alerts.to_i-60 %></p>
+				<p> <b>Alerts Sent:</b> <%= 60-@user.alerts.to_i %></p>
 				<p> <b>AlertRemaining:</b> <%= @user.alerts %></p>
 			</div>
 </div>
