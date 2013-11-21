@@ -19,46 +19,7 @@
 	<%= render 'layouts/header' %>
 
     <div class="container">
-      <% if signed_in? %>
-        <form action='<%= search_path %>' method='get' class="pull-left">
-          <div class="hero-unit">
-            <table>
-              <tr>
-                <td  valign="top">
-                  <div class="span4" >
-                    <h6>Keyword:</h6>
-                    <input type="text" name='Searching' placeholder="Search">
-                  </div>
-                </td>
-                <td >
-                  <div class="span4">
-                    <h6>From:</h6>
-                     <input type="text" name="from" data-behaviour='datepicker' data-date-format="yyyy-mm-dd">
-                    <h6>To:</h6> <input type="text" name="to" data-behaviour='datepicker' data-date-format="yyyy-mm-dd">
-                    <script type="text/javascript">
-                      $('[data-behaviour~=datepicker]').datepicker();
-                    </script>
-                  </div>
-                </td>
-                <td valign="top">
-                  <div class="span4">
-                    <h6>Category:</h6>
-                    <select name="Category" style="height:38px">
-                      <option value="All">All</option>
-                      <option value="Consumer Products">Consumer Products</option>
-                      <option value="Foods, Medicines, Cosmetics">Foods, Medicines, Cosmetics</option>
-                      <option value="Meat and Poultry Products">Meat and Poultry Products</option>
-                      <option value="Boats and Boating Safety">Boats and Boating Safety</option>
-                      <option value="Motor Vehicles">Motor Vehicles</option>
-                    </select>
-                    <input type="Submit" style="float:right" class="btn btn-large btn-primary" text="Search" value="Search">
-                  </div>
-                </td>
-              </tr>
-            </table>
-          </div>
-        </form>
-        <% end %>
+      
       
       <% flash.each do |key, value| %>
         <div class="alert alert-<%= key %>"><%= value %></div>

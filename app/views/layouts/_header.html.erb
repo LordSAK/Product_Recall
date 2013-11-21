@@ -3,13 +3,25 @@
     <div class="container">
       <%= link_to "Product Recalls", root_path, id: "logo" %>
 
-      
+
       <nav>
-        <ul class="nav pull-right">
+       
+          <ul class="nav pull-right">
           
+           <% if signed_in? %>
+          <% if current_user.usertype == 'Basic' %>
+            <li>
+
+            <form action='<%= search_path %>' method='get' style="margin-top:5px" >
+              <% if !params[:Searchings].nil? %>
+                  <input type="text" name='Searchings' value="<%= params['Searchings'] %>" class="search-query">
+              <% else %>
+                  <input type="text" name='Searchings' placeholder="Search" class="search-query">
+              <% end %>
+            </form></li>
+            <% end %> 
           
-          <% if signed_in? %>
-          
+            
             <li><%= link_to "Recalls", "/recalls" %></li>
             <li><%= link_to "Users", users_path %></li>
             <li id="fat-menu" class="dropdown">
@@ -30,6 +42,7 @@
             <li><%= link_to "Sign up", signup_path %></li>
           <% end %>
         </ul>
+        
       </nav>
     </div>
   </div>

@@ -9,7 +9,6 @@ gem 'will_paginate', '3.0.3'
 gem 'bootstrap-will_paginate', '0.0.6'
 gem 'bootstrap-datepicker-rails'
 gem "google_visualr", "~> 2.1.0" 
-
 gem 'twitter-bootstrap-rails'
 
 group :development, :test do

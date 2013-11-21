@@ -1,10 +1,15 @@
 ProductRecall::Application.routes.draw do
 
+  get "admin_feature/edit"
+
+  get "password_resets/new"
+
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   resources :vendors
   resources :suppliers
   resources :histories
+  resources :password_resets
 
   root to: 'administrator_pages#home'
 

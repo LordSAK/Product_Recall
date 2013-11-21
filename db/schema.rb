@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131014100242) do
+ActiveRecord::Schema.define(:version => 20131113092418) do
 
   create_table "histories", :force => true do |t|
     t.datetime "TimeLogin"
@@ -58,16 +58,18 @@ ActiveRecord::Schema.define(:version => 20131014100242) do
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
     t.string   "password_digest"
     t.string   "remember_token"
-    t.boolean  "admin",           :default => false
+    t.boolean  "admin",                  :default => false
     t.string   "cell_no"
     t.string   "address"
     t.string   "type"
-    t.string   "usertype"
+    t.string   "usertype",               :default => "Basic"
     t.integer  "alerts"
+    t.string   "password_reset_token"
+    t.datetime "password_reset_sent_at"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

@@ -1,11 +1,84 @@
 <% provide(:title, "Product Recalls") %>
 
-<!--<div class="center hero-unit">
-  <h1 style="font-size:35px;">Product Recalls</h1>
-  <h2>
-		Recalls
-  </h2>
-</div>-->
+	<% if signed_in? %>
+        <% if current_user.usertype == "Paid" %>
+          <form action='<%= search_path %>' method='get' class="pull-left">
+            <div class="hero-unit">
+              <table>
+                <tr>
+                  <td  valign="top">
+                    <div class="span4" >
+                      <h6>Keyword:</h6>
+                      <% if @keyword.nil? %>
+                      <input type="text" name='Searching' placeholder="Search">
+                      <% else %>
+                      <input type="text" name='Searching' value="<% @keyword %>">
+                      <% end %>
+                    </div>
+                  </td>
+                  <td >
+                    <div class="span4">
+                      <h6>From:</h6>
+                      <% if @from.nil? %>
+                      	<input type="text" name="from" data-behaviour='datepicker' data-date-format="yyyy-mm-dd">
+                      <% else %>
+                      	<input type="text" name="from" data-behaviour='datepicker' data-date-format="yyyy-mm-dd" value="<% @from %>">
+                      <% end %>
+                      <h6>To:</h6>
+                      <% if @from.nil? %>
+                       <input type="text" name="to" data-behaviour='datepicker' data-date-format="yyyy-mm-dd">
+                       <% else %>
+						<input type="text" name="to" data-behaviour='datepicker' data-date-format="yyyy-mm-dd" value="<% @to %>">
+                       <% end %>
+                      <script type="text/javascript">
+                      $('[data-behaviour~=datepicker]').datepicker();
+                      </script>
+                    </div>
+                  </td>
+                  <td valign="top">
+                    <div class="span4">
+                      <h6>Category:</h6>
+                      <select name="Category" style="height:38px">
+                        <option value="All">All</option>
+                        <% if @Cat == "Consumer Products" %>
+                        	<option value="Consumer Products" selected>Consumer Products</option>
+                        <% else %>
+                        	<option value="Consumer Products">Consumer Products</option>
+                        <%end%>
+
+                        <% if @Cat == "Foods, Medicines, Cosmetics" %>
+                        	<option value="Foods, Medicines, Cosmetics" selected>Foods, Medicines, Cosmetics</option>
+                        <% else %>
+                        	<option value="Foods, Medicines, Cosmetics">Foods, Medicines, Cosmetics</option>
+                        <% end %>
+
+                        <% if @Cat == "Meat and Poultry Products" %>
+                        	<option value="Meat and Poultry Products" selected>Meat and Poultry Products</option>
+                        <%else%>
+                        	<option value="Meat and Poultry Products">Meat and Poultry Products</option>
+                        <% end %>
+
+                        <% if @Cat == "Boats and Boating Safety" %>
+                        	<option value="Boats and Boating Safety" selected>Boats and Boating Safety</option>
+                        <% else %>
+                        	<option value="Boats and Boating Safety">Boats and Boating Safety</option>
+                        <% end %>
+                        
+                        <% if @Cat == "Motor Vehicles" %>
+                        	<option value="Motor Vehicles" selected>Motor Vehicles</option>
+                        <% else %>
+                        	<option value="Motor Vehicles">Motor Vehicles</option>
+                        <% end %>
+                      </select>
+                      <input type="Submit" style="float:right" class="btn btn-large btn-primary" text="Search" value="Search">
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </form>
+        <% end %>
+      <% end %>
 
 <% if current_user.admin? %>
 	<a href="#CreateRecall" role="button" class="btn" data-toggle="modal">Create New Recall</a>
@@ -222,7 +295,7 @@
 					<b>Date Created</b>
 				</p>
 				<p>
-					<%= r.created_at.to_date %>
+					<%= r.created_at.to_time.strftime('%b %d, %Y') %>
 				</p>
 				<hr>
 			</div>

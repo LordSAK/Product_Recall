@@ -28,8 +28,8 @@
 	<p></p>
 <div class="row">
 	 		<div class="span4">
-				<h4>Basics</h4>
-				<p><b>Phone:</b> <%= @user.cell_no %></p>
+				<h4>Basic</h4>
+				<p><b>Phone:</b> <%= number_to_phone(@user.cell_no, :groupings => [3, 3, 4], :delimiter => "-") %></p>
 				<p><b>Alert Type:</b> Alerts on Email & Phone</p>
 				<p><b>Address:</b> <%= @user.address %></p>
 			</div>
@@ -37,7 +37,7 @@
 			<div class="span4">
 				<h4>Preferred Interaction</h4>
 				<p> <b>Email:</b> <%= 	@user.email %></p>
-				<p> <b>Phone:</b> <%= @user.cell_no %></p>
+				<p> <b>Phone:</b> <%= number_to_phone(@user.cell_no, :groupings => [3, 3, 4], :delimiter => "-") %></p>
 			</div>
 			
 			<div class="span4">
