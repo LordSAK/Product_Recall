@@ -323,7 +323,7 @@ class UpdateController < ApplicationController
 						@titleofRecall=@titleAll.partition('</a></h3>')[0]
 						if i.include? 'Read More'
 					@urlAll=i.partition('href="')[2]
-					@urlwithhref=@urlAll.partition('">Recall Alert: ')[0]
+					@urlwithhref=@urlAll.partition('">')[0]
 
 					uri= @urlwithhref
 					url1 = URI.parse(uri)
@@ -481,7 +481,15 @@ class UpdateController < ApplicationController
 							elsif @DescriptionAll.include? "<p>FSIS has received no reports of"
 								@Description=@DescriptionAll.partition('<p>FSIS has received no reports of')[0]
 							end
-
+							if @titleofRecall.nil?
+								@titleofRecall=''
+							end
+							if @summary.nil?
+								@summary=''
+							end
+							if @Description.nil?
+								@Description=''
+							end
 							#@RecallBasic1.push('title: '+ @titleofRecall+',,,, Summary: '+@summary+',,, Hazard: '+@Hazard+',,,Description:'+@Description)
 							@RecallBasic3.push('title: '+ @titleofRecall+',,,, Summary: '+@summary+',,,Description:'+@Description)
 

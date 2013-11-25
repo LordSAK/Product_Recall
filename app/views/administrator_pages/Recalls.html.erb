@@ -222,7 +222,7 @@
 				<div id="<%= i %>" class="tab-pane active">
 					<% Recall.where("\"Category\" = ?", c.Category).each_with_index do |r,j| %>
 						<p>
-
+							<b><%= r.created_at.to_time.strftime('%b %d, %Y') %></b>
 							<a href="#<%= "#{i.to_s+j.to_s}" %>" role="button"  data-toggle="modal"><%= r.Title.html_safe %></a>
 								<% if current_user.admin? %>
 							 		| <%= link_to 'Edit', :action => :edit, :id => r.id %>
@@ -237,7 +237,7 @@
 				<div id="<%= i %>" class="tab-pane">
 					<% Recall.where("\"Category\" = ?", c.Category).each_with_index do |r,j| %>
 						<p>
-
+							<b><%= r.created_at.to_time.strftime('%b %d, %Y') %></b>
 							<a href="#<%= "#{i.to_s+j.to_s}" %>" role="button"  data-toggle="modal"><%= r.Title.html_safe %></a>
 								<% if current_user.admin? %>
 							 		| <%= link_to 'Edit', :action => :edit, :id => r.id %>
