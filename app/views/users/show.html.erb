@@ -66,6 +66,11 @@
     	<li >
         	<a href="/histories">History</a>
       	</li>
+      	<% if current_user.admin? %>
+      		<li >
+        		<a href="/admin_feature">Administrator settings</a>
+      		</li>
+      	<% end %>
     </ul>
 
 <div id="show">

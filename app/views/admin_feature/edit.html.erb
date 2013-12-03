@@ -1,2 +1,36 @@
-<h1>AdminFeature#edit</h1>
-<p>Find me in app/views/admin_feature/edit.html.erb</p>
+<% provide(:title, "Administrator settings") %> 
+<div class="row">
+	<ul class="nav nav-pills">
+    	<li >
+        <%= link_to "Profile", current_user %>
+      </li>
+    	<li>
+    		<a href="suppliers">Supplier</a>
+    	</li>
+    	<li>
+    		<a href="vendors">Vendors</a>
+    	</li>
+    	<li >
+        <a href="histories">History</a>
+      </li>
+              <% if current_user.admin? %>
+          <li  class="active">
+            <a href="/admin_feature">Administrator settings</a>
+          </li>
+        <% end %>
+    </ul>
+  	<div class="span6 offset3">
+  		<%= form_for(@admin, :url => {:action => :update}) do |f| %>
+			<%= f.label :Advance_Search_allow, "Allow advance search?" %>
+			<%= f.select :Advance_Search_allow, options_for_select(["Yes", "No"], @admin.Advance_Search_allow) %>
+
+			<%= f.label :paid_Alert, "Number of alerts to send for Pro Users" %>
+			<%= f.text_field :paid_Alert %>
+
+			<%= f.label :basic_Alert, "Number of alerts to send for Basic Users" %>
+			<%= f.text_field :basic_Alert %>
+
+			<%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
+		<% end %>
+	</div>
+</div>

@@ -11,7 +11,8 @@
 
 class User < ActiveRecord::Base
   set_primary_key :id 
-  attr_accessible :email, :name, :password, :password_confirmation, :cell_no, :address,:usertype, :alerts
+  attr_accessible :email, :name, :password, :password_confirmation,
+   :cell_no, :address,:usertype, :alerts,:Advance_Search_allow,:paid_Alert,:basic_Alert
    has_secure_password
    has_many :searches, dependent: :destroy
    has_many :vendors, dependent: :destroy
@@ -29,7 +30,9 @@ class User < ActiveRecord::Base
   				format: { with: VALID_EMAIL_REGEX },
   				uniqueness: {case_sensitive: false }
   
+  
   validates :password,  length: { minimum: 6 }
+
   validates :password_confirmation, presence: true
 
   #VALID_CELL_NO_REGEX = /\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})/i

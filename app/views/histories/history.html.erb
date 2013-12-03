@@ -11,6 +11,11 @@
     	<li>
     		<a href="vendor">Vendors</a>
     	</li>
+        <% if current_user.admin? %>
+        <li >
+          <a href="/admin_feature">Administrator settings</a>
+        </li>
+        <% end %>
     </ul>
   <div class="span8">
     <% if @user.histories.any? %>

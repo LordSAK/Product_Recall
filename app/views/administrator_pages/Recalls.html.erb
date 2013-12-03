@@ -1,23 +1,24 @@
 <% provide(:title, "Product Recalls") %>
-
-	<% if signed_in? %>
-        <% if current_user.usertype == "Paid" %>
-          <form action='<%= search_path %>' method='get' class="pull-left">
-            <div class="hero-unit">
-              <table>
-                <tr>
-                  <td  valign="top">
-                    <div class="span4" >
+<% if signed_in? %>
+	<% @admin_val =  User.select(:Advance_Search_allow).where(:id=>1) %>
+		<% @admin_val.each do|a| %>
+		    <% if a.Advance_Search_allow =='Yes' %>
+		        <form action='<%= search_path %>' method='get' class="pull-left">
+	        	<div class="hero-unit">
+	        		<table>
+	        			<tr>
+	        				<td  valign="top">
+	        					<div class="span4" >
                       <h6>Keyword:</h6>
                       <% if @keyword.nil? %>
                       <input type="text" name='Searching' placeholder="Search">
                       <% else %>
                       <input type="text" name='Searching' value="<% @keyword %>">
                       <% end %>
-                    </div>
-                  </td>
-                  <td >
-                    <div class="span4">
+                                </div>
+                            </td>
+                            <td >
+                            	<div class="span4">
                       <h6>From:</h6>
                       <% if @from.nil? %>
                       	<input type="text" name="from" data-behaviour='datepicker' data-date-format="yyyy-mm-dd">
@@ -33,10 +34,10 @@
                       <script type="text/javascript">
                       $('[data-behaviour~=datepicker]').datepicker();
                       </script>
-                    </div>
-                  </td>
-                  <td valign="top">
-                    <div class="span4">
+                                </div>
+                            </td>
+                            <td valign="top">
+                            	<div class="span4">
                       <h6>Category:</h6>
                       <select name="Category" style="height:38px">
                         <option value="All">All</option>
@@ -71,36 +72,111 @@
                         <% end %>
                       </select>
                       <input type="Submit" style="float:right" class="btn btn-large btn-primary" text="Search" value="Search">
-                    </div>
-                  </td>
-                </tr>
-              </table>
-            </div>
-          </form>
-        <% end %>
-      <% end %>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                </form>
+            <% else %>
+                <% if current_user.usertype == "Paid" %>
+                   	<form action='<%= search_path %>' method='get' class="pull-left">
+                   		<div class="hero-unit">
+            	<table>
+                	<tr>
+			            <td  valign="top">
+            		        <div class="span4" >
+                    	    	<h6>Keyword:</h6>
+                      			<% if @keyword.nil? %>
+		                      		<input type="text" name='Searching' placeholder="Search">
+        	                	<% else %>
+              		          		<input type="text" name='Searching' value="<%= @keyword %>">
+	                        	<% end %>
+      		                </div>
+              		    </td>
+                  		<td >
+		                    <div class="span4">
+        		            	<h6>From:</h6>
+                		    	<% if @from.nil? %>
+                      				<input type="text" name="from" data-behaviour='datepicker' data-date-format="yyyy-mm-dd">
+                      			<% else %>
+                      				<input type="text" name="from" data-behaviour='datepicker' data-date-format="yyyy-mm-dd" value="<%= @from %>">
+                      			<% end %>
+                      			<h6>To:</h6>
+                      			<% if @from.nil? %>
+                       				<input type="text" name="to" data-behaviour='datepicker' data-date-format="yyyy-mm-dd">
+                       			<% else %>
+									<input type="text" name="to" data-behaviour='datepicker' data-date-format="yyyy-mm-dd" value="<%= @to %>">
+                       			<% end %>
+                      			<script type="text/javascript">
+                      				$('[data-behaviour~=datepicker]').datepicker();
+                      			</script>
+                    		</div>
+                  		</td>
+                  		<td valign="top">
+                    		<div class="span4">
+                      			<h6>Category:</h6>
+                      			<select name="Category" style="height:38px">
+                        			<option value="All">All</option>
+                        			<% if @Cat == "Consumer Products" %>
+                        				<option value="Consumer Products" selected>Consumer Products			</option>
+                        			<% else %>
+                        				<option value="Consumer Products">Consumer Products</option>
+                        			<%end%>
 
-<% if current_user.admin? %>
-	<a href="#CreateRecall" role="button" class="btn" data-toggle="modal">Create New Recall</a>
-	<br/>
-	<br/>
-<% end %>
+                        			<% if @Cat == "Foods, Medicines, Cosmetics" %>
+                        				<option value="Foods, Medicines, Cosmetics" selected>Foods, Medicines, Cosmetics</option>
+                        			<% else %>
+                        				<option value="Foods, Medicines, Cosmetics">Foods, Medicines, Cosmetics</option>
+                        			<% end %>
 
-<div id="CreateRecall" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		<h3 id="myModalLabel">Modal header</h3>
-	</div>
-	<%= form_for :recall, :url => {:action => :create}  do |f| %>
+                        			<% if @Cat == "Meat and Poultry Products" %>
+                        				<option value="Meat and Poultry Products" selected>Meat and Poultry Products</option>
+                        			<%else%>
+                        				<option value="Meat and Poultry Products">Meat and Poultry Products</option>
+                        			<% end %>		
+
+                        			<% if @Cat == "Boats and Boating Safety" %>
+                        				<option value="Boats and Boating Safety" selected>Boats and Boating Safety</option>
+                        			<% else %>
+                        				<option value="Boats and Boating Safety">Boats and Boating Safety</option>
+                        			<% end %>
+                        			<% if @Cat == "Motor Vehicles" %>
+                        				<option value="Motor Vehicles" selected>Motor Vehicles</option>
+                        			<% else %>
+                        				<option value="Motor Vehicles">Motor Vehicles</option>
+                        			<% end %>
+                      			</select>
+                      			<input type="Submit" style="float:right" class="btn btn-large btn-primary" text="Search" value="Search">
+                    		</div>
+                  		</td>
+                	</tr>
+            	</table>
+            	   	    </div>
+            	   	</form>
+            	<% end %>
+            <% end %>
+        <%end%>
+    <% end %>
+
+	<% if current_user.admin? %>
+		<a href="#CreateRecall" role="button" class="btn" data-toggle="modal">Create New Recall</a>
+		<br/>
+		<br/>
 	
-		<div class="modal-body">
-			
 
+	<div id="CreateRecall" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="myModalLabel">Modal header</h3>
+		</div>
+		<%= form_for :recall, :url => {:action => :create}  do |f| %>
+			<div class="modal-body">
 				<%= f.label :Category, "Category" %>
 
-			<div class="control-group">
-				<div class="controls">	
-					<%= f.select :Category,options_for_select(["Consumer Products",
+				<div class="control-group">
+					<div class="controls">	
+						<%= f.select :Category,options_for_select(["Consumer Products",
 						"Foods, Medicines, Cosmetics",
 						"Meat and Poultry Products",
 						"Motor Vehicles",
@@ -109,58 +185,58 @@
 						"Vehicle Emissions",
 						"Environmental Products",
 						"Boats and Boating Safety"]), {:style => "height:40px"} %>
+					</div>
 				</div>
-			</div>
 
-			<%= f.label :Products, "Product" %>
-			<div class="control-group">
-				<div class="controls">
-					<%= f.select :Products, options_for_select(["All Terrain Vehicles (ATV)",
-						"Saws",
-						"Gasoline",
-						"Door Sills or Frames",
-						"Fuels and Gas and Oils",
-						"Sports and Recreation",
-						"Toys",
-						"Fans",
-						"Lawn Mowers",
-						"Grass And Leaf Catchers",
-						"Home Appliances, Maintenance",
-						"Babies and Kids",
-						"Other Grills",
-						"Swings or Swing Sets",
-						"Electrical Systems",
-						"Portable Generators",
-						"Yard and Garden",
-						"Recreational Vehicles",
-						"Other Bags",
-						"Gardening and Landscaping"]), { :style => "height:40px"} %>
+				<%= f.label :Products, "Product" %>
+				<div class="control-group">
+					<div class="controls">
+						<%= f.select :Products, options_for_select(["All Terrain Vehicles (ATV)",
+							"Saws",
+							"Gasoline",
+							"Door Sills or Frames",
+							"Fuels and Gas and Oils",
+							"Sports and Recreation",
+							"Toys",
+							"Fans",
+							"Lawn Mowers",
+							"Grass And Leaf Catchers",
+							"Home Appliances, Maintenance",
+							"Babies and Kids",
+							"Other Grills",
+							"Swings or Swing Sets",
+							"Electrical Systems",
+							"Portable Generators",
+							"Yard and Garden",
+							"Recreational Vehicles",
+							"Other Bags",
+							"Gardening and Landscaping"]), { :style => "height:40px"} %>
+					</div>
 				</div>
-			</div>
-			<div class="form-inline">
-				<%= f.label :Manufacturer,"Manufacturer" %>
-			</div>
-			<%= f.text_field :Manufacturer %>
+				<div class="form-inline">
+					<%= f.label :Manufacturer,"Manufacturer" %>
+				</div>
+				<%= f.text_field :Manufacturer %>
 
-			<div class="form-inline">
-				<%= f.label :Title, "Title" %>
-			</div>
-			<%= f.text_field :Title %>
+				<div class="form-inline">
+					<%= f.label :Title, "Title" %>
+				</div>
+				<%= f.text_field :Title %>
 
-			<div class="form-inline">
-				<%= f.label :Summary, "Summary" %>
-			</div>
-			<%= f.text_field :Summary %>
+				<div class="form-inline">
+					<%= f.label :Summary, "Summary" %>
+				</div>
+				<%= f.text_field :Summary %>
 
-			<div class="form-inline">
-				<%= f.label :Details, "Details" %>
-			</div>
-			<%= f.text_field :Details %>
+				<div class="form-inline">
+					<%= f.label :Details, "Details" %>
+				</div>
+				<%= f.text_field :Details %>
 
-			<%= f.label :Hazards, "Hazard" %>
-			<div class="control-group">
-				<div class="controls">
-					<%= f.select :Hazards, options_for_select(["Injury",
+				<%= f.label :Hazards, "Hazard" %>
+				<div class="control-group">
+					<div class="controls">
+						<%= f.select :Hazards, options_for_select(["Injury",
 						"Fire",
 						"Collision",
 						"Cuts",
@@ -178,130 +254,121 @@
 						"Ejection",
 						"Strangulation",
 						"Bruising"]), { :style => "height:40px"} %>
+					</div>
 				</div>
 			</div>
 
-		</div>
-
-		<br/>
-		<br/>
-		<div class="modal-footer">
-			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-			<%= f.submit "Create Recall", class: "btn btn-large btn-primary" %>
-		</div>
-   	<% end %>
-</div>
-
-
-
-
-
-<div class="tabbable tabs-left">
-	
-	<ul class="nav nav-tabs">
-		<% @categories.each_with_index do |c,i| %>
-			<% if i == 0 %>
-				<li class="active">
-					<a data-toggle="tab" href="#<%= i %>">
-						<%= c.Category %>
-					</a>
-				</li>
-			<% else %>
-				<li>
-					<a data-toggle="tab" href="#<%= i %>">
-						<%= c.Category %>
-					</a>
-				</li>
-			<% end %>
-		<% end %>
-	</ul>
-	
-	<div class="tab-content">
-		<% @categories.each_with_index do |c,i| %>
-			<% if i == 0 %>
-				<div id="<%= i %>" class="tab-pane active">
-					<% Recall.where("\"Category\" = ?", c.Category).each_with_index do |r,j| %>
-						<p>
-							<b><%= r.created_at.to_time.strftime('%b %d, %Y') %></b>
-							<a href="#<%= "#{i.to_s+j.to_s}" %>" role="button"  data-toggle="modal"><%= r.Title.html_safe %></a>
-								<% if current_user.admin? %>
-							 		| <%= link_to 'Edit', :action => :edit, :id => r.id %>
-                                   	| <%= link_to "Delete", :id => r.id,:action => 'destroy', method: :delete, 
-                                   	confirm: "You sure?"  %>
-                                <% end %>
-						</p>
-
-					<% end %>
-				</div>
-			<% else %>
-				<div id="<%= i %>" class="tab-pane">
-					<% Recall.where("\"Category\" = ?", c.Category).each_with_index do |r,j| %>
-						<p>
-							<b><%= r.created_at.to_time.strftime('%b %d, %Y') %></b>
-							<a href="#<%= "#{i.to_s+j.to_s}" %>" role="button"  data-toggle="modal"><%= r.Title.html_safe %></a>
-								<% if current_user.admin? %>
-							 		| <%= link_to 'Edit', :action => :edit, :id => r.id %>
-                                   	| <%= link_to "Delete", :id => r.id,:action => 'destroy', method: :delete, 
-                                   	confirm: "You sure?"  %>
-                                <% end %>
-						</p>
-
-					<% end %>
-				</div>
-			<% end %>
-		<% end %>
-	</div>
-</div>
-
-<% @categories.each_with_index do |c,i| %>
-	<% Recall.where("\"Category\" = ?", c.Category).each_with_index do |r,j| %>
-		<div id="<%= "#{i.to_s+j.to_s}" %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h4 id="myModalLabel"><%= r.Title.html_safe %></h4>
-			</div>
-			<div class="modal-body">
-				<p>
-					<b>Manufacturer</b>
-				</p>
-				<p>
-					<%= r.Manufacturer.to_s.html_safe %>
-				</p>
-				<p>
-					<b>Product</b>
-				</p>
-				<p>
-					<%= r.Products.to_s.html_safe %>
-				</p>
-				<p>
-					<b>Summary</b>
-				</p>
-				<p>
-					<%= r.Summary.to_s.html_safe %>
-				</p>
-				<p>
-					<b>Description</b>
-				</p>
-				<p>
-					<%= r.Details.to_s.html_safe %>
-				</p>
-				<p>
-					<b>Hazard</b>
-				</p>
-				<p>
-					<%= r.Hazards.to_s.html_safe %>
-				</p>
-				<p>
-					<b>Date Created</b>
-				</p>
-				<p>
-					<%= r.created_at.to_time.strftime('%b %d, %Y') %>
-				</p>
-				<hr>
-			</div>
+			<br/>
+			<br/>
 			<div class="modal-footer">
-				<button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+				<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+				<%= f.submit "Create Recall", class: "btn btn-large btn-primary" %>
 			</div>
+	   	<% end %>
+	</div>
+<% end %>
+
+	<div class="tabbable tabs-left">
+		<ul class="nav nav-tabs">
+			<% @categories.each_with_index do |c,i| %>
+				<% if i == 0 %>
+					<li class="active">
+						<a data-toggle="tab" href="#<%= i %>">
+							<%= c.Category %>
+						</a>
+					</li>
+				<% else %>
+					<li>
+						<a data-toggle="tab" href="#<%= i %>">
+							<%= c.Category %>
+						</a>
+					</li>
+				<% end %>
+			<% end %>
+		</ul>
+	
+		<div class="tab-content">
+			<% @categories.each_with_index do |c,i| %>
+				<% if i == 0 %>
+					<div id="<%= i %>" class="tab-pane active">
+						<% Recall.where("\"Category\" = ?", c.Category).each_with_index do |r,j| %>
+							<p>
+								<b><%= r.created_at.to_time.strftime('%b %d, %Y') %></b>
+								<a href="#<%= "#{i.to_s+j.to_s}" %>" role="button"  data-toggle="modal"><%= r.Title.html_safe %></a>
+								<% if current_user.admin? %>
+								  	| <%= link_to "Delete", :id => r.id,:action => 'destroy', method: :delete, 
+                               			confirm: "You sure?"  %>
+                               	<% end %>
+							</p>
+						<% end %>
+					</div>
+				<% else %>
+					<div id="<%= i %>" class="tab-pane">
+						<% Recall.where("\"Category\" = ?", c.Category).each_with_index do |r,j| %>
+							<p>
+								<b><%= r.created_at.to_time.strftime('%b %d, %Y') %></b>
+								<a href="#<%= "#{i.to_s+j.to_s}" %>" role="button"  data-toggle="modal"><%= r.Title.html_safe %></a>
+								<% if current_user.admin? %>
+                                   	| <%= link_to "Delete", :id => r.id,:action => 'destroy', method: :delete, 
+                                   	confirm: "You sure?"  %>
+                                <% end %>
+							</p>
+						<% end %>
+					</div>
+				<% end %>
+			<% end %>
 		</div>
+	</div>
+
+	<% @categories.each_with_index do |c,i| %>
+		<% Recall.where("\"Category\" = ?", c.Category).each_with_index do |r,j| %>
+			<div id="<%= "#{i.to_s+j.to_s}" %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 id="myModalLabel"><%= r.Title.html_safe %></h4>
+				</div>
+				<div class="modal-body">
+					<p>
+						<b>Manufacturer</b>
+					</p>
+					<p>
+						<%= r.Manufacturer.to_s.html_safe %>
+					</p>
+					<p>
+						<b>Product</b>
+					</p>
+					<p>
+						<%= r.Products.to_s.html_safe %>
+					</p>
+					<p>
+						<b>Summary</b>
+					</p>
+					<p>
+						<%= r.Summary.to_s.html_safe %>
+					</p>
+					<p>
+						<b>Description</b>
+					</p>
+					<p>
+						<%= r.Details.to_s.html_safe %>
+					</p>
+					<p>
+						<b>Hazard</b>
+					</p>	
+					<p>
+						<%= r.Hazards.to_s.html_safe %>
+					</p>
+					<p>
+						<b>Date Created</b>
+					</p>
+					<p>
+						<%= r.created_at.to_time.strftime('%b %d, %Y') %>
+					</p>
+					<hr>
+				</div>	
+				<div class="modal-footer">
+					<button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+				</div>
+			</div>
 	<% end %>
 <% end %>

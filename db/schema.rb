@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131113092418) do
+ActiveRecord::Schema.define(:version => 20131129115638) do
 
   create_table "histories", :force => true do |t|
     t.datetime "TimeLogin"
@@ -55,25 +55,8 @@ ActiveRecord::Schema.define(:version => 20131113092418) do
 
   add_index "suppliers", ["user_id", "created_at"], :name => "index_suppliers_on_user_id_and_created_at"
 
-  create_table "users", :force => true do |t|
-    t.string   "name"
-    t.string   "email"
-    t.datetime "created_at",                                  :null => false
-    t.datetime "updated_at",                                  :null => false
-    t.string   "password_digest"
-    t.string   "remember_token"
-    t.boolean  "admin",                  :default => false
-    t.string   "cell_no"
-    t.string   "address"
-    t.string   "type"
-    t.string   "usertype",               :default => "Basic"
-    t.integer  "alerts"
-    t.string   "password_reset_token"
-    t.datetime "password_reset_sent_at"
-  end
-
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
+# Could not dump table "users" because of following StandardError
+#   Unknown type 'bool' for column 'Advance_Search_allow'
 
   create_table "vendors", :force => true do |t|
     t.string   "vendor"

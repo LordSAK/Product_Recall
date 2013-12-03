@@ -8,35 +8,39 @@
        
           <ul class="nav pull-right">
           
-           <% if signed_in? %>
-          <% if current_user.usertype == 'Basic' %>
-            <li>
-
-            <form action='<%= search_path %>' method='get' style="margin-top:5px" >
-              <% if !params[:Searchings].nil? %>
-                  <input type="text" name='Searchings' value="<%= params['Searchings'] %>" class="search-query">
-              <% else %>
-                  <input type="text" name='Searchings' placeholder="Search" class="search-query">
+          <% if signed_in? %>
+              <% @admin_val =  User.select(:Advance_Search_allow).where(:id=>1) %>
+              <% @admin_val.each do |a| %>
+              <% if a.Advance_Search_allow =='No' %>
+                <% if current_user.usertype == 'Basic' %>
+                  <li>
+                    <form action='<%= search_path %>' method='get' style="margin-top:5px" >
+                      <% if !params[:Searchings].nil? %>
+                        <input type="text" name='Searchings' value="<%= params['Searchings'] %>" class="search-query">
+                      <% else %>
+                        <input type="text" name='Searchings' placeholder="Search" class="search-query">
+                      <% end %>
+                    </form>
+                  </li>
+                <% end %>
+                <%end%> 
               <% end %>
-            </form></li>
-            <% end %> 
-          
-            
-            <li><%= link_to "Recalls", "/recalls" %></li>
-            <li><%= link_to "Users", users_path %></li>
-            <li id="fat-menu" class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+
+              <li><%= link_to "Recalls", "/recalls" %></li>
+              <li><%= link_to "Users", users_path %></li>
+              <li id="fat-menu" class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Account <b class="caret"></b>
-              </a>
-              <ul class="dropdown-menu">
-                <li><%= link_to "Profile", current_user %></li>
-                <li><%= link_to "Settings", edit_user_path(current_user) %></li>
-                <li class="divider"></li>
-                <li>
-                  <%= link_to "Sign out", signout_path, method: "delete" %>
-                </li>
-              </ul>
-            </li>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to "Profile", current_user %></li>
+                  <li><%= link_to "Settings", edit_user_path(current_user) %></li>
+                  <li class="divider"></li>
+                  <li>
+                    <%= link_to "Sign out", signout_path, method: "delete" %>
+                  </li>
+                </ul>
+              </li>
           <% else %>
             <li><%= link_to "Sign in", signin_path %></li>
             <li><%= link_to "Sign up", signup_path %></li>

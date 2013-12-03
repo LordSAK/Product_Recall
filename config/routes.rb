@@ -1,7 +1,7 @@
 ProductRecall::Application.routes.draw do
 
-  get "admin_feature/edit"
 
+  #get "admin_feature/edit"
   get "password_resets/new"
 
   resources :users
@@ -17,6 +17,7 @@ ProductRecall::Application.routes.draw do
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
 
+
   match '/about',   to: 'administrator_pages#about'
 #  match '/recalls',  to: 'administrator_pages#Recalls'
 
@@ -26,6 +27,7 @@ ProductRecall::Application.routes.draw do
   match '/recalls',  to: 'administrator_pages#Recalls', :as => :recalls
   match '/edit/:id', to: 'administrator_pages#edit', :as => :edit_recall
   put '/update/:id', to: 'administrator_pages#update', :as => :update_recall
+
 #  get "administrator_pages/Recalls"
   get "users/new"
 
@@ -39,6 +41,9 @@ ProductRecall::Application.routes.draw do
 
     match "/email", to: 'emailer#index'
     match "/emailer", to: 'emailer#sendmail'
+
+    match "/admin_feature", to: 'admin_feature#edit'
+    match "/admin_feature/update",to: 'admin_feature#update'
 
 
   # The priority is based upon order of creation:
