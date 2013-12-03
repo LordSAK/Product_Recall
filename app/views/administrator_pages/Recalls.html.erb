@@ -1,7 +1,8 @@
 <% provide(:title, "Product Recalls") %>
 <% if signed_in? %>
 	<% @admin_val =  User.select("\"Advance_Search_allow\"").where("\"id\"=1") %>
-		<% @admin_val.each do|a| %>
+		<% @admin_val.each_with_index do|a,i| %>
+		 <% if i==0 %>
 		    <% if a.Advance_Search_allow == 'Yes' %>
 		        <form action='<%= search_path %>' method='get' class="pull-left">
 	        	<div class="hero-unit">
@@ -157,22 +158,21 @@
             	<% end %>
             <% end %>
         <%end%>
+        <%end %>
     <% end %>
 
 	<% if current_user.admin? %>
 		<a href="#CreateRecall" role="button" class="btn" data-toggle="modal">Create New Recall</a>
 		<br/>
 		<br/>
-	
-
-	<div id="CreateRecall" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 id="myModalLabel">Modal header</h3>
-		</div>
-		<%= form_for :recall, :url => {:action => :create}  do |f| %>
-			<div class="modal-body">
-				<%= f.label :Category, "Category" %>
+		<div id="CreateRecall" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="	true">×</button>
+				<h3 id="myModalLabel">Modal header</h3>
+			</div>
+			<%= form_for :recall, :url => {:action => :create}  do |f| %>
+				<div class="modal-body">
+					<%= f.label :Category, "Category" %>
 
 				<div class="control-group">
 					<div class="controls">	
@@ -256,17 +256,17 @@
 						"Bruising"]), { :style => "height:40px"} %>
 					</div>
 				</div>
-			</div>
+				</div>
 
-			<br/>
-			<br/>
-			<div class="modal-footer">
-				<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-				<%= f.submit "Create Recall", class: "btn btn-large btn-primary" %>
-			</div>
-	   	<% end %>
-	</div>
-<% end %>
+				<br/>
+				<br/>
+				<div class="modal-footer">
+					<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+					<%= f.submit "Create Recall", class: "btn btn-large btn-primary" %>
+				</div>
+	   		<% end %>
+		</div>
+	<% end %>
 
 	<div class="tabbable tabs-left">
 		<ul class="nav nav-tabs">
