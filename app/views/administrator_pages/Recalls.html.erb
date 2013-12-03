@@ -1,8 +1,8 @@
 <% provide(:title, "Product Recalls") %>
 <% if signed_in? %>
-	<% @admin_val =  User.select(:Advance_Search_allow).where(:id=>1) %>
+	<% @admin_val =  User.select("\"Advance_Search_allow\"").where("\"id\"=1") %>
 		<% @admin_val.each do|a| %>
-		    <% if a.Advance_Search_allow =='Yes' %>
+		    <% if a.Advance_Search_allow  %>
 		        <form action='<%= search_path %>' method='get' class="pull-left">
 	        	<div class="hero-unit">
 	        		<table>

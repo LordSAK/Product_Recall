@@ -9,7 +9,7 @@
           <ul class="nav pull-right">
           
           <% if signed_in? %>
-              <% @admin_val =  User.select(:Advance_Search_allow).where(:id=>1) %>
+              <% @admin_val =  User.select("\"Advance_Search_allow\"").where("\"id\"=1") %>
               <% @admin_val.each do |a| %>
               <% if a.Advance_Search_allow =='No' %>
                 <% if current_user.usertype == 'Basic' %>
