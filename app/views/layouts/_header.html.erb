@@ -11,6 +11,7 @@
           <% if signed_in? %>
               <% @admin_val =  User.select("\"Advance_Search_allow\"").where("\"id\"=1") %>
               <% @admin_val.each do |a| %>
+              <p> <%= a.Advance_Search_allow %></p>
               <% if a.Advance_Search_allow =='No' %>
                 <% if current_user.usertype == 'Basic' %>
                   <li>

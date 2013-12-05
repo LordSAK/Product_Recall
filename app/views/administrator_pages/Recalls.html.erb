@@ -2,7 +2,8 @@
 <% if signed_in? %>
 	<% @admin_val =  User.select("\"Advance_Search_allow\"").where("\"id\"=1") %>
 		<% @admin_val.each_with_index do|a,i| %>
-		 <% if i==0 %>
+		 <p> <%= a.Advance_Search_allow.to_s %></p><% if i==0 %>
+		 
 		    <% if a.Advance_Search_allow == 'Yes' %>
 		        <form action='<%= search_path %>' method='get' class="pull-left">
 	        	<div class="hero-unit">
@@ -81,6 +82,7 @@
                 </form>
             <% else %>
                 <% if current_user.usertype == "Paid" %>
+
                    	<form action='<%= search_path %>' method='get' class="pull-left">
                    		<div class="hero-unit">
             	<table>
