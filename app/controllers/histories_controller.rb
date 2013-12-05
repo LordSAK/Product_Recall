@@ -13,7 +13,7 @@ class HistoriesController < ApplicationController
     #data_table.new_column('number', 'Expenses')
 
 
-@historys=ActiveRecord::Base.connection.select_rows('SELECT DATE("TimeLogin") AS d, COUNT(*) AS c FROM histories GROUP BY DATE("TimeLogin");')
+    @historys=ActiveRecord::Base.connection.select_rows('SELECT DATE("TimeLogin") AS d, COUNT(*) AS c FROM histories GROUP BY DATE("TimeLogin");')
     #@historys1=current_user.histories.where("date(created_at) > ?", 1.days.ago).group("date(created_at)").count
     #@historys2=current_user.histories.where("date(created_at) > ?", 2.days.ago).group("date(created_at)").count
     #@historys3=current_user.histories.where("date(created_at) > ?", 3.days.ago).group("date(created_at)").count

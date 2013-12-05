@@ -8,6 +8,7 @@ class AdministratorPagesController < ApplicationController
 
   def Recalls
   	@categories = Recall.select("DISTINCT(\"Category\")")
+    #@categories.push('All')
   end
 
   def new 

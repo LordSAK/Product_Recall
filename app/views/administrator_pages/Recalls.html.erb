@@ -274,12 +274,17 @@
 				<% if i == 0 %>
 					<li class="active">
 						<a data-toggle="tab" href="#<%= i %>">
+							All
+						</a>
+					</li>
+					<li>
+						<a data-toggle="tab" href="#<%= i+1 %>">
 							<%= c.Category %>
 						</a>
 					</li>
 				<% else %>
 					<li>
-						<a data-toggle="tab" href="#<%= i %>">
+						<a data-toggle="tab" href="#<%= i+1 %>">
 							<%= c.Category %>
 						</a>
 					</li>
@@ -291,10 +296,24 @@
 			<% @categories.each_with_index do |c,i| %>
 				<% if i == 0 %>
 					<div id="<%= i %>" class="tab-pane active">
+						<% Recall.all.each_with_index do |r,j| %>
+							<p>
+								<font class="linklabel"><%=r.created_at.to_time.strftime('%b %d, %Y') %>:
+								</font>
+									<a href="#<%= "#{i.to_s+j.to_s}" %>" role="button"  data-toggle="modal"><%= r.Title.html_safe %></a>
+								<% if current_user.admin? %>
+								  	| <%= link_to "Delete", :id => r.id,:action => 'destroy', method: :delete, 
+                               			confirm: "You sure?"  %>
+                               	<% end %>
+							</p>
+						<% end %>
+					</div>
+					<div id="<%= i+1 %>" class="tab-pane active">
 						<% Recall.where("\"Category\" = ?", c.Category).each_with_index do |r,j| %>
 							<p>
-								<b><%= r.created_at.to_time.strftime('%b %d, %Y') %></b>
-								<a href="#<%= "#{i.to_s+j.to_s}" %>" role="button"  data-toggle="modal"><%= r.Title.html_safe %></a>
+								<font class="linklabel"><%=r.created_at.to_time.strftime('%b %d, %Y') %>:
+								</font>
+									<a href="#<%= "#{(i+1).to_s+j.to_s}" %>" role="button"  data-toggle="modal"><%= r.Title.html_safe %></a>
 								<% if current_user.admin? %>
 								  	| <%= link_to "Delete", :id => r.id,:action => 'destroy', method: :delete, 
                                			confirm: "You sure?"  %>
@@ -303,11 +322,12 @@
 						<% end %>
 					</div>
 				<% else %>
-					<div id="<%= i %>" class="tab-pane">
+					<div id="<%= i+1 %>" class="tab-pane">
 						<% Recall.where("\"Category\" = ?", c.Category).each_with_index do |r,j| %>
 							<p>
-								<b><%= r.created_at.to_time.strftime('%b %d, %Y') %></b>
-								<a href="#<%= "#{i.to_s+j.to_s}" %>" role="button"  data-toggle="modal"><%= r.Title.html_safe %></a>
+								<font class="linklabel"> <%= r.created_at.to_time.strftime('%b %d, %Y') %>
+								</font>
+								<a href="#<%= "#{(i+1).to_s+j.to_s}" %>" role="button"  data-toggle="modal"><%= r.Title.html_safe %></a>
 								<% if current_user.admin? %>
                                    	| <%= link_to "Delete", :id => r.id,:action => 'destroy', method: :delete, 
                                    	confirm: "You sure?"  %>
@@ -321,54 +341,157 @@
 	</div>
 
 	<% @categories.each_with_index do |c,i| %>
-		<% Recall.where("\"Category\" = ?", c.Category).each_with_index do |r,j| %>
-			<div id="<%= "#{i.to_s+j.to_s}" %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					<h4 id="myModalLabel"><%= r.Title.html_safe %></h4>
+		<% if i==0 %>
+			<% Recall.all.each_with_index do |r,j| %>
+				<div id="<%= "#{i.to_s+j.to_s}" %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h4 id="myModalLabel"><%= r.Title.html_safe %></h4>
+					</div>
+					<div class="modal-body">
+						<p>
+							<b>Manufacturer</b>
+						</p>
+						<p>
+							<%= r.Manufacturer.to_s.html_safe %>
+						</p>
+						<p>
+							<b>Product</b>
+						</p>
+						<p>
+							<%= r.Products.to_s.html_safe %>
+						</p>
+						<p>
+							<b>Summary</b>
+						</p>
+						<p>
+							<%= r.Summary.to_s.html_safe %>
+						</p>
+						<p>
+							<b>Description</b>
+						</p>
+						<p>
+							<%= r.Details.to_s.html_safe %>
+						</p>
+						<p>
+							<b>Hazard</b>
+						</p>	
+						<p>
+							<%= r.Hazards.to_s.html_safe %>
+						</p>
+						<p>
+							<b>Date Created</b>
+						</p>
+						<p>
+							<%= r.created_at.to_time.strftime('%b %d, %Y') %>
+						</p>
+						<hr>
+					</div>	
+					<div class="modal-footer">
+						<button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+					</div>
 				</div>
-				<div class="modal-body">
-					<p>
-						<b>Manufacturer</b>
-					</p>
-					<p>
-						<%= r.Manufacturer.to_s.html_safe %>
-					</p>
-					<p>
-						<b>Product</b>
-					</p>
-					<p>
-						<%= r.Products.to_s.html_safe %>
-					</p>
-					<p>
-						<b>Summary</b>
-					</p>
-					<p>
-						<%= r.Summary.to_s.html_safe %>
-					</p>
-					<p>
-						<b>Description</b>
-					</p>
-					<p>
-						<%= r.Details.to_s.html_safe %>
-					</p>
-					<p>
-						<b>Hazard</b>
-					</p>	
-					<p>
-						<%= r.Hazards.to_s.html_safe %>
-					</p>
-					<p>
-						<b>Date Created</b>
-					</p>
-					<p>
-						<%= r.created_at.to_time.strftime('%b %d, %Y') %>
-					</p>
-					<hr>
-				</div>	
-				<div class="modal-footer">
-					<button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+			<% end %>
+			<% Recall.where("\"Category\" = ?", c.Category).each_with_index do |r,j| %>
+				<div id="<%= "#{(i+1).to_s+j.to_s}" %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h4 id="myModalLabel"><%= r.Title.html_safe %></h4>
+					</div>
+					<div class="modal-body">
+						<p>
+							<b>Manufacturer</b>
+						</p>
+						<p>
+							<%= r.Manufacturer.to_s.html_safe %>
+						</p>
+						<p>
+							<b>Product</b>
+						</p>
+						<p>
+							<%= r.Products.to_s.html_safe %>
+						</p>
+						<p>
+							<b>Summary</b>
+						</p>
+						<p>
+							<%= r.Summary.to_s.html_safe %>
+						</p>
+						<p>
+							<b>Description</b>
+						</p>
+						<p>
+							<%= r.Details.to_s.html_safe %>
+						</p>
+						<p>
+							<b>Hazard</b>
+						</p>	
+						<p>
+							<%= r.Hazards.to_s.html_safe %>
+						</p>
+						<p>
+							<b>Date Created</b>
+						</p>
+						<p>
+							<%= r.created_at.to_time.strftime('%b %d, %Y') %>
+						</p>
+						<hr>
+					</div>	
+					<div class="modal-footer">
+						<button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+					</div>
 				</div>
-			</div>
+			<% end %>
+		<%else %>
+			<% Recall.where("\"Category\" = ?", c.Category).each_with_index do |r,j| %>
+				<div id="<%= "#{(i+1).to_s+j.to_s}" %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h4 id="myModalLabel"><%= r.Title.html_safe %></h4>
+					</div>
+					<div class="modal-body">
+						<p>
+							<b>Manufacturer</b>
+						</p>
+						<p>
+							<%= r.Manufacturer.to_s.html_safe %>
+						</p>
+						<p>
+							<b>Product</b>
+						</p>
+						<p>
+							<%= r.Products.to_s.html_safe %>
+						</p>
+						<p>
+							<b>Summary</b>
+						</p>
+						<p>
+							<%= r.Summary.to_s.html_safe %>
+						</p>
+						<p>
+							<b>Description</b>
+						</p>
+						<p>
+							<%= r.Details.to_s.html_safe %>
+						</p>
+						<p>
+							<b>Hazard</b>
+						</p>	
+						<p>
+							<%= r.Hazards.to_s.html_safe %>
+						</p>
+						<p>
+							<b>Date Created</b>
+						</p>
+						<p>
+							<%= r.created_at.to_time.strftime('%b %d, %Y') %>
+						</p>
+						<hr>
+					</div>	
+					<div class="modal-footer">
+						<button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+					</div>
+				</div>
+			<% end %>
+		<% end %>
 	<% end %>
-<% end %>
