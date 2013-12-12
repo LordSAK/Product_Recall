@@ -25,6 +25,11 @@ ProductRecall::Application.routes.draw do
   match 'destroy', to: 'administrator_pages#destroy'
 #  match 'edit', to: 'administrator_pages#edit'
   match '/recalls',  to: 'administrator_pages#Recalls', :as => :recalls
+  match '/recalls1', to: 'administrator_pages#Recalls1', :as => :recalls1
+  match '/recalls2', to: 'administrator_pages#Recalls2', :as => :recalls2
+  match '/recalls3', to: 'administrator_pages#Recalls3', :as => :recalls3
+
+
   match '/edit/:id', to: 'administrator_pages#edit', :as => :edit_recall
   put '/update/:id', to: 'administrator_pages#update', :as => :update_recall
 

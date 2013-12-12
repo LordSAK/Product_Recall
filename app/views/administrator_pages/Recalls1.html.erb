@@ -164,7 +164,8 @@
     <% end %>
 
 
-	<%= select_tag(:sorttype, options_for_select([['Newest to oldest',0],['Oldest to newest',1],['A to Z',2],['Z to A',3]],0), { :style => "height:37px; width:170px", :class => 'pull-right'}) %>
+	<%= select_tag(:sorttype, options_for_select([['Newest to oldest',0],['Oldest to newest',1],['A to Z',2],['Z to A',3]],1), { :style => "height:37px; width:170px", :class => 'pull-right'}) %>
+
 	<% if current_user.admin? %>
 		<a href="#CreateRecall" role="button" class="btn" data-toggle="modal">Create New Recall</a>
 		<br/>
@@ -283,16 +284,16 @@
       	}
       	else if($(this).val() == 1)
         {
-  			window.location="/recalls1";
-      	}
+        	window.location="/recalls1";
+     	}
       	else if($(this).val() == 2)
         {
-        	window.location="/recalls2"      	
-      	}
+        	window.location="/recalls2";
+       	}
       	else if($(this).val() == 3)
       	{
-      		window.location="/recalls3";
-    	}
+    		window.location="/recalls3";
+      	}
        });
    });
 	</script>
@@ -327,7 +328,7 @@
 			<% @categories.each_with_index do |c,i| %>
 				<% if i == 0 %>
 					<div id="<%= i %>" class="tab-pane active">
-						<% Recall.order('created_at DESC').each_with_index do |r,j| %>
+						<% Recall.order('created_at ASC').each_with_index do |r,j| %>
 							<p>
 								<font class="linklabel"><%=r.created_at.to_time.strftime('%b %d, %Y') %>:
 								</font>
@@ -340,7 +341,7 @@
 						<% end %>
 					</div>
 					<div id="<%= i+1 %>" class="tab-pane active">
-						<% Recall.where("\"Category\" = ?", c.Category).order('created_at DESC').each_with_index do |r,j| %>
+						<% Recall.where("\"Category\" = ?", c.Category).order('created_at ASC').each_with_index do |r,j| %>
 							<p>
 								<font class="linklabel"><%=r.created_at.to_time.strftime('%b %d, %Y') %>:
 								</font>
@@ -354,7 +355,7 @@
 					</div>
 				<% else %>
 					<div id="<%= i+1 %>" class="tab-pane">
-						<% Recall.where("\"Category\" = ?", c.Category).order('created_at DESC').each_with_index do |r,j| %>
+						<% Recall.where("\"Category\" = ?", c.Category).order('created_at ASC').each_with_index do |r,j| %>
 							<p>
 								<font class="linklabel"> <%= r.created_at.to_time.strftime('%b %d, %Y') %>
 								</font>
@@ -373,7 +374,7 @@
 
 	<% @categories.each_with_index do |c,i| %>
 		<% if i==0 %>
-			<% Recall.order('created_at DESC').each_with_index do |r,j| %>
+			<% Recall.order('created_at ASC').each_with_index do |r,j| %>
 				<div id="<%= "#{i.to_s+j.to_s}" %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -423,7 +424,7 @@
 					</div>
 				</div>
 			<% end %>
-			<% Recall.where("\"Category\" = ?", c.Category).order('created_at DESC').each_with_index do |r,j| %>
+			<% Recall.where("\"Category\" = ?", c.Category).order('created_at ASC').each_with_index do |r,j| %>
 				<div id="<%= "#{(i+1).to_s+j.to_s}" %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -474,7 +475,7 @@
 				</div>
 			<% end %>
 		<%else %>
-			<% Recall.where("\"Category\" = ?", c.Category).order('created_at DESC').each_with_index do |r,j| %>
+			<% Recall.where("\"Category\" = ?", c.Category).order('created_at ASC').each_with_index do |r,j| %>
 				<div id="<%= "#{(i+1).to_s+j.to_s}" %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>

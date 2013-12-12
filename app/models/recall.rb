@@ -1,7 +1,7 @@
 class Recall < ActiveRecord::Base
 	set_primary_key :id 
   attr_accessible :Category, :Details, :Summary, :Time, :Title,:Manufacturer,:Products,:Hazards
-
+ # default_scope -> { order('created_at DESC') }
 	def self.search(search)
 		if search
     		find(:all, :conditions => ['"Category" LIKE ? or "Details" LIKE ? or "Summary" LIKE ? or "Title" LIKE ? or "Manufacturer" LIKE ? or "Products" LIKE ? or "Hazards" LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%"])
