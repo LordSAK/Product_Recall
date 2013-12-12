@@ -328,7 +328,7 @@
 			<% @categories.each_with_index do |c,i| %>
 				<% if i == 0 %>
 					<div id="<%= i %>" class="tab-pane active">
-						<% Recall.order('Title DESC').each_with_index do |r,j| %>
+						<% Recall.order('"Title" DESC').each_with_index do |r,j| %>
 							<p>
 								<font class="linklabel"><%=r.created_at.to_time.strftime('%b %d, %Y') %>:
 								</font>
@@ -341,7 +341,7 @@
 						<% end %>
 					</div>
 					<div id="<%= i+1 %>" class="tab-pane active">
-						<% Recall.where("\"Category\" = ?", c.Category).order('Title DESC').each_with_index do |r,j| %>
+						<% Recall.where("\"Category\" = ?", c.Category).order('"Title" DESC').each_with_index do |r,j| %>
 							<p>
 								<font class="linklabel"><%=r.created_at.to_time.strftime('%b %d, %Y') %>:
 								</font>
@@ -355,7 +355,7 @@
 					</div>
 				<% else %>
 					<div id="<%= i+1 %>" class="tab-pane">
-						<% Recall.where("\"Category\" = ?", c.Category).order('Title DESC').each_with_index do |r,j| %>
+						<% Recall.where("\"Category\" = ?", c.Category).order('"Title" DESC').each_with_index do |r,j| %>
 							<p>
 								<font class="linklabel"> <%= r.created_at.to_time.strftime('%b %d, %Y') %>
 								</font>
@@ -374,7 +374,7 @@
 
 	<% @categories.each_with_index do |c,i| %>
 		<% if i==0 %>
-			<% Recall.order('Title DESC').each_with_index do |r,j| %>
+			<% Recall.order('"Title" DESC').each_with_index do |r,j| %>
 				<div id="<%= "#{i.to_s+j.to_s}" %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -424,7 +424,7 @@
 					</div>
 				</div>
 			<% end %>
-			<% Recall.where("\"Category\" = ?", c.Category).order('Title DESC').each_with_index do |r,j| %>
+			<% Recall.where("\"Category\" = ?", c.Category).order('"Title" DESC').each_with_index do |r,j| %>
 				<div id="<%= "#{(i+1).to_s+j.to_s}" %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -475,7 +475,7 @@
 				</div>
 			<% end %>
 		<%else %>
-			<% Recall.where("\"Category\" = ?", c.Category).order('Title DESC').each_with_index do |r,j| %>
+			<% Recall.where("\"Category\" = ?", c.Category).order('"Title" DESC').each_with_index do |r,j| %>
 				<div id="<%= "#{(i+1).to_s+j.to_s}" %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
