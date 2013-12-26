@@ -28,7 +28,9 @@
               <% end %>
 
               <li><%= link_to "Recalls", "/recalls" %></li>
-              <li><%= link_to "Users", users_path %></li>
+              <% if current_user.admin? %>
+                <li><%= link_to "Users", users_path %></li>
+              <% end %>
               <li id="fat-menu" class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Account <b class="caret"></b>

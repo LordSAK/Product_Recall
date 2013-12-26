@@ -46,7 +46,7 @@ class UsersController < ApplicationController
           redirect_to paypal_payment_path(@user) #This could be your another action in your controller where you may need to initiate something and redirect to paypal 
           return 
         else
-          Emailer.contact(@user.email,"Welcome to Product Recalls","You have successfully signed up,your username is: "+ @user.email+" To login to the site, just follow this link: https://ancient-island-8467.herokuapp.com/signin. Thanks for joining and have a great day!").deliver
+          #Emailer.contact(@user.email,"Welcome to Product Recalls","You have successfully signed up,your username is: "+ @user.email+" To login to the site, just follow this link: https://ancient-island-8467.herokuapp.com/signin. Thanks for joining and have a great day!").deliver
           flash[:success] = "Welcome to Product Recall! A confirmation email is sent to your email."
           redirect_to root_path
         end
