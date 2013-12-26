@@ -1,6 +1,15 @@
 <li>
-  <%= gravatar_for user, size: 70 %>
-  <%= link_to user.name, user %>
+	<% if !user.FirstName.blank?%>
+    	<% @user_name= user.FirstName %>
+    <%else%>
+    	<%  @user_name= '' %>
+    <%end%>
+    <% if !user.LastName.blank? %>
+      <% @user_name= @user_name+" "+user.LastName %>
+    <% else %>
+      <% @user_name= @user_name+ '' %>
+    <% end %>
+  <%= link_to @user_name, user %>
   <% if current_user.admin? && !current_user?(user) %>
     | <%= link_to "Delete", user, method: :delete,
                                   data: { confirm: "You sure?" } %>

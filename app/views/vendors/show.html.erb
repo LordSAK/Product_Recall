@@ -2,22 +2,19 @@
 <div class="row">
 	<ul class="nav nav-pills">
     	<li >
-    		<%= link_to "Profile", current_user %>
+    		  <a href="/users/<%= params[:id] %>">
+            Basic Details
+          </a>
     	</li>
     	<!--<li>
     		<a href="/suppliers">Supplier</a>
     	</li>-->
     	<li class="active">
-    		<a href="/vendors">Vendor</a>
+    		<a href="/vendors/<%= params[:id] %>">Vendor</a>
     	</li>
       <li >
-        <a href="histories">History</a>
+        <a href="/histories/<%= params[:id] %>">History</a>
       </li>
-              <% if current_user.admin? %>
-          <li >
-            <a href="/admin_feature">Administrator settings</a>
-          </li>
-        <% end %>
     </ul>
     <% if signed_in? %>
   <div class="row">

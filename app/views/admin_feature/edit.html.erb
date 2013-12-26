@@ -4,9 +4,9 @@
     	<li >
         <%= link_to "Profile", current_user %>
       </li>
-    	<li>
+    	<!--<li>
     		<a href="suppliers">Supplier</a>
-    	</li>
+    	</li>-->
     	<li>
     		<a href="vendors">Vendors</a>
     	</li>
@@ -25,10 +25,18 @@
 			<%= f.select :Advance_Search_allow, options_for_select(["Yes", "No"], @admin.Advance_Search_allow) %>
 
 			<%= f.label :paid_Alert, "Number of alerts to send for Pro Users" %>
-			<%= f.text_field :paid_Alert %>
+			<%= f.text_field :paid_Alert  %>
+
+      <%= f.label :paid_keyword, "Fixed Number of keywords for alerts of  Pro User" %>
+      <%= f.text_field :paid_keyword %>
 
 			<%= f.label :basic_Alert, "Number of alerts to send for Basic Users" %>
 			<%= f.text_field :basic_Alert %>
+
+      <%= f.label :basic_keyword, "Fixed Number of keywords for alerts of Basic User" %>
+      <%= f.text_field :basic_keyword %>
+
+
 
 			<%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
 		<% end %>

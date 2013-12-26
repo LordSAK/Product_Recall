@@ -3,8 +3,33 @@ class UsersController < ApplicationController
   before_filter :correct_user,   only: [:edit, :update]
   before_filter :admin_user,     only: :destroy
 
+
+
   def show
     @user = User.find(params[:id])
+    if !@user.FirstName.blank?
+      @user_name= @user.FirstName
+    else
+      @user_name= ''
+    end
+    if !@user.LastName.blank?
+      @user_name= @user_name+" "+@user.LastName
+    else
+      @user_name= @user_name+ ''
+    end
+    if !@user.street.blank?
+      @user_address=@user.street
+    end
+    if !@user.city.blank?
+      @user_address=@user_address+", "+@user.city
+    end
+    if !@user.state.blank?
+      @user_address=@user_address+", "+@user.state
+    end
+    if !@user.zip.blank?
+      @user_address=@user_address+", "+@user.zip.to_s
+    end
+ #   @user_address=@user.street+", "+@user.city+", "+@user.state+ " "+@user.zip.to_s
     @searches = @user.searches.paginate(page: params[:page])  
   end
 
@@ -14,18 +39,25 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
-    if @user.save
-      sign_in @user
-      if params[:theme] == 'Paid'
-        redirect_to paypal_payment_path(@user) #This could be your another action in your controller where you may need to initiate something and redirect to paypal 
-        return 
+    if simple_captcha_valid?
+      if @user.save
+        #sign_in @user
+        if params[:theme] == 'Paid'
+          redirect_to paypal_payment_path(@user) #This could be your another action in your controller where you may need to initiate something and redirect to paypal 
+          return 
+        else
+          Emailer.contact(@user.email,"Welcome to Product Recalls","You have successfully signed up,your username is: "+ @user.email+" To login to the site, just follow this link: https://ancient-island-8467.herokuapp.com/signin. Thanks for joining and have a great day!").deliver
+          flash[:success] = "Welcome to Product Recall! A confirmation email is sent to your email."
+          redirect_to root_path
+        end
       else
-        flash[:success] = "Welcome to Product Recall!"
-        redirect_to "/recalls"
+        render 'new'
       end
     else
-  		render 'new'
+      flash.now[:error] = 'Invalid email/password combination'
+      render 'new'
     end
+
   end
 
   def paypal_payment_path(return_path)

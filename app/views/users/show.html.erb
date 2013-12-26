@@ -1,4 +1,5 @@
-<% provide(:title, @user.name) %>
+
+<% provide(:title, @user_name ) %>
 
 <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
 <input type="hidden" name="cmd" value="_xclick-subscriptions">
@@ -20,73 +21,82 @@
 	<aside class="span4">
 		<section>
 			<h1>				
-				<%= @user.name %>
+				<%= @user_name %>
 			</h1>
 		</section>
 	</aside>
 	<hr>
 	<p></p>
-<div class="row">
-	 		<div class="span4">
-				<h4>Basic</h4>
-				<p> <b>Phone:</b>
-					<% if @user.cell_no.include? "(" %>
-						<%= @user.cell_no.to(7)+"-"+@user.cell_no.last(4) %>
-					<% else %>
-						<%= @user.cell_no.to(2)+"-"+@user.cell_no.from(3).to(-5)+"-"+@user.cell_no.last(4)%>
-					<% end %>
-				</p>
-				<p><b>Alert Type:</b> Alerts on Email & Phone</p>
-				<p><b>Address:</b> <%= @user.address %></p>
-			</div>
+	<div class="row">
+		<div class="span3">
+			<h4>Basic</h4>
+			<p> <b>Phone:</b>
+				<% if @user.cell_no.include? "(" %>
+					<%= @user.cell_no.to(7)+"-"+@user.cell_no.last(4) %>
+				<% else %>
+					<%= @user.cell_no.to(2)+"-"+@user.cell_no.from(3).to(-5)+"-"+@user.cell_no.last(4)%>
+				<% end %>
+			</p>
+			<p><b>Alert Type:</b> Alerts on Email & Phone</p>
+			<p><b>Address:</b> <%= @user_address %></p>
+		</div>
 			
-			<div class="span4">
-				<h4>Preferred Interaction</h4>
-				<p> <b>Email:</b> <%= 	@user.email %></p>
-				<p> <b>Phone:</b> <%= @user.cell_no.to(7)+"-"+@user.cell_no.last(4) %></p>
-			</div>
+		<div class="span3">
+			<h4>Preferred Interaction</h4>
+			<p> <b>Email:</b> <%= 	@user.email %></p>
+			<p> <b>Phone:</b> <%= @user.cell_no.to(7)+"-"+@user.cell_no.last(4) %></p>
+		</div>
 			
-			<div class="span4">
-				<h4>Remaining Alerts</h4>
-				<p> <b>Alerts Sent:</b> <%= 60-@user.alerts.to_i %></p>
-				<p> <b>AlertRemaining:</b> <%= @user.alerts %></p>
-			</div>
-</div>
+		<div class="span3">
+			<h4>Remaining Alerts</h4>
+			<p> <b>Alerts Sent:</b> <%= 60-@user.alerts.to_i %></p>
+			<p> <b>Alert Remaining:</b> <%= @user.alerts %></p>
+		</div>
+
+		<div class="span3">
+			<h4>Keywords</h4>
+			<% if current_user.usertype == "Paid" %>
+			<% keyword=User.select("\"paid_keyword\"").where("\"id\"=1") %>
+			<p> <b>No. of keywords allowed to search:</b> <%= keyword.paid_keyword %> </p>
+			<% elsif current_user.usertype == "Basic" %>
+			<% keywords=User.select("\"basic_keyword\"").where("\"id\"=1") %>
+			<p> <b> No. of keywords allowed to search:</b> <%= keywords.first.basic_keyword%> </p>
+			<% end %>
+			<p> <b>Keywords remaining:</b> <%= keywords.first.basic_keyword - @user.vendors.count %> </p>
+		</div>
+	</div>
 <hr>
-	<ul class="nav nav-pills">
-    	<li class="active">
-    		<a href="show">Search</a>
-    	</li>
-    	<li>
-    		<a href="/suppliers">Supplier</a>
-    	</li>
-    	<li>
-    		<a href="/vendors">Vendor</a>
-    	</li>
-    	<li >
-        	<a href="/histories">History</a>
-      	</li>
-      	<% if current_user.admin? %>
-      		<li >
-        		<a href="/admin_feature">Administrator settings</a>
+		<ul class="nav nav-pills">
+    		<li class="active">
+    			<a href="/users/<%= params[:id] %>">
+    				Basic Details
+    			</a>
+   	    	</li>
+    		<!--<li>
+    			<a href="/suppliers">Supplier</a>
+	    	</li>-->
+    		<li>
+    			<a href="/vendors/<%= params[:id] %>">Vendor</a>
+    		</li>
+    		<li >
+	        	<a href="/histories/<%= params[:id] %>">History</a>
       		</li>
-      	<% end %>
-    </ul>
+    	</ul>
+	
 
-<div id="show">
-	<div class="span4">
-    <% if @user.searches.any? %>
-      <h3>Searches 	(<%= @user.searches.count %>)</h3>
-      <ol class="Searches">
-        <%= render @searches %>
-      </ol>
-      <%= will_paginate @searches %>
-    <% end %>
-  </div>
+	<div id="show">
+		<div class="span4">
+    	<% if @user.searches.any? %>
+      		<h3>Searches 	(<%= @user.searches.count %>)</h3>
+      		<ol class="Searches">
+        		<%= render @searches %>
+      		</ol>
+      		<%= will_paginate @searches %>
+    	<% end %>
+  		</div>
+	</div>
 </div>
 
-
-</div>
 <!--<a href="#ContactInfo" class="btn"  data-toggle="modal">Edit</a>
 <a href="#BasicInfo" class="btn"  data-toggle="modal">Edit</a>
 <div id="BasicInfo" class="modal hide fade" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" style="display: none;">

@@ -11,8 +11,9 @@
 
 class User < ActiveRecord::Base
   set_primary_key :id 
-  attr_accessible :email, :name, :password, :password_confirmation,
-   :cell_no, :address,:usertype, :alerts,:Advance_Search_allow,:paid_Alert,:basic_Alert
+  attr_accessible :email, :FirstName, :LastName, :password, :password_confirmation,
+   :cell_no, :street,:city,:state,:zip,:usertype, :alerts,:Advance_Search_allow,:paid_Alert,:basic_Alert,
+   :alert_type
    has_secure_password
    has_many :searches, dependent: :destroy
    has_many :vendors, dependent: :destroy
@@ -24,7 +25,7 @@ class User < ActiveRecord::Base
 
   
 
-  validates :name, presence: true,length: {maximum: 50}
+  #validates :name, presence: true,length: {maximum: 50}
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, 
   				format: { with: VALID_EMAIL_REGEX },

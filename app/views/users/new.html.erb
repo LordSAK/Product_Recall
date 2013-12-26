@@ -7,9 +7,19 @@
       
 
       <div class="form-inline">
-        <%= f.label :name, "Name" %>&nbsp;&nbsp;<label style="color: red">*</label>
+        <%= f.label :FirstName, "Name" %>&nbsp;&nbsp;<label style="color: red">*</label>
       </div>
-      <%= f.text_field :name %>
+      <table>
+        <tr>
+          <td>
+            <%= f.text_field :FirstName, :placeholder => 'First'  %>
+          </td>
+          <td>
+            <%= f.text_field :LastName, :placeholder => 'Last' %>
+          </td>
+        </tr>
+      </table>
+
 
       <div class="form-inline">
         <%= f.label :email, "Email" %>&nbsp;&nbsp;<label style="color: red">*</label>
@@ -20,17 +30,17 @@
       </div>
 
       <div class="form-inline">
-        <%= f.label :password, "Password" %>&nbsp;&nbsp;<label style="color: red">*</label>
+        <%= f.label :password, "Create a password" %>&nbsp;&nbsp;<label style="color: red">*</label>
       </div>
       <%= f.password_field :password %>
 
       <div class="form-inline">
-        <%= f.label :password_confirmation, "Confirm Password" %>&nbsp;&nbsp;<label style="color: red">*</label>
+        <%= f.label :password_confirmation, "Confirm your password" %>&nbsp;&nbsp;<label style="color: red">*</label>
       </div>
       <%= f.password_field :password_confirmation %>
 
       <div class="form-inline">
-        <%= f.label :cell_no, "Cell" %>&nbsp;&nbsp;<label style="color: red">*</label>
+        <%= f.label :cell_no, "Mobile phone" %>&nbsp;&nbsp;<label style="color: red">*</label>
       </div>
       <div class="form-inline">
         <%= f.text_field  :cell_no %>
@@ -38,16 +48,103 @@
       </div>
 
       <div class="form-inline">
-        <%= f.label :address, "Address" %>&nbsp;&nbsp;<label style="color: red">*</label>
+        <%= f.label :street, "Street" %>&nbsp;&nbsp;<label style="color: red">*</label>
       </div>
-      <%= f.text_field :address %>
+      <%= f.text_field :street %>
 
+      <table>
+        <tr>
+          <td>
+            <div class="form-inline">
+              <%= f.label :city, "City" %>&nbsp;&nbsp;<label style="color: red">*</label>
+            </div>
+            <%= f.text_field :city %>      
+          </td>
+          <td>
+            <div class="form-inline">
+              <%= f.label :state, "State" %>&nbsp;&nbsp;<label style="color: red">*</label>
+            </div>
+            <%= f.select :state, options_for_select([
+                                "State",
+                                "Alabama AL",
+                                "Alaska AK",
+                                "Arizona AZ",
+                                "Arkansas AR",
+                                "California CA",
+                                "Colorado CO",
+                                "Connecticut CT",
+                                "Delaware DE",
+                                "Florida FL",
+                                "Georgia GA",
+                                "Hawaii HI",
+                                "Idaho ID",
+                                "Illinois IL",
+                                "Indiana IN",
+                                "Iowa IA",
+                                "Kansas KS",
+                                "Kentucky KY",
+                                "Louisiana LA",
+                                "Maine ME",
+                                "Maryland MD",
+                                "Massachusetts MA",
+                                "Michigan MI",
+                                "Minnesota MN",
+                                "Mississippi MS",
+                                "Missouri MO",
+                                "Montana MT",
+                                "Nebraska NE",
+                                "Nevada NV",
+                                "New Hampshire NH",
+                                "New Jersey NJ",
+                                "New Mexico NM",
+                                "New York NY",
+                                "North Carolina NC",
+                                "North Dakota ND",
+                                "Ohio OH",
+                                "Oklahoma OK",
+                                "Oregon OR",
+                                "Pennsylvania PA",
+                                "Rhode Island RI",
+                                "South Carolina SC",
+                                "South Dakota SD",
+                                "Tennessee TN",
+                                "Texas TX",
+                                "Utah UT",
+                                "Vermont VT",
+                                "Virginia VA",
+                                "Washington WA",
+                                "West Virginia WV",
+                                "Wisconsin WI",
+                                "Wyoming WY" ]) %>
+
+          </td>
+          <td>
+            <div class="form-inline">
+              <%= f.label :zip, "Zip" %>&nbsp;&nbsp;<label style="color: red">*</label>
+            </div>
+            <%= f.text_field :zip %>
+          </td>
+        </tr>
+      </table>
       <label for="alert_type">Alerts on</label>
-      <% [ 'Email', 'Cell' ].each do |alert| %>
-        <%= radio_button_tag 'alert_type', alert, @alert == alert %>
-        <%= alert.humanize %>
-      <% end %>
-      
+      <table>
+        <tr>
+          <td>
+            <%= f.radio_button :alert_type, "Email" %>
+            <%= f.label_tag(:Email, "Email") %>
+          </td>
+          <td>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+          </td>
+          <td>
+            <%= f.radio_button :alert_type, "Mobile" %>
+            <%= f.label_tag(:Mobile, "Mobile") %>
+          </td>
+        </tr>
+      </table>
+    
+      <%= show_simple_captcha(:label => "human authentication", :image_style => 'simply_blue') %>
+
       <br/>
       <br/>
       <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>

@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-ProductRecall::Application.load_tasks
+ProductRecall::Application.load_tasks 

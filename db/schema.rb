@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131129115638) do
+ActiveRecord::Schema.define(:version => 20131220104644) do
 
   create_table "histories", :force => true do |t|
     t.datetime "TimeLogin"
@@ -46,6 +46,15 @@ ActiveRecord::Schema.define(:version => 20131129115638) do
 
   add_index "searches", ["user_id", "created_at"], :name => "index_searches_on_user_id_and_created_at"
 
+  create_table "simple_captcha_data", :force => true do |t|
+    t.string   "key",        :limit => 40
+    t.string   "value",      :limit => 6
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
+
+  add_index "simple_captcha_data", ["key"], :name => "idx_key"
+
   create_table "suppliers", :force => true do |t|
     t.string   "supplier"
     t.integer  "user_id"
@@ -55,8 +64,35 @@ ActiveRecord::Schema.define(:version => 20131129115638) do
 
   add_index "suppliers", ["user_id", "created_at"], :name => "index_suppliers_on_user_id_and_created_at"
 
-# Could not dump table "users" because of following StandardError
-#   Unknown type 'bool' for column 'Advance_Search_allow'
+  create_table "users", :force => true do |t|
+    t.string   "FirstName"
+    t.string   "LastName"
+    t.string   "email"
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
+    t.string   "password_digest"
+    t.string   "remember_token"
+    t.boolean  "admin",                  :default => false
+    t.string   "cell_no"
+    t.string   "street"
+    t.string   "city"
+    t.string   "state"
+    t.integer  "zip"
+    t.string   "usertype",               :default => "Basic"
+    t.integer  "alerts"
+    t.string   "password_reset_token"
+    t.datetime "password_reset_sent_at"
+    t.integer  "paid_Alert",             :default => 40
+    t.integer  "basic_Alert",            :default => 10
+    t.string   "Advance_Search_allow",   :default => "No"
+    t.string   "alert_type"
+    t.integer  "num_of_keywords"
+    t.integer  "basic_keyword"
+    t.integer  "paid_keyword"
+  end
+
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
 
   create_table "vendors", :force => true do |t|
     t.string   "vendor"

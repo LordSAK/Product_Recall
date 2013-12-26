@@ -4,6 +4,18 @@ class SuppliersController < ApplicationController
 
   def index
     @user=current_user
+    if !@user.FirstName.blank?
+      @user_name= @user.FirstName
+    else
+      @user_name= ''
+    end
+    if !@user.LastName.blank?
+      @user_name= @user_name+" "+@user.LastName
+    else
+      @user_name= @user_name+ ''
+    end
+    
+
     @supplier = current_user.suppliers.paginate(page: params[:page])
   end
 

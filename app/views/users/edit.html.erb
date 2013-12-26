@@ -6,8 +6,11 @@
     <%= form_for(@user) do |f| %>
       
 
-      <%= f.label :name %>
-      <%= f.text_field :name %>
+      <%= f.label :FirstName %>
+      <%= f.text_field :FirstName %>
+
+      <%= f.label :LastName %>
+      <%= f.text_field :LastName %>
 
       <%= f.label :email %>
       <%= f.text_field :email %>
@@ -21,13 +24,38 @@
       <%= f.label :cell_no, "Cell" %>
       <%= f.text_field :cell_no %>
 
-      <%= f.label :address, "Address" %>
-      <%= f.text_field :address %>
+      <%= f.label :street, "street" %>
+      <%= f.text_field :street %>
+      
+      <%= f.label :city, "City" %>
+      <%= f.text_field :city %>
+
+      <%= f.label :state, "State" %>
+      <%= f.text_field :state %>
+
+      <%= f.label :zip, "zip" %>
+      <%= f.text_field :zip %>
+
+      <%= f.label :alert_type, "Alerts on" %>
+      <table>
+        <tr>
+          <td>
+            <%= f.radio_button :alert_type, "Email" %>
+            <%= f.label_tag(:Email, "Email") %>
+          </td>
+          <td>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+          </td>
+          <td>
+            <%= f.radio_button :alert_type, "Mobile" %>
+            <%= f.label_tag(:Mobile, "Mobile") %>
+          </td>
+        </tr>
+      </table>
 
       <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
     <% end %>
 
-    <%= gravatar_for @user %>
-    <a href="http://gravatar.com/emails">change</a>
+    
   </div>
 </div>

@@ -1,6 +1,8 @@
 class UpdateController < ApplicationController
 	require 'net/http'
 	def All
+		usersFinallist=Array.new
+		
 		###############Get data from CPSC site Consumer Products Recall######################
 		if Recall.where(:Category => 'Consumer Products').blank?
 			url = URI.parse('http://www.recalls.gov/rrcpsc.aspx')

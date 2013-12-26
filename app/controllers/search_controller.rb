@@ -63,5 +63,6 @@ class SearchController < ApplicationController
       @search = current_user.searches.build(:searches => @keyword)
       @search.save
     end
+         
   end
 end
