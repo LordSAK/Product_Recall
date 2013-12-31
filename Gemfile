@@ -11,6 +11,7 @@ gem 'bootstrap-datepicker-rails'
 gem "google_visualr", "~> 2.1.0" 
 gem 'twitter-bootstrap-rails'
 gem "galetahub-simple_captcha", :require => "simple_captcha"
+gem 'rufus-scheduler'
 
 group :development, :test do
   gem 'sqlite3', '1.3.5'

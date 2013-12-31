@@ -1,8 +1,7 @@
 class UpdateController < ApplicationController
 	require 'net/http'
 	def All
-		usersFinallist=Array.new
-		
+			
 		###############Get data from CPSC site Consumer Products Recall######################
 		if Recall.where(:Category => 'Consumer Products').blank?
 			url = URI.parse('http://www.recalls.gov/rrcpsc.aspx')
@@ -618,5 +617,24 @@ class UpdateController < ApplicationController
 		end
 
 		################# end of get data from uscg boating site#########################
+		usersFinallist=Array.new
+		@AllRecall=@RecallBasic | @RecallBasic1 | @RecallBasic2 | @RecallBasic3 | @RecallBasic4
+		@users=User.all
+		@AllRecall.each do |str|
+			@users.each do |u|
+				@vendor=Vendor.select(:vendor).where("user_id=?",u.id)
+				@vendor.each do |v|
+					if str.include? v.vendor
+						usersFinallist.push(u.email)
+
+					end
+				end
+			end
+		end
+		usersFinallist= usersFinallist & usersFinallist
+		usersFinallist.each do |email|
+			puts email
+			Emailer.contact(email,"New recalls are added","New recalls have been added to site related to the keywords you registered. Login into site http://localhost:3000/ to view latest recalls. Have a good day!").deliver
+		end
 	end
 end

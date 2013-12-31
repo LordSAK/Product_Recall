@@ -1,6 +1,10 @@
 ProductRecall::Application.routes.draw do
 
 
+  get "paypal/new"
+
+  get "paypal/edit"
+
   #get "admin_feature/edit"
   get "password_resets/new"
 
@@ -10,6 +14,7 @@ ProductRecall::Application.routes.draw do
   resources :suppliers
   resources :histories
   resources :password_resets
+  resources :paypal
 
   root to: 'administrator_pages#home'
 
