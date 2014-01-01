@@ -23,19 +23,22 @@
                             	<div class="span4">
                       <h6>From:</h6>
                       <% if @from.nil? %>
-                      	<input type="date" name="from" data-behaviour='datepicker' data-date-format="yyyy-mm-dd">
+                      	<input type="date" name="from">
                       <% else %>
-                      	<input type="date" name="from" data-behaviour='datepicker' data-date-format="yyyy-mm-dd" value="<% @from %>">
+                      	<input type="date" name="from" value="<% @from %>">
                       <% end %>
                       <h6>To:</h6>
                       <% if @from.nil? %>
-                       <input type="date" name="to" data-behaviour='datepicker' data-date-format="yyyy-mm-dd">
+                       <input type="date" name="to">
                        <% else %>
-						<input type="date" name="to" data-behaviour='datepicker' data-date-format="yyyy-mm-dd" value="<% @to %>">
+						<input type="date" name="to" value="<% @to %>">
                        <% end %>
                       <script type="text/javascript">
-                      	if ( $('input')[0].type != 'date' ) 
+                       	if ( $('input')[0].type != 'date' ) 
+                      	{
+                      		alert("inside datepicker if");
                       		$('input').datepicker();
+                      	}
                       //$('[data-behaviour~=datepicker]').datepicker();
                       </script>
                                 </div>
@@ -103,19 +106,22 @@
 		                    <div class="span4">
         		            	<h6>From:</h6>
                 		    	<% if @from.nil? %>
-                      				<input type="date" name="from" data-behaviour='datepicker' data-date-format="yyyy-mm-dd">
+                      				<input type="date" name="from" >
                       			<% else %>
-                      				<input type="date" name="from" data-behaviour='datepicker' data-date-format="yyyy-mm-dd" value="<%= @from %>">
+                      				<input type="date" name="from" value="<%= @from %>">
                       			<% end %>
                       			<h6>To:</h6>
                       			<% if @from.nil? %>
-                       				<input type="date" name="to" data-behaviour='datepicker' data-date-format="yyyy-mm-dd">
+                       				<input type="date" name="to" >
                        			<% else %>
-									<input type="date" name="to" data-behaviour='datepicker' data-date-format="yyyy-mm-dd" value="<%= @to %>">
+									<input type="date" name="to" value="<%= @to %>">
                        			<% end %>
                       			<script type="text/javascript">
                       				if ( $('input')[0].type != 'date' ) 
+                      				{
+                      					alert("inside");
                       					$('input').datepicker();
+                      				}
                       				//$('[data-behaviour~=datepicker]').datepicker();
                       			</script>
                     		</div>
