@@ -23,18 +23,36 @@
                             	<div class="span4">
                       <h6>From:</h6>
                       <% if @from.nil? %>
-                      	<input type="text" name="from" data-behaviour='datepicker' data-date-format="yyyy-mm-dd">
+                      	<input type="text" id="fromAll" name="from" >
                       <% else %>
-                      	<input type="text" name="from" data-behaviour='datepicker' data-date-format="yyyy-mm-dd" value="<% @from %>">
+                      	<input type="text" id="fromAll" name="from"  value="<% @from %>">
                       <% end %>
                       <h6>To:</h6>
                       <% if @from.nil? %>
-                       <input type="text" name="to" data-behaviour='datepicker' data-date-format="yyyy-mm-dd">
+                       <input type="text" id="toAll" name="to" >
                        <% else %>
-						<input type="text" name="to" data-behaviour='datepicker' data-date-format="yyyy-mm-dd" value="<% @to %>">
+						<input type="text" id="toAll" name="to" value="<% @to %>">
                        <% end %>
                       <script type="text/javascript">
-                      $('[data-behaviour~=datepicker]').datepicker();
+                      		//$('#fromAll').click(function() 
+                            	  			//{
+                            	  				//alert("Sak");
+        								$("#fromAll").datepicker({
+        									buttonImageOnly: true,
+        									buttonImage: 'calendar.jpg',
+        									dateFormat: 'mm/dd/yy'
+        								});	
+											//});
+                            	  			//$('#toAll').click(function() 
+                            	  			//{
+                            	  				//alert("Sak");
+        								$("#toAll").datepicker({
+        									buttonImageOnly: true,
+        									buttonImage: 'calendar.jpg',
+        									dateFormat: 'mm/dd/yy'
+        								});	
+											//});
+                      //$('[data-behaviour~=datepicker]').datepicker();
                       </script>
                                 </div>
                             </td>
@@ -101,18 +119,36 @@
 		                    <div class="span4">
         		            	<h6>From:</h6>
                 		    	<% if @from.nil? %>
-                      				<input type="text" name="from" data-behaviour='datepicker' data-date-format="yyyy-mm-dd">
+                      				<input type="text" id="frompaid" name="from" >
                       			<% else %>
-                      				<input type="text" name="from" data-behaviour='datepicker' data-date-format="yyyy-mm-dd" value="<%= @from %>">
+                      				<input type="text" id="frompaid" name="from" value="<%= @from %>">
                       			<% end %>
                       			<h6>To:</h6>
                       			<% if @from.nil? %>
-                       				<input type="text" name="to" data-behaviour='datepicker' data-date-format="yyyy-mm-dd">
+                       				<input type="text" id="topaid" name="to" >
                        			<% else %>
-									<input type="text" name="to" data-behaviour='datepicker' data-date-format="yyyy-mm-dd" value="<%= @to %>">
+									<input type="text" id="topaid" name="to" value="<%= @to %>">
                        			<% end %>
                       			<script type="text/javascript">
-                      				$('[data-behaviour~=datepicker]').datepicker();
+                      					//$('#fromAll').click(function() 
+                            	  			//{
+                            	  				//alert("Sak");
+        								$("#frompaid").datepicker({
+        									buttonImageOnly: true,
+        									buttonImage: 'calendar.jpg',
+        									dateFormat: 'mm/dd/yy'
+        								});	
+											//});
+                            	  			//$('#toAll').click(function() 
+                            	  			//{
+                            	  				//alert("Sak");
+        								$("#topaid").datepicker({
+        									buttonImageOnly: true,
+        									buttonImage: 'calendar.jpg',
+        									dateFormat: 'mm/dd/yy'
+        								});	
+											//});
+                      				//$('[data-behaviour~=datepicker]').datepicker();
                       			</script>
                     		</div>
                   		</td>

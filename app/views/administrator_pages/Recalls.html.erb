@@ -11,35 +11,60 @@
 	        			<tr>
 	        				<td  valign="top">
 	        					<div class="span4" >
-                      <h6>Keyword:</h6>
-                      <% if @keyword.nil? %>
-                      <input type="text" name='Searching' placeholder="Search">
-                      <% else %>
-                      <input type="text" name='Searching' value="<% @keyword %>">
-                      <% end %>
+	        						<h6>Keyword:</h6>
+        						    <% if @keyword.nil? %>
+        						        <input type="text" name='Searching' placeholder="Search">
+                   					<% else %>
+                   						<input type="text" name='Searching' value="<% @keyword %>">
+                   					<% end %>
                                 </div>
                             </td>
                             <td >
                             	<div class="span4">
-                      <h6>From:</h6>
-                       	<input type="text" name="from" data-behaviour="datepicker" data-date-format='dd-mm-yyyy'>
-                      <h6>To:</h6>
-                        <input type="text" name="to" data-behaviour="datepicker" data-date-format='dd-mm-yyyy'>
-                      <script type="text/javascript">
-                      $('[data-behaviour~=datepicker]').datepicker();
-                      </script>
-                                </div>
+                            		<h6>From:</h6>
+                            		<% if @from.nil? %>
+                            			<input type="text" id="fromAll" name="from" >
+									<% else %>
+										<input type="text" id-"fromAll" name="from" value="<% @from %>">
+                      				<% end %>
+                      				<h6>To:</h6>
+                      				<% if @from.nil? %>
+                       					<input type="text" id="toAll" name="to" >
+                       				<% else %>
+										<input type="text" id="toAll" name="to" value="<% @to %>">
+                       				<% end %>
+                            		<script type="text/javascript">
+                            	  			//$('#fromAll').click(function() 
+                            	  			//{
+                            	  				//alert("Sak");
+        								$("#fromAll").datepicker({
+        									buttonImageOnly: true,
+        									buttonImage: 'calendar.jpg',
+        									dateFormat: 'mm/dd/yy'
+        								});	
+											//});
+                            	  			//$('#toAll').click(function() 
+                            	  			//{
+                            	  				//alert("Sak");
+        								$("#toAll").datepicker({
+        									buttonImageOnly: true,
+        									buttonImage: 'calendar.jpg',
+        									dateFormat: 'mm/dd/yy'
+        								});	
+											//});
+									</script>
+                            	</div>
                             </td>
                             <td valign="top">
                             	<div class="span4">
-                      <h6>Category:</h6>
-                      <select name="Category" style="height:38px">
-                        <option value="All">All</option>
-                        <% if @Cat == "Consumer Products" %>
-                        	<option value="Consumer Products" selected>Consumer Products</option>
-                        <% else %>
-                        	<option value="Consumer Products">Consumer Products</option>
-                        <%end%>
+                            		<h6>Category:</h6>
+                            		<select name="Category" style="height:38px">
+                            		    <option value="All">All</option>
+                        				<% if @Cat == "Consumer Products" %>
+                        					<option value="Consumer Products" selected>Consumer Products</option>
+                        				<% else %>
+                        					<option value="Consumer Products">Consumer Products</option>
+                        				<%end%>
 
                         <% if @Cat == "Foods, Medicines, Cosmetics" %>
                         	<option value="Foods, Medicines, Cosmetics" selected>Foods, Medicines, Cosmetics</option>
@@ -91,12 +116,32 @@
               		    </td>
                   		<td >
 		                    <div class="span4">
-        		            	<h6>From:</h6>
-                      				<input type="text" name="from" data-behaviour="datepicker" data-date-format='dd-mm-yyyy'>
-                      			<h6>To:</h6>
-                      				<input type="text" name="to" data-behaviour="datepicker" data-date-format='dd-mm-yyyy'>
+		                    	<h6>From:</h6>
+		                    	<% if @from.nil? %>
+		                    	   	<input type="text" id="paidfrom" name="from" >
+		                    	<% else %>
+		                    	   	<input type="text" id="paidfrom" name="from" value="<% @from %>">
+			                    <% end %>
+			                    <h6>To:</h6>
+			                    <% if @from.nil? %>
+			                    	<input type="text" id="paidto" name="to" >
+			                    <% else %>
+			                    	<input type="text" id="paidto" name="to" value="<% @to %>">
+                       			<% end %>
                       			<script type="text/javascript">
-                      				$('[data-behaviour~=datepicker]').datepicker();
+                      				$("#paidfrom").datepicker({
+                      					buttonImageOnly: true,
+                      					buttonImage: 'calendar.jpg',
+        								dateFormat: 'mm/dd/yy'
+    								});	
+
+                      				$("#paidto").datepicker({
+        								buttonImageOnly: true,
+        								buttonImage: 'calendar.jpg',
+        								dateFormat: 'mm/dd/yy'
+    								});	
+
+                      				//$('[data-behaviour~=datepicker]').datepicker();
                       			</script>
                     		</div>
                   		</td>

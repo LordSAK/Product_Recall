@@ -38,7 +38,7 @@ group :test do
   gem 'database_cleaner', '0.7.0'
 end
 
-#gem 'jquery-ui-rails'
+gem 'jquery-ui-rails'
 
 group :production do
   gem 'pg', '0.12.2'
