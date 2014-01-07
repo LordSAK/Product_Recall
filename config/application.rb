@@ -47,6 +47,23 @@ module ProductRecall
 
     # Enable escaping HTML in JSON.
     config.active_support.escape_html_entities_in_json = true
+    config.assets.initialize_on_precompile = false
+
+    config.assets.precompile << Proc.new do |path|
+        if path =~ /\.(css|js)\z/
+            full_path = Rails.application.assets.resolve(path).to_path
+            app_assets_path = Rails.root.join('app', 'assets').to_path
+            if full_path.starts_with? app_assets_path
+              puts "including asset: " + full_path
+              true
+            else
+              puts "excluding asset: " + full_path
+              false
+            end
+        else
+            false
+        end
+    end
 
     # Use SQL instead of Active Record's schema dumper when creating the database.
     # This is necessary if your schema can't be completely dumped by the schema dumper,

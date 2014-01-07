@@ -16,6 +16,7 @@ ProductRecall::Application.configure do
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = true
+  config.assets.initialize_on_precompile = false
 
   # Generate digests for assets URLs
   config.assets.digest = true
@@ -29,6 +30,8 @@ ProductRecall::Application.configure do
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
+
+  #config.assets.precompile = [ Proc.new{ |path| !File.extname(path).in?(['.js', '.css', '.less']) }, /application.(css|js)$/ ]
 
   # See everything in the log (default is :info)
   # config.log_level = :debug
