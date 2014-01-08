@@ -253,11 +253,19 @@ class UpdateController < ApplicationController
 				@timeonsite=@j.partition('| <a')[0]
 				@line=@timeonsite.to_date
 
-				@titleAll=i.partition('Recall Alert: ')[2]
-				@titleofRecall=@titleAll.partition('</a></h3>')[0]
+				if i.include? 'Recall Alert:'
+                    @titleAll=i.partition('Recall Alert: ')[2]
+                    @titleofRecall=@titleAll.partition('</a></h3>')[0]
+                else
+                	@titleAll=i.partition('<h3 class="entry-header"><a href="')[2]
+                    @titleofRecall=@titleAll.partition('</a></h3>')[0]
+                    @titleofRecall=@titleofRecall.partition('">')[2]
+			    end 
+
+
 				if i.include? 'Read More'
 					@urlAll=i.partition('href="')[2]
-					@urlwithhref=@urlAll.partition('">Recall Alert: ')[0]
+					@urlwithhref=@urlAll.partition('">')[0]
 
 					uri= @urlwithhref
 					url1 = URI.parse(uri)
@@ -266,7 +274,11 @@ class UpdateController < ApplicationController
 					end
 
 					@DescriptionAll=@res1.body.partition('<div class="entry-body">')[2]
-					@Description=@DescriptionAll.partition('<p><a href="http://blogs.cars.com/kickingtires/recalls/"')[0]
+					if  @DescriptionAll.include? '<p><a href="'
+						@Description=@DescriptionAll.partition('<p><a href="')[0]
+					elsif	@DescriptionAll.include? '<p><strong><a href="'
+						@Description=@DescriptionAll.partition('<p><strong><a href="')[0]
+					end
 				else
 					@DescriptionAll=i.partition('<div class="entry-body">')[2]
 					if @DescriptionAll.include? 'More Recalls'
@@ -320,53 +332,64 @@ class UpdateController < ApplicationController
 				if !@line.nil?
 
 					if @date < @line
-						@titleAll=i.partition('Recall Alert: ')[2]
-						@titleofRecall=@titleAll.partition('</a></h3>')[0]
-						if i.include? 'Read More'
-					@urlAll=i.partition('href="')[2]
-					@urlwithhref=@urlAll.partition('">')[0]
+						 if i.include? 'Recall Alert:'
+						 	@titleAll=i.partition('Recall Alert: ')[2]
+						 	@titleofRecall=@titleAll.partition('</a></h3>')[0]
+						 else
+						 	@titleAll=i.partition('<h3 class="entry-header"><a href="')[2]
+						 	@titleofRecall=@titleAll.partition('</a></h3>')[0]
+						 	@titleofRecall=@titleofRecall.partition('">')[2]
+						 end 
 
-					uri= @urlwithhref
-					url1 = URI.parse(uri)
-					@res1=Net::HTTP.start(url1.host, url1.port) do |http|
-						http.get(url1.request_uri)
-					end
+						 if i.include? 'Read More'
+						 	@urlAll=i.partition('href="')[2]
+						 	@urlwithhref=@urlAll.partition('">')[0]
 
-					@DescriptionAll=@res1.body.partition('<div class="entry-body">')[2]
-					@Description=@DescriptionAll.partition('<p><a href="http://blogs.cars.com/kickingtires/recalls/"')[0]
-				else
-					@DescriptionAll=i.partition('<div class="entry-body">')[2]
-					if @DescriptionAll.include? 'More Recalls'
-						if @DescriptionAll.include? '<p><strong><a href="' 
-							@Description=@DescriptionAll.partition('<p><strong><a href="')[0]	
+						 	uri= @urlwithhref
+						 	url1 = URI.parse(uri)
+						 	@res1=Net::HTTP.start(url1.host, url1.port) do |http|
+						 		http.get(url1.request_uri)
+						 	end
+
+							@DescriptionAll=@res1.body.partition('<div class="entry-body">')[2]
+							if  @DescriptionAll.include? '<p><a href="'
+								@Description=@DescriptionAll.partition('<p><a href="')[0]
+							elsif	@DescriptionAll.include? '<p><strong><a href="'
+								@Description=@DescriptionAll.partition('<p><strong><a href="')[0]
+							end
+
 						else
-							@Description=@DescriptionAll.partition('<p><a href="')[0]
+							@DescriptionAll=i.partition('<div class="entry-body">')[2]
+							if @DescriptionAll.include? 'More Recalls'
+								if @DescriptionAll.include? '<p><strong><a href="' 
+									@Description=@DescriptionAll.partition('<p><strong><a href="')[0]
+								else
+									@Description=@DescriptionAll.partition('<p><a href="')[0]
+								end
+							else
+								@Description=@DescriptionAll.partition('</div>')[0]
+							end				
 						end
-					else
-						@Description=@DescriptionAll.partition('</div>')[0]
-					end				
-				end
 
-				if @Description.include? '<p><strong>Related'
-					@Description=@Description.partition('<p><strong>Related')[0]
-				end
+						if @Description.include? '<p><strong>Related'
+							@Description=@Description.partition('<p><strong>Related')[0]
+						end
 
-				if @Description.include? '<strong>Related</strong>'
-					@Description=@Description.partition('<strong>Related</strong>')[0]
-				end
+						if @Description.include? '<strong>Related</strong>'
+							@Description=@Description.partition('<strong>Related</strong>')[0]
+						end
 
 						if @Description.include? '</div>'
 							@Description['</div>']=' '
 						end
 
-				@RecallBasic2.push("Title:"+@titleofRecall+",,,,,,,Description:"+@Description)
+						@RecallBasic2.push("Title:"+@titleofRecall+",,,,,,,Description:"+@Description)
 
-			@titleofRecall=@titleofRecall.encode('utf-8', :invalid => :replace, :undef => :replace, :replace => '')
-			#@summary=@summary.encode('utf-8', :invalid => :replace, :undef => :replace, :replace => '')
-			#@Hazard =@Hazard.encode('utf-8', :invalid => :replace, :undef => :replace, :replace => '')
-			@Description=@Description.encode('utf-8', :invalid => :replace, :undef => :replace, :replace => '')
-			Recall.create(:Category => "Motor Vehicles", :Details => @Description, :Title => @titleofRecall)
-				
+						@titleofRecall=@titleofRecall.encode('utf-8', :invalid => :replace, :undef => :replace, :replace => '')
+						#@summary=@summary.encode('utf-8', :invalid => :replace, :undef => :replace, :replace => '')
+						#@Hazard =@Hazard.encode('utf-8', :invalid => :replace, :undef => :replace, :replace => '')
+						@Description=@Description.encode('utf-8', :invalid => :replace, :undef => :replace, :replace => '')
+						Recall.create(:Category => "Motor Vehicles", :Details => @Description, :Title => @titleofRecall)
 					end
 				end		
 			end	

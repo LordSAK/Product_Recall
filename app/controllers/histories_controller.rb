@@ -36,7 +36,7 @@ class HistoriesController < ApplicationController
       #  ['2006', 660],
       #  ['2007', 1030]
       #]) 
-      data_table.add_rows(@historys)
+      data_table.add_rows(@historys.map)
 
       option = { width: 400, height: 240, title: 'Login Frequency' }
       @chart = GoogleVisualr::Interactive::AreaChart.new(data_table, option)
@@ -61,7 +61,10 @@ class HistoriesController < ApplicationController
       #data_table.new_column('number', 'Expenses')
 
 
-      @historys=ActiveRecord::Base.connection.select_rows('SELECT DATE("TimeLogin") AS d, COUNT(*) AS c FROM histories GROUP BY DATE("TimeLogin");')
+     #@historys=ActiveRecord::Base.connection.select_rows('SELECT DATE("TimeLogin") AS d, COUNT(*) AS c FROM histories GROUP BY DATE("TimeLogin");')
+      @items=History.where(:user_id => params[:id]).count(:group => "DATE(timelogin)")
+
+      #@historys = @items.group_by{|n| n.last}.each_with_object({}){|(k, g), h| h[k] = g.size}
       #@historys1=current_user.histories.where("date(created_at) > ?", 1.days.ago).group("date(created_at)").count
       #@historys2=current_user.histories.where("date(created_at) > ?", 2.days.ago).group("date(created_at)").count
       #@historys3=current_user.histories.where("date(created_at) > ?", 3.days.ago).group("date(created_at)").count
@@ -72,7 +75,7 @@ class HistoriesController < ApplicationController
       #  ['2006', 660],
       #  ['2007', 1030]
       #]) 
-      data_table.add_rows(@historys)
+      #data_table.add_rows(@historys.map)
 
       option = { width: 400, height: 240, title: 'Login Frequency' }
       @chart = GoogleVisualr::Interactive::AreaChart.new(data_table, option)
