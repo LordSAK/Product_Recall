@@ -62,7 +62,7 @@ class HistoriesController < ApplicationController
 
 
      #@historys=ActiveRecord::Base.connection.select_rows('SELECT DATE("TimeLogin") AS d, COUNT(*) AS c FROM histories GROUP BY DATE("TimeLogin");')
-      @items=History.where(:user_id => params[:id]).count(:group => "DATE(\"TimeLogin\")")
+      @items=History.where(:user_id => params[:id]).count(:group => "DATE(\"TimeLogin\"),DATE(\"created_at\")")
 
       #@historys = @items.group_by{|n| n.last}.each_with_object({}){|(k, g), h| h[k] = g.size}
       #@historys1=current_user.histories.where("date(created_at) > ?", 1.days.ago).group("date(created_at)").count
