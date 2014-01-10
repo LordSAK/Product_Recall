@@ -34,7 +34,7 @@
 									<input type="text" name="to" data-behaviour='datepicker' data-date-format="yyyy-mm-dd" value="<%= @to %>">
                        			<% end %>
                       			<script type="text/javascript">
-                      				$('[data-behaviour~=datepicker]').datepicker();
+                      				$('[data-behaviour~=datepicker]').datepicker(dateFormat: 'mm/dd/yy');
                       			</script>
                     		</div>
                   		</td>
@@ -110,7 +110,7 @@
 									<input type="text" name="to" data-behaviour='datepicker' data-date-format="yyyy-mm-dd" value="<%= @to %>">
                        			<% end %>
                       			<script type="text/javascript">
-                      				$('[data-behaviour~=datepicker]').datepicker();
+                      				$('[data-behaviour~=datepicker]').datepicker(dateFormat: 'mm/dd/yy');
                       			</script>
                     		</div>
                   		</td>
@@ -202,7 +202,7 @@
 	                					From: <input type="text" name="from" data-behaviour='datepicker' data-date-format="yyyy-mm-dd">
 										To: <input type="text" name="to" data-behaviour='datepicker' data-date-format="yyyy-mm-dd">
 										<script type="text/javascript">
-  											$('[data-behaviour~=datepicker]').datepicker();
+  											$('[data-behaviour~=datepicker]').datepicker(dateFormat: 'mm/dd/yy');
 										</script>
 										<%= button_to "Submit" %>
 										
