@@ -299,6 +299,10 @@
 				</div>
 	   		<% end %>
 		</div>
+	<% else %>
+		<br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/>
 	<% end %>
 
 
@@ -327,8 +331,9 @@
 	</script>
 
 
+
 	<p><% @id %></p>
-	<div class="tabbable tabs-left">
+	<div class="tabbable ">
 		<ul class="nav nav-tabs">
 			<% @categories.each_with_index do |c,i| %>
 				<% if i == 0 %>
@@ -351,11 +356,15 @@
 				<% end %>
 			<% end %>
 		</ul>
-	
+</div>
+
 		<div class="tab-content">
 			<% @categories.each_with_index do |c,i| %>
 				<% if i == 0 %>
-					<div id="<%= i %>" class="tab-pane active">
+					<table id="<%= i %>" class="tab-pane active">
+						<tr>
+							<td>
+
 						<% Recall.order('created_at DESC').each_with_index do |r,j| %>
 							<p>
 								<font class="linklabel"><%=r.created_at.to_time.strftime('%b %d, %Y') %>:
@@ -367,8 +376,12 @@
                                	<% end %>
 							</p>
 						<% end %>
-					</div>
-					<div id="<%= i+1 %>" class="tab-pane active">
+					</td>
+				</tr>
+					</table>
+					<table id="<%= i+1 %>" class="tab-pane">
+						<tr>
+							<td>
 						<% Recall.where("\"Category\" = ?", c.Category).order('created_at DESC').each_with_index do |r,j| %>
 							<p>
 								<font class="linklabel"><%=r.created_at.to_time.strftime('%b %d, %Y') %>:
@@ -380,9 +393,13 @@
                                	<% end %>
 							</p>
 						<% end %>
-					</div>
+					</td>
+				</tr>
+				</table>
 				<% else %>
-					<div id="<%= i+1 %>" class="tab-pane">
+					<table id="<%= i+1 %>" class="tab-pane">
+						<tr>
+							<td>
 						<% Recall.where("\"Category\" = ?", c.Category).order('created_at DESC').each_with_index do |r,j| %>
 							<p>
 								<font class="linklabel"> <%= r.created_at.to_time.strftime('%b %d, %Y') %>
@@ -394,11 +411,13 @@
                                 <% end %>
 							</p>
 						<% end %>
-					</div>
+						</td>
+					</tr>
+					</table>
 				<% end %>
 			<% end %>
 		</div>
-	</div>
+	
 
 	<% @categories.each_with_index do |c,i| %>
 		<% if i==0 %>

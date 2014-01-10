@@ -307,6 +307,10 @@
 				</div>
 	   		<% end %>
 		</div>
+		<% else %>
+		<br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/>
 	<% end %>
 
 
@@ -337,7 +341,7 @@
 
 
 	<p><% @id %></p>
-	<div class="tabbable tabs-left">
+	<div class="tabbable">
 		<ul class="nav nav-tabs">
 			<% @categories.each_with_index do |c,i| %>
 				<% if i == 0 %>
@@ -360,7 +364,7 @@
 				<% end %>
 			<% end %>
 		</ul>
-	
+	</div>
 		<div class="tab-content">
 			<% @categories.each_with_index do |c,i| %>
 				<% if i == 0 %>
@@ -407,7 +411,7 @@
 				<% end %>
 			<% end %>
 		</div>
-	</div>
+	
 
 	<% @categories.each_with_index do |c,i| %>
 		<% if i==0 %>
