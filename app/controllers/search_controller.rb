@@ -18,24 +18,24 @@ class SearchController < ApplicationController
         @recalls=Recall.find(:all,:conditions=>['"Category" = ? and ("Details" LIKE ? or "Summary" LIKE ? or "Title" LIKE ? or "Manufacturer" LIKE ? or "Products" LIKE ? or "Hazards" LIKE ?)',params[:Category],"%#{@keyword}%","%#{@keyword}%","%#{@keyword}%","%#{@keyword}%","%#{@keyword}%","%#{@keyword}%"])
       elsif ( params[:Searching].nil? or params[:Searching]=="") and (!params[:from].nil? or params[:from]!="") and (!params[:to].nil? or params[:to]!="") and params[:Category]=="All"
         
-        @from=Date.strptime params[:from],'%Y-%m-%d'
-        @to=Date.strptime params[:to],'%Y-%m-%d'
+        @from=Date.strptime params[:from],'%m-%d-%Y'
+        @to=Date.strptime params[:to],'%m-%d-%Y'
         @recalls=Recall.find(:all,:conditions=>['"created_at" BETWEEN ? AND ?',@from,@to])
       elsif ( params[:Searching].nil? or params[:Searching]=="") and (!params[:from].nil? or params[:from]!="") and (!params[:to].nil? or params[:to]!="") and params[:Category]!="All"
         @Cat=params[:Category]
-        @from=Date.strptime params[:from],'%Y-%m-%d'
-        @to=Date.strptime params[:to],'%Y-%m-%d'
+        @from=Date.strptime params[:from],'%m-%d-%Y'
+        @to=Date.strptime params[:to],'%m-%d-%Y'
         @recalls=Recall.find(:all,:conditions=>['"created_at" BETWEEN ? AND ? and "Category" = ?',@from,@to,params[:Category]])
       elsif ( !params[:Searching].nil? or params[:Searching]!="") and (!params[:from].nil? or params[:from]!="") and (!params[:to].nil? or params[:to]!="") and params[:Category]=="All"
         
-        @from=Date.strptime params[:from],'%Y-%m-%d'
-        @to=Date.strptime params[:to],'%Y-%m-%d'
+        @from=Date.strptime params[:from],'%m-%d-%Y'
+        @to=Date.strptime params[:to],'%m-%d-%Y'
         @keyword=params[:Searching]
         @recalls = Recall.find(:all,:conditions=>['"created_at" BETWEEN ? AND ? and ( "Details" LIKE ? or "Summary" LIKE ? or "Title" LIKE ? or "Manufacturer" LIKE ? or "Products" LIKE ? or "Hazards" LIKE ?)',@from, @to,"%#{@keyword}%","%#{@keyword}%","%#{@keyword}%","%#{@keyword}%","%#{@keyword}%","%#{@keyword}%"])
       elsif ( !params[:Searching].nil? or params[:Searching]!="") and (!params[:from].nil? or params[:from]!="") and (!params[:to].nil? or params[:to]!="") and params[:Category]!="All"
         @Cat=params[:Category]
-        @from=Date.strptime params[:from],'%Y-%m-%d'
-        @to=Date.strptime params[:to],'%Y-%m-%d'
+        @from=Date.strptime params[:from],'%m-%d-%Y'
+        @to=Date.strptime params[:to],'%m-%d-%Y'
         @keyword=params[:Searching]
         @recalls = Recall.find(:all,:conditions=>['"created_at" BETWEEN ? AND ? and "Category" = ? and ( "Details" LIKE ? or "Summary" LIKE ? or "Title" LIKE ? or "Manufacturer" LIKE ? or "Products" LIKE ? or "Hazards" LIKE ?)',@from, @to,params[:Category],"%#{@keyword}%","%#{@keyword}%","%#{@keyword}%","%#{@keyword}%","%#{@keyword}%","%#{@keyword}%"])
       end
