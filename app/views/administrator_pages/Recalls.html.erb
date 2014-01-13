@@ -356,15 +356,12 @@
 				<% end %>
 			<% end %>
 		</ul>
-</div>
+
 
 		<div class="tab-content">
 			<% @categories.each_with_index do |c,i| %>
 				<% if i == 0 %>
-					<table id="<%= i %>" class="tab-pane active">
-						<tr>
-							<td>
-
+					<div id="<%= i %>" class="tab-pane active">
 						<% Recall.order('created_at DESC').each_with_index do |r,j| %>
 							<p>
 								<font class="linklabel"><%=r.created_at.to_time.strftime('%b %d, %Y') %>:
@@ -376,12 +373,8 @@
                                	<% end %>
 							</p>
 						<% end %>
-					</td>
-				</tr>
-					</table>
-					<table id="<%= i+1 %>" class="tab-pane">
-						<tr>
-							<td>
+					</div>
+					<div id="<%= i+1 %>" class="tab-pane">
 						<% Recall.where("\"Category\" = ?", c.Category).order('created_at DESC').each_with_index do |r,j| %>
 							<p>
 								<font class="linklabel"><%=r.created_at.to_time.strftime('%b %d, %Y') %>:
@@ -393,13 +386,9 @@
                                	<% end %>
 							</p>
 						<% end %>
-					</td>
-				</tr>
-				</table>
+					</div>
 				<% else %>
-					<table id="<%= i+1 %>" class="tab-pane">
-						<tr>
-							<td>
+					<div id="<%= i+1 %>" class="tab-pane">
 						<% Recall.where("\"Category\" = ?", c.Category).order('created_at DESC').each_with_index do |r,j| %>
 							<p>
 								<font class="linklabel"> <%= r.created_at.to_time.strftime('%b %d, %Y') %>
@@ -411,13 +400,11 @@
                                 <% end %>
 							</p>
 						<% end %>
-						</td>
-					</tr>
-					</table>
+						</div>
 				<% end %>
 			<% end %>
 		</div>
-	
+	</div>
 
 	<% @categories.each_with_index do |c,i| %>
 		<% if i==0 %>
