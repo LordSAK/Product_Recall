@@ -202,78 +202,7 @@
 	
 </div>
 
-<div class="container">
-	<div class="row">
-		<div class="span3 bs-docs-sidebar">
-			<div class="span3 bs-docs-sidebar">
-				<ul class="nav nav-list bs-docs-sidenav affix-top">
-					<li>
-						<div id="accordion2" class="accordion pull-left"> 
-							<div class="accordion-group"> 
-								<div class="accordion-heading"> 
-									<a class="accordion-toggle collapsed" href="#collapseOne" data-parent="#accordion2" data-toggle="collapse" style="color:black">
-										<b>Categories</b>
-									</a>
-								</div>
-								<div id="collapseOne" class="accordion-body collapse" style="height: 0px;">
-									<div class="accordion-inner">
-										<% @Categories.each do |p,i| %>
-										<% if !p.nil? %>
-											<%= link_to p,search_path(:Searching => p) %>(<%= i %>)
-											<br/>
-											<% end %>
-										<% end %>
-									</div>
-								</div>
- 							</div>
-							
-							<div class="accordion-group">
-								<div class="accordion-heading">
-									<a class="accordion-toggle collapsed" href="#collapseThree" data-parent="#accordion2" data-toggle="collapse" style="color:black">
-                						<b>Select Date Range</b>
-                					</a>
-								</div>
-								<div id="collapseThree" class="accordion-body collapse">
-	 								<div class="accordion-inner">
-	 									
-	                					From: <input type="text" name="from" data-behaviour='datepicker' data-date-format="yyyy-mm-dd">
-										To: <input type="text" name="to" data-behaviour='datepicker' data-date-format="yyyy-mm-dd">
-										<script type="text/javascript">
-  											$('[data-behaviour~=datepicker]').datepicker(
-  												buttonImageOnly: true,
-        										buttonImage: 'calendar.jpg',
-        										dateFormat: 'mm-dd-yy');
-										</script>
-										<%= button_to "Submit" %>
-										
-    						        </div>
-								</div>
-							</div>
-							<div class="accordion-group">
-								<div class="accordion-heading">
-									<a class="accordion-toggle collapsed" href="#collapseFour" data-present="#accordion2" data-toggle="collapse" style="color:black">
-										<b>Top Trends</b>
-									</a>
-								</div>
-								<div id="collapseFour" class="accordion-body collapse">
-									<div class="accordion-inner">
-										<% @trends .each do |t| %>
-											<% if !t.searches.include? "from" and !t.searches.include? "to" %>
-											<ul>
-												<li>
-													<%= link_to t.searches.split("'").last,search_path(:Searching => t.searches.split("'").last) %>
-												</li>
-											</ul>
-											<% end %>
-										<% end %>
-									</div>
-								</div>
-							</div>
-						</div>
-					</li>
-				</ul>
-			</div>
-		</div>
+
 		
 
 		<div class="span9">
