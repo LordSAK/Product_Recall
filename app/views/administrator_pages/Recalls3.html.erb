@@ -373,7 +373,7 @@
 							<p>
 								<font class="linklabel"><%=r.created_at.to_time.strftime('%b %d, %Y') %>:
 								</font>
-									<a href="#<%= "#{i.to_s+j.to_s}" %>" role="button"  data-toggle="modal"><%= r.Title.html_safe %></a>
+									<a href="#<%= "#{i.to_s+j.to_s}" %>" role="button"  data-toggle="modal"><% if !r.Title.nil? %><%= r.Title.html_safe %></a><%end%>
 								<% if current_user.admin? %>
 								  	| <%= link_to "Delete", :id => r.id,:action => 'destroy', method: :delete, 
                                			confirm: "You sure?"  %>
@@ -386,7 +386,7 @@
 							<p>
 								<font class="linklabel"><%=r.created_at.to_time.strftime('%b %d, %Y') %>:
 								</font>
-									<a href="#<%= "#{(i+1).to_s+j.to_s}" %>" role="button"  data-toggle="modal"><%= r.Title.html_safe %></a>
+									<a href="#<%= "#{(i+1).to_s+j.to_s}" %>" role="button"  data-toggle="modal"><% if !r.Title.nil? %><%= r.Title.html_safe %></a><%end%>
 								<% if current_user.admin? %>
 								  	| <%= link_to "Delete", :id => r.id,:action => 'destroy', method: :delete, 
                                			confirm: "You sure?"  %>
@@ -400,7 +400,7 @@
 							<p>
 								<font class="linklabel"> <%= r.created_at.to_time.strftime('%b %d, %Y') %>
 								</font>
-								<a href="#<%= "#{(i+1).to_s+j.to_s}" %>" role="button"  data-toggle="modal"><%= r.Title.html_safe %></a>
+								<a href="#<%= "#{(i+1).to_s+j.to_s}" %>" role="button"  data-toggle="modal"><% if !r.Title.nil? %><%= r.Title.html_safe %></a><%end%>
 								<% if current_user.admin? %>
                                    	| <%= link_to "Delete", :id => r.id,:action => 'destroy', method: :delete, 
                                    	confirm: "You sure?"  %>
@@ -419,7 +419,7 @@
 				<div id="<%= "#{i.to_s+j.to_s}" %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-						<h4 id="myModalLabel"><%= r.Title.html_safe %></h4>
+						<h4 id="myModalLabel"><% if !r.Title.nil? %><%= r.Title.html_safe %></h4><%end%>
 					</div>
 					<div class="modal-body">
 						<p>
@@ -469,7 +469,7 @@
 				<div id="<%= "#{(i+1).to_s+j.to_s}" %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-						<h4 id="myModalLabel"><%= r.Title.html_safe %></h4>
+						<h4 id="myModalLabel"><% if !r.Title.nil? %><%= r.Title.html_safe %></h4><%end%>
 					</div>
 					<div class="modal-body">
 						<p>
@@ -520,7 +520,7 @@
 				<div id="<%= "#{(i+1).to_s+j.to_s}" %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-						<h4 id="myModalLabel"><%= r.Title.html_safe %></h4>
+						<h4 id="myModalLabel"><% if !r.Title.nil? %><%= r.Title.html_safe %></h4><%end%>
 					</div>
 					<div class="modal-body">
 						<p>
