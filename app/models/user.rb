@@ -31,6 +31,13 @@ class User < ActiveRecord::Base
   				format: { with: VALID_EMAIL_REGEX },
   				uniqueness: {case_sensitive: false }
   
+  validates :FirstName,presence: true
+  validates :LastName,presence: true
+  validates :cell_no,presence: true
+  validates :street,presence: true
+  validates :city,presence: true
+  validates :state,presence: true
+  validates :zip,presence: true
   
   validates :password,  length: { minimum: 6 }
 
