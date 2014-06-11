@@ -41,14 +41,15 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     if simple_captcha_valid?
       if @user.save
-        #sign_in @user
+        sign_in @user
         if params[:theme] == 'Paid'
           redirect_to paypal_payment_path(@user) #This could be your another action in your controller where you may need to initiate something and redirect to paypal 
           return 
         else
           #Emailer.contact(@user.email,"Welcome to Product Recalls","You have successfully signed up,your username is: "+ @user.email+" To login to the site, just follow this link: https://ancient-island-8467.herokuapp.com/signin. Thanks for joining and have a great day!").deliver
           flash[:success] = "Welcome to Product Recall! A confirmation email is sent to your email."
-          redirect_to root_path
+          #redirect_to root_path
+          redirect_back_or "/recalls"
         end
       else
         render 'new'
