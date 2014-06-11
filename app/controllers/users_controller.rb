@@ -47,7 +47,7 @@ class UsersController < ApplicationController
           return 
         else
           #Emailer.contact(@user.email,"Welcome to Product Recalls","You have successfully signed up,your username is: "+ @user.email+" To login to the site, just follow this link: https://ancient-island-8467.herokuapp.com/signin. Thanks for joining and have a great day!").deliver
-          flash[:success] = "Welcome to Product Recall! A confirmation email is sent to your email."
+          flash[:success] = "Welcome to Product Recall!"
           #redirect_to root_path
           redirect_back_or "/recalls"
         end
