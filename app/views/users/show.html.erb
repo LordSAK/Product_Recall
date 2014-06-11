@@ -31,10 +31,12 @@
 		<div class="span3">
 			<h4>Basic</h4>
 			<p> <b>Phone:</b>
-				<% if @user.cell_no.include? "(" %>
-					<%= @user.cell_no.to(7)+"-"+@user.cell_no.last(4) %>
-				<% else %>
-					<%= @user.cell_no.to(2)+"-"+@user.cell_no.from(3).to(-5)+"-"+@user.cell_no.last(4)%>
+				<% if !@user.cell_no.blank? %>
+					<% if @user.cell_no.include? "(" %>
+						<%= @user.cell_no.to(7)+"-"+@user.cell_no.last(4) %>
+					<% else %>
+						<%= @user.cell_no.to(2)+"-"+@user.cell_no.from(3).to(-5)+"-"+@user.cell_no.last(4)%>
+					<% end %>
 				<% end %>
 			</p>
 			<p><b>Alert Type:</b> Alerts on Email & Phone</p>

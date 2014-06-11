@@ -19,15 +19,35 @@ class UsersController < ApplicationController
     end
     if !@user.street.blank?
       @user_address=@user.street
+    else
+      @user_address=""
     end
-    if !@user.city.blank?
-      @user_address=@user_address+", "+@user.city
+    if @user_address!=""
+      if !@user.city.blank?
+        @user_address=@user_address+", "+@user.city
+      end
+    else
+      if !@user.city.blank?
+        @user_address=@user.city
+      end
     end
-    if !@user.state.blank?
-      @user_address=@user_address+", "+@user.state
+    if @user_address != ""
+      if @user.state!="State"
+        @user_address=@user_address+", "+@user.state
+      end
+    else
+      if @user.state!="State"
+        @user_address=@user.state
+      end
     end
-    if !@user.zip.blank?
-      @user_address=@user_address+", "+@user.zip.to_s
+    if @user_address != ""
+      if !@user.zip.blank?
+        @user_address=@user_address+", "+@user.zip.to_s
+      end
+    else
+      if !@user.zip.blank?
+        @user_address=@user.zip.to_s
+      end
     end
  #   @user_address=@user.street+", "+@user.city+", "+@user.state+ " "+@user.zip.to_s
     @searches = @user.searches.paginate(page: params[:page])  
