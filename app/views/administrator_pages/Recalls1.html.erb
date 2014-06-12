@@ -232,26 +232,7 @@
 				<%= f.label :Products, "Product" %>
 				<div class="control-group">
 					<div class="controls">
-						<%= f.select :Products, options_for_select(["All Terrain Vehicles (ATV)",
-							"Saws",
-							"Gasoline",
-							"Door Sills or Frames",
-							"Fuels and Gas and Oils",
-							"Sports and Recreation",
-							"Toys",
-							"Fans",
-							"Lawn Mowers",
-							"Grass And Leaf Catchers",
-							"Home Appliances, Maintenance",
-							"Babies and Kids",
-							"Other Grills",
-							"Swings or Swing Sets",
-							"Electrical Systems",
-							"Portable Generators",
-							"Yard and Garden",
-							"Recreational Vehicles",
-							"Other Bags",
-							"Gardening and Landscaping"]), { :style => "height:40px"} %>
+						<%= f.text_field :Products %>
 					</div>
 				</div>
 				<div class="form-inline">
