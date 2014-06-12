@@ -43,8 +43,8 @@ class User < ActiveRecord::Base
 
   validates :password_confirmation, presence: true
 
-  #VALID_CELL_NO_REGEX = /\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})/i
-  #validates :cell_no, format: {with: VALID_CELL_NO_REGEX}
+  VALID_CELL_NO_REGEX = /\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})/i
+  validates :cell_no, format: {with: VALID_CELL_NO_REGEX}
 
   def Supplier_feed
     # This is preliminary. See "Following users" for the full implementation.

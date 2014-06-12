@@ -3,6 +3,8 @@ class AdministratorPagesController < ApplicationController
 	include SessionsHelper
 	include UsersHelper
 
+  before_filter :signed_in_user, only: [:Recalls, :Recalls1, :Recalls2, :Recalls3, :new,:create,:destroy,:edit,:update,:show]
+
   def ChangeFeatures
   end
 
