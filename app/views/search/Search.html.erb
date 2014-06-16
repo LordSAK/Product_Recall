@@ -105,14 +105,14 @@
                                     }
                                   }
                                 });
-                                $('#fromAll').on('change', function() {
+                                $('#toAll').on('change', function() {
                                   var froms=document.getElementById("fromAll").value.split("-");
                                   var tos=document.getElementById("toAll").value.split("-");
 
                                   var dt_from= new Date(froms[2],froms[0]-1,froms[1]);
                                   var dt_tos= new Date(tos[2],tos[0]-1,tos[1]);
                                   
-                                  if(tos!="")
+                                  if(froms!="")
                                   {
                                     if(dt_tos<dt_from)
                                     {
