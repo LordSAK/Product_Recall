@@ -31,30 +31,22 @@
                       <% if @from.nil? %>
                        <input type="text" id="toAll" name="to" >
                        <% else %>
-						<input type="text" id="toAll" name="to" value="<% @to %>">
+						            <input type="text" id="toAll" name="to" value="<% @to %>">
                        <% end %>
                       <script type="text/javascript">
-                      		//$('#fromAll').click(function() 
-                            	  			//{
-                            	  				//alert("Sak");
+
         								$("#fromAll").datepicker({
         									buttonImageOnly: true,
         									buttonImage: 'calendar.jpg',
         									dateFormat: 'mm-dd-yy'
         								});	
-											//});
-                            	  			//$('#toAll').click(function() 
-                            	  			//{
-                            	  				//alert("Sak");
         								$("#toAll").datepicker({
         									buttonImageOnly: true,
         									buttonImage: 'calendar.jpg',
         									dateFormat: 'mm-dd-yy'
         								});	
-											//});
-                      //$('[data-behaviour~=datepicker]').datepicker();
                       </script>
-                      
+                          <label id="error" style="display:none;color:red" hidden="true">From date should be less than to date</label>
                     		</div>
                   		</td>
                   		<td valign="top">
@@ -92,6 +84,48 @@
                         			<% end %>
                       			</select>
                       			<input type="Submit" style="float:right" class="btn btn-large btn-primary" text="Search" value="Search">
+                            <script type="text/javascript">
+                              $(document).ready(function() {
+                                $('#fromAll').on('change', function() {
+                                  var froms=document.getElementById("fromAll").value.split("-");
+                                  var tos=document.getElementById("toAll").value.split("-");
+
+                                  var dt_from= new Date(froms[2],froms[0]-1,froms[1]);
+                                  var dt_tos= new Date(tos[2],tos[0]-1,tos[1]);
+                                  
+                                  if(tos!="")
+                                  {
+                                    if(dt_tos<dt_from)
+                                    {
+                                      document.getElementById("error").style.display="block";
+                                    }
+                                    else
+                                    {
+                                      document.getElementById("error").style.display="none";
+                                    }
+                                  }
+                                });
+                                $('#fromAll').on('change', function() {
+                                  var froms=document.getElementById("fromAll").value.split("-");
+                                  var tos=document.getElementById("toAll").value.split("-");
+
+                                  var dt_from= new Date(froms[2],froms[0]-1,froms[1]);
+                                  var dt_tos= new Date(tos[2],tos[0]-1,tos[1]);
+                                  
+                                  if(tos!="")
+                                  {
+                                    if(dt_tos<dt_from)
+                                    {
+                                      document.getElementById("error").style.display="block";
+                                    }
+                                    else
+                                    {
+                                      document.getElementById("error").style.display="none";
+                                    }
+                                  }
+                                });
+                              })
+                            </script>
                     		</div>
                   		</td>
                 	</tr>
