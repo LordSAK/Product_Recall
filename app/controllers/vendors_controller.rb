@@ -59,14 +59,14 @@ class VendorsController < ApplicationController
         @vendor = current_user.vendors.build(params[:vendors])
         if @vendor.save
           flash[:success] = "Vendor created!"
-          redirect_to '/vendors/'+current_user.id
+          redirect_to '/vendors/'+current_user.id.to_s
         else
           @vendor_feed_items = []
-          redirect_to '/vendors/'+current_user.id
+          redirect_to '/vendors/'+current_user.id.to_s
         end
       else
         flash[:failure]= "you can't add more keywords."
-        redirect_to '/vendors'
+        redirect_to '/vendors/'+current_user.id.to_s
       end
     elsif current_user.usertype=="Paid"
       pro_count=User.select("\"paid_keyword\"").where("\"id\"=1")
@@ -75,14 +75,14 @@ class VendorsController < ApplicationController
         @vendor = current_user.vendors.build(params[:vendors])
         if @vendor.save
           flash[:success] = "Vendor created!"
-          redirect_to '/vendors'
+          redirect_to '/vendors/'+current_user.id.to_s
         else
           @vendor_feed_items = []
-          redirect_to '/vendors/'+current_user.id
+          redirect_to '/vendors/'+current_user.id.to_s
         end
       else
         flash[:failure]= "you can't add more keywords."
-        redirect_to '/vendors/'+current_user.id
+        redirect_to '/vendors/'+current_user.id.to_s
       end
     end
   end
