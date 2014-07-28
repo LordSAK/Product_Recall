@@ -35,12 +35,17 @@ class AdministratorPagesController < ApplicationController
 
   def create
     if params[:recall]
-      @recall=Recall.new(params[:recall])
-      if @recall.save
-        flash[:success] = "New Recall Added"
-        redirect_to "/recalls"
+      if params[:recall][:Title] != ""
+        @recall=Recall.new(params[:recall])
+        if @recall.save
+          flash[:success] = "New Recall Added"
+          redirect_to "/recalls"
+        else
+          render "/recalls"        
+        end
       else
-        render "/recalls"        
+        flash[:failure]="Provide Title"
+        redirect_to "/recalls"
       end
     end
   end
