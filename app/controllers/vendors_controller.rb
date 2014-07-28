@@ -59,10 +59,10 @@ class VendorsController < ApplicationController
         @vendor = current_user.vendors.build(params[:vendors])
         if @vendor.save
           flash[:success] = "Vendor created!"
-          redirect_to '/vendors'
+          redirect_to '/vendors/'+current_user.id
         else
           @vendor_feed_items = []
-          redirect_to '/vendors'
+          redirect_to '/vendors/'+current_user.id
         end
       else
         flash[:failure]= "you can't add more keywords."
@@ -78,11 +78,11 @@ class VendorsController < ApplicationController
           redirect_to '/vendors'
         else
           @vendor_feed_items = []
-          redirect_to '/vendors'
+          redirect_to '/vendors/'+current_user.id
         end
       else
         flash[:failure]= "you can't add more keywords."
-        redirect_to '/vendors'
+        redirect_to '/vendors/'+current_user.id
       end
     end
   end
