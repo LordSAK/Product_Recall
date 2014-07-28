@@ -1,0 +1,14 @@
+<!--<div id="show">
+		<div class="span4">
+    	<% if @user.searches.any? %>
+      		<h3>Searches 	(<%= @user.searches.count %>)</h3>
+      		<ol class="Searches">
+        		<%= render @searches %>
+      		</ol>
+      		<%= will_paginate @searches %>
+    	<% end %>
+  		</div>
+	</div>-->
+
+
+  from user profile search
