@@ -56,12 +56,19 @@ class VendorsController < ApplicationController
       basic_count=User.select("\"basic_keyword\"").where("\"id\"=1")
       count=current_user.vendors.count
       if count < basic_count.first.basic_keyword
-        @vendor = current_user.vendors.build(params[:vendors])
-        if @vendor.save
-          flash[:success] = "Vendor created!"
-          redirect_to '/vendors/'+current_user.id.to_s
+        @exist=Vendor.where("vendor = ? and user_id= ?",params[:vendors][:vendor],current_user.id)
+        if @exist.empty?
+          @vendor = current_user.vendors.build(params[:vendors])
+          puts params[:vendor]
+          if @vendor.save
+            flash[:success] = "Vendor created!"
+            redirect_to '/vendors/'+current_user.id.to_s
+          else
+            @vendor_feed_items = []
+            redirect_to '/vendors/'+current_user.id.to_s
+          end
         else
-          @vendor_feed_items = []
+          flash[:alert]="Already exist"
           redirect_to '/vendors/'+current_user.id.to_s
         end
       else
@@ -72,12 +79,18 @@ class VendorsController < ApplicationController
       pro_count=User.select("\"paid_keyword\"").where("\"id\"=1")
       count=current_user.vendors.count
       if count <= pro_count
-        @vendor = current_user.vendors.build(params[:vendors])
-        if @vendor.save
-          flash[:success] = "Vendor created!"
-          redirect_to '/vendors/'+current_user.id.to_s
+        @exist=Vendor.where("vendor = ? and user_id= ?",params[:vendors],current_user.id)
+        if @exist.blank?
+          @vendor = current_user.vendors.build(params[:vendors])
+          if @vendor.save
+            flash[:success] = "Vendor created!"
+            redirect_to '/vendors/'+current_user.id.to_s
+          else
+            @vendor_feed_items = []
+            redirect_to '/vendors/'+current_user.id.to_s
+          end
         else
-          @vendor_feed_items = []
+          flash[:alert]="Already exist"
           redirect_to '/vendors/'+current_user.id.to_s
         end
       else
