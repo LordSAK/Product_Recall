@@ -36,7 +36,6 @@ class Recall < ActiveRecord::Base
 
 	require 'net/http'
 	def self.all
-		###############Get data from CPSC site Consumer Products Recall######################
 		if Recall.where(:Category => 'Consumer Products').blank?
 			url = URI.parse('http://www.recalls.gov/rrcpsc.aspx')
 			@req = Net::HTTP::Get.new(url.path)
@@ -75,7 +74,7 @@ class Recall < ActiveRecord::Base
 
 				@DescriptionAll=@res1.body.partition('Description</h5>')[2]
 				@Description=@DescriptionAll.partition('<h5>')[0]
-				@RecallBasic.push('title: '+ @titleofRecall+',,,, Summary: '+@summary+',,, Hazard: '+@Hazard+',,,Description:'+@Description)
+				@RecallBasic.push('title: '+ @h1all+',,,, Summary: '+@summary+',,, Hazard: '+@Hazard+',,,Description:'+@Description)
 
 
 				@titleofRecall=@titleofRecall.encode('utf-8', :invalid => :replace, :undef => :replace, :replace => '')
@@ -92,6 +91,7 @@ class Recall < ActiveRecord::Base
 			url = URI.parse('http://www.recalls.gov/rrcpsc.aspx')
 			@req = Net::HTTP::Get.new(url.path)
 			@res = Net::HTTP.start(url.host, url.port) {|http|  http.request(@req)}
+			puts("SAK")
 
 			@RecallBasic=Array.new
 
@@ -116,7 +116,7 @@ class Recall < ActiveRecord::Base
 						@res1 = Net::HTTP.start(url1.host, url1.port) {|http|  http.request(@req1)}
 					#@htmlofPage.push(@res1.body)
 
-						@h1all=@res1.body.partition('<h1>')[2]
+						@h1all=@res1.body.partition('<h1 data-description="page-title">')[2]
 						@titleofRecall=@h1all.partition('</h1>')[0]
 					
 
@@ -253,6 +253,8 @@ class Recall < ActiveRecord::Base
 							@Description=@DescriptionAll.partition('<p>###')[0]
 						elsif @DescriptionAll.include? '<p style="text-align: center">###'
 								@Description=@DescriptionAll.partition('<p style="text-align: center">###')[0]
+						elsif @DescriptionAll.include? '<div class="text-center">###</div>'
+							@Description=@DescriptionAll.partition('<div class="text-center">###</div>')[0]							
 						end
 
 

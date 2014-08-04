@@ -1,7 +1,6 @@
 class UpdateController < ApplicationController
 	require 'net/http'
 	def All
-			
 		###############Get data from CPSC site Consumer Products Recall######################
 		if Recall.where(:Category => 'Consumer Products').blank?
 			url = URI.parse('http://www.recalls.gov/rrcpsc.aspx')
@@ -41,7 +40,7 @@ class UpdateController < ApplicationController
 
 				@DescriptionAll=@res1.body.partition('Description</h5>')[2]
 				@Description=@DescriptionAll.partition('<h5>')[0]
-				@RecallBasic.push('title: '+ @titleofRecall+',,,, Summary: '+@summary+',,, Hazard: '+@Hazard+',,,Description:'+@Description)
+				@RecallBasic.push('title: '+ @h1all+',,,, Summary: '+@summary+',,, Hazard: '+@Hazard+',,,Description:'+@Description)
 
 
 				@titleofRecall=@titleofRecall.encode('utf-8', :invalid => :replace, :undef => :replace, :replace => '')
@@ -58,6 +57,7 @@ class UpdateController < ApplicationController
 			url = URI.parse('http://www.recalls.gov/rrcpsc.aspx')
 			@req = Net::HTTP::Get.new(url.path)
 			@res = Net::HTTP.start(url.host, url.port) {|http|  http.request(@req)}
+			puts("SAK")
 
 			@RecallBasic=Array.new
 
@@ -82,7 +82,7 @@ class UpdateController < ApplicationController
 						@res1 = Net::HTTP.start(url1.host, url1.port) {|http|  http.request(@req1)}
 					#@htmlofPage.push(@res1.body)
 
-						@h1all=@res1.body.partition('<h1>')[2]
+						@h1all=@res1.body.partition('<h1 data-description="page-title">')[2]
 						@titleofRecall=@h1all.partition('</h1>')[0]
 					
 
@@ -219,6 +219,8 @@ class UpdateController < ApplicationController
 							@Description=@DescriptionAll.partition('<p>###')[0]
 						elsif @DescriptionAll.include? '<p style="text-align: center">###'
 								@Description=@DescriptionAll.partition('<p style="text-align: center">###')[0]
+						elsif @DescriptionAll.include? '<div class="text-center">###</div>'
+							@Description=@DescriptionAll.partition('<div class="text-center">###</div>')[0]							
 						end
 
 
@@ -419,20 +421,20 @@ class UpdateController < ApplicationController
 					url1 = URI.parse(uri)
 					@req1 = Net::HTTP::Get.new(url1.path)
 					@res1 = Net::HTTP.start(url1.host, url1.port) {|http|  http.request(@req1)}
-					#@htmlofPage.push(@res1.body)
 
 					@h1all=@res1.body.partition('<h3 class="recall-title-header">')[2]
 					@titleofRecall=@h1all.partition('</h3>')[0]
-						
 
 					@DescriptionAll=@res1.body.partition('<div class="recall-body">')[2]
-				
+
 					if @DescriptionAll.include? '<p>FSIS and the company'
 				 		@Description=@DescriptionAll.partition('<p>FSIS and the company')[0]
 					elsif @DescriptionAll.include? "<p>FSIS has received no reports of"
 						@Description=@DescriptionAll.partition('<p>FSIS has received no reports of')[0]
+					#	elsif @DescriptionAll.include? '<p style="text-align: center">###'
+					#			@Description=@DescriptionAll.partition('<p style="text-align: center">###')[0]
 					end
-				
+					
 					@RecallBasic3.push('title: '+ @titleofRecall+',,,, Summary: '+@summary+',,,Description:'+@Description)
 
 					@titleofRecall=@titleofRecall.encode('utf-8', :invalid => :replace, :undef => :replace, :replace => '')
@@ -440,6 +442,7 @@ class UpdateController < ApplicationController
 					@Description=@Description.encode('utf-8', :invalid => :replace, :undef => :replace, :replace => '')
 
 					Recall.create(:Category => "Meat and Poultry Products", :Details => @Description, :Summary => @summary, :Title => @titleofRecall)
+
 				end
 			end
 		else
@@ -467,11 +470,12 @@ class UpdateController < ApplicationController
 							url1 = URI.parse(uri)
 							@req1 = Net::HTTP::Get.new(url1.path)
 							@res1 = Net::HTTP.start(url1.host, url1.port) {|http|  http.request(@req1)}
-						
+							
 							@h1all=@res1.body.partition('<h3 class="recall-title-header">')[2]
 							@titleofRecall=@h1all.partition('</h3>')[0]
 
 							@DescriptionAll=@res1.body.partition('<div class="recall-body">')[2]
+							
 							if @DescriptionAll.include? '<p>FSIS and the company'
 								@Description=@DescriptionAll.partition('<p>FSIS and the company')[0]
 							elsif @DescriptionAll.include? "<p>FSIS has received no reports of"
@@ -479,6 +483,7 @@ class UpdateController < ApplicationController
 							elsif @DescriptionAll.include? '<p>Consumers with questions about'
 								@Description=@DescriptionAll.partition('<p>Consumers with questions about')[0]
 							end
+							
 							if @titleofRecall.nil?
 								@titleofRecall=''
 							end
@@ -488,11 +493,11 @@ class UpdateController < ApplicationController
 							if @Description.nil?
 								@Description=''
 							end
-							
 							@RecallBasic3.push('title: '+ @titleofRecall+',,,, Summary: '+@summary+',,,Description:'+@Description)
 
 							@titleofRecall=@titleofRecall.encode('utf-8', :invalid => :replace, :undef => :replace, :replace => '')
 							@summary=@summary.encode('utf-8', :invalid => :replace, :undef => :replace, :replace => '')
+							#@Hazard =@Hazard.encode('utf-8', :invalid => :replace, :undef => :replace, :replace => '')
 							@Description=@Description.encode('utf-8', :invalid => :replace, :undef => :replace, :replace => '')
 
 							Recall.create(:Category => "Meat and Poultry Products", :Details => @Description, :Summary => @summary, :Title => @titleofRecall)
@@ -630,7 +635,7 @@ class UpdateController < ApplicationController
 		usersFinallist= usersFinallist & usersFinallist
 		usersFinallist.each do |email|
 			puts email
-			Emailer.contact(email,"New recalls are added","New recalls have been added to site related to the keywords you registered. Login into site http://localhost:3000/ to view latest recalls. Have a good day!").deliver
+		#	Emailer.contact(email,"New recalls are added","New recalls have been added to site related to the keywords you registered. Login into site http://localhost:3000/ to view latest recalls. Have a good day!").deliver
 		end
 	end
 end
