@@ -87,7 +87,7 @@
 			<% keywords=User.select("\"basic_keyword\"").where("\"id\"=1") %>
 			<p> <b> No. of keywords allowed to search:</b> <%= keywords.first.basic_keyword%> </p>
 			<% end %>
-			<p> <b>Vendor to be added:</b> <%= keywords.first.basic_keyword - @user.vendors.count %> </p>
+			<p> <b>Vendors left:</b> <%= keywords.first.basic_keyword - @user.vendors.count %> </p>
 		</div>
 	</div>
 <hr>
