@@ -6,6 +6,7 @@ class UsersController < ApplicationController
 
 
   def show
+    if signed_in?
     @user = User.find(params[:id])
     if !@user.FirstName.blank?
       @user_name= @user.FirstName
@@ -51,6 +52,9 @@ class UsersController < ApplicationController
     end
  #   @user_address=@user.street+", "+@user.city+", "+@user.state+ " "+@user.zip.to_s
     @searches = @user.searches.paginate(page: params[:page])  
+    else
+      redirect_to root_path
+    end
   end
 
   def new
